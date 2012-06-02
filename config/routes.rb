@@ -1,4 +1,6 @@
 ListApp::Application.routes.draw do
+  match "signup/", to: 'users#new'
+
   match 'team/', to: 'static_pages#team'
   match 'about/', to: 'static_pages#about'
   root :to => 'static_pages#home'
