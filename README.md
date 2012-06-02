@@ -1,2 +1,2 @@
-FoodList App 
+Bitelist App 
 =============
