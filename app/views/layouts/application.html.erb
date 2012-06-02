@@ -6,10 +6,17 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <%= render 'layouts/shim' %>
 </head>
 <body>
+	<!-- partial for talking to 'layouts/_header' -->
+	<%= render 'layouts/header' %>
 
-<%= yield %>
-
+	<!--container for the actual content of the page--> 
+	<div class='container'>
+		<%= yield %>
+	<!-- partial for talking to 'layouts/footer' -->
+	<%= render 'layouts/footer' %>
+</div>
 </body>
 </html>
