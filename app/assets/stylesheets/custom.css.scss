@@ -1,4 +1,11 @@
+/* define Bootstrap configurations before the '@import bootstrap' statement https://github.com/thomas-mcdonald/bootstrap-sass */
+
+$navbarBackground: #D32224;
+$navbarBackgroundHighlight: red;
+
 @import "bootstrap";
+@import "bootstrap-responsive";
+
 
 /* mixins, variables, etc. */
 

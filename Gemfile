@@ -4,7 +4,8 @@ gem 'rails', '3.2.3'
 gem 'bootstrap-sass'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+#annotate the rails models
+gem 'annotate'
 gem 'pg'
 
 # Gems used only for assets and not required
@@ -21,7 +22,7 @@ end
 
 gem 'jquery-rails'
 
-# To use ActiveModel has_secure_password
+# To use ActiveModel has_secure_password - will need to create a password_digest column in the Migration/database
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
