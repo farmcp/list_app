@@ -12,6 +12,10 @@ class UsersController < ApplicationController
   	if @user.save
   		#send a flash hash to view to alert the user they have signed in successfully
   		flash[:success] = "You have successfully logged in " + @user.first_name.to_s + "!"
+
+      #sign the user in and drop a cookie 
+      sign_in @user
+      
   		#Handle a successful save
   		#redirect to the users/show/:id page 
   		redirect_to @user
