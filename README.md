@@ -1,7 +1,7 @@
 Bitelist App 
 =============
 
-== Installing postgres
+== Install postgreSQL
       brew install postgresql
 
 To Dos:
