@@ -6,34 +6,34 @@ class UsersController < ApplicationController
   #make sure the correct user is signed in to edit the profile - users can see each other's pages
   before_filter :correct_user, only:[:edit, :update]
 
-	#GET /users/new => this is the GET page to start creating another User
+  #GET /users/new => this is the GET page to start creating another User
   def new
     @user = User.new
   end
 
   #POST /users
   def create
-  	#if the user passes all the validation - save the user to the database
-  	@user = User.new(params[:user])
-  	if @user.save
-  		#send a flash hash to view to alert the user they have signed in successfully
-  		flash[:success] = "You have successfully logged in " + @user.first_name.to_s + "!"
+    #if the user passes all the validation - save the user to the database
+    @user = User.new(params[:user])
+    if @user.save
+      #send a flash hash to view to alert the user they have signed in successfully
+      flash[:success] = "You have successfully logged in " + @user.first_name.to_s + "!"
 
       #sign the user in by dropping a cookie 
       sign_in @user
-      
-  		#Handle a successful save
-  		#redirect to the users/show/:id page 
-  		redirect_to @user
-  	else
-  		#if not a successful save then go back to the new page
-  		render 'new'
-  	end
+
+      #Handle a successful save
+      #redirect to the users/show/:id page 
+      redirect_to @user
+    else
+      #if not a successful save then go back to the new page
+      render 'new'
+    end
   end
 
   #GET /users/:id => this is the GET page to show a user with :id
   def show
-  	@user = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   #GET /users/:id/edit => this is the GET page to show a user with :id the edit page the submission will be a PUT request
@@ -72,28 +72,29 @@ class UsersController < ApplicationController
 #private methods for users
 ####################################
   private
-    def signed_in_user
-      unless signed_in?
-        #store the location
-        store_location
 
-        flash[:notice] = "Please sign in."
-        redirect_to signin_path
-      end
+  def signed_in_user
+    unless signed_in?
+      #store the location
+      store_location
+
+      flash[:notice] = "Please sign in."
+      redirect_to signin_path
+    end
+  end
+
+  def correct_user
+
+    #define the user for the :edit and :update methods
+    @user = User.find(params[:id])
+
+    #unless the user is the current user then redirect to the root path
+    if current_user?(@user)
+
+    else
+      flash[:notice] = "You do not have access to this page."
+      redirect_to root_path
     end
 
-    def correct_user
-
-      #define the user for the :edit and :update methods
-      @user = User.find(params[:id])
-
-      #unless the user is the current user then redirect to the root path
-      if current_user?(@user)
-
-      else
-        flash[:notice] = "You do not have access to this page."
-        redirect_to root_path
-      end
-
-    end
+  end
 end

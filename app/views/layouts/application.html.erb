@@ -9,19 +9,19 @@
   <%= render 'layouts/shim' %>
 </head>
 <body>
-	<!-- partial for talking to 'layouts/_header' -->
-	<%= render 'layouts/header' %>
+  <!-- partial for talking to 'layouts/_header' -->
+  <%= render 'layouts/header' %>
 
-	<% flash.each do |key, value| %>
-		<div class="alert alert-<%= key %>"><%=value%></div>
-	<% end %>
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%=value%></div>
+  <% end %>
 
-	<!--container for the actual content of the page--> 
-	<div class='container'>
-		<%= yield %>
-	<!-- partial for talking to 'layouts/footer' -->
-	<%= render 'layouts/footer' %>
-	<%= debug(params) if Rails.env.development? %>
+  <!--container for the actual content of the page--> 
+  <div class='container'>
+    <%= yield %>
+  <!-- partial for talking to 'layouts/footer' -->
+  <%= render 'layouts/footer' %>
+  <%= debug(params) if Rails.env.development? %>
 </div>
 </body>
 </html>
