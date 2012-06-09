@@ -4,16 +4,16 @@
 
 <%= will_paginate %>
 <ul class="users">
-	<% @users.each do |user| %>
-		<li>
-		<%= gravatar_for user %>
-		<%= link_to user.first_name.to_s + " " + user.last_name, user %>
+  <% @users.each do |user| %>
+    <li>
+    <%= gravatar_for user %>
+    <%= link_to user.first_name.to_s + " " + user.last_name, user %>
 
-		<% if current_user.admin? && !current_user?(user) %>
-			| <%= link_to "Remove", user, method: :delete, confirm: "Are you sure you want to delete " + user.first_name.to_s + " " + user.last_name.to_s + "?" %>
-		<%end%>
-		</li>
-	<% end %>
+    <% if current_user.admin? && !current_user?(user) %>
+      | <%= link_to "Remove", user, method: :delete, confirm: "Are you sure you want to delete " + user.first_name.to_s + " " + user.last_name.to_s + "?" %>
+    <%end%>
+    </li>
+  <% end %>
 </ul>
 
 <%= will_paginate %>
