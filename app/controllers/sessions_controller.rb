@@ -2,6 +2,12 @@ class SessionsController < ApplicationController
 	#GET the page that will create a new session
 	def new
 
+		#on initial visit, check if there is a current user and if so redirect to their profile
+		if current_user
+			redirect_to current_user
+		else
+		end
+
 	end
 
 	#POST the information that will create the new session and drop teh cookie
@@ -10,7 +16,7 @@ class SessionsController < ApplicationController
 		user = User.find_by_email(params[:session][:email])
 		if user && user.authenticate(params[:session][:password])
 			sign_in user
-			redirect_to user
+			redirect_back_or user
 		else 
 			flash.now[:error] = "Invalid Username or Password combination"
 			render 'new'

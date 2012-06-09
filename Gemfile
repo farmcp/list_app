@@ -2,12 +2,17 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.3'
 gem 'bootstrap-sass'
+
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 #annotate the rails models
 gem 'annotate'
 gem 'pg'
 
+#populate with fake data
+gem 'faker'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

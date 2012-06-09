@@ -32,6 +32,24 @@ module SessionsHelper
 		@current_user ||= user_from_remember_token
 	end
 
+	def current_user?(user)
+		user == current_user
+	end
+
+####################################################
+#Friendly Forwarding
+#use session to store cookies :return_to and the path where you're trying to go
+###################################################
+	def store_location
+		session[:return_to] = request.fullpath
+	end
+
+	def redirect_back_or(default)
+		redirect_to(session[:return_to] || default)
+		clear_return_to
+	end
+
+
 	private 
 
 		def user_from_remember_token
@@ -39,6 +57,10 @@ module SessionsHelper
 
 			#return the user that has the remember token unless the remember token is not available
 			User.find_by_remember_token(remember_token) unless remember_token.nil?
+		end
+
+		def clear_return_to
+			session.delete(:return_to)
 		end
 
 

@@ -3,7 +3,9 @@ ListApp::Application.routes.draw do
 
   match 'team/', to: 'static_pages#team'
   match 'about/', to: 'static_pages#about'
-  root :to => 'static_pages#home'
+  match 'home/', to: 'static_pages#home'
+  #root is the sign in page instead of the static page - static_pages#home
+  root :to => 'sessions#new'
 
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
