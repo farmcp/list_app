@@ -17,10 +17,11 @@ html {
   overflow-y: scroll;
 }
 
+@media (min-width: 980px) {
 body {
-  padding-top: 60px;
+  padding-top:60px;
 }
-
+}
 section {
   overflow: auto;
 }
