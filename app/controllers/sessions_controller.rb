@@ -12,8 +12,8 @@ class SessionsController < ApplicationController
 
   #POST the information that will create the new session and drop teh cookie
   def create
-    #if the email and password exist in the database then drop a cookie
-    user = User.find_by_email(params[:session][:email])
+    #if the email and password exist in the database then drop a cookie - downcase the email since all the emails are lowercased
+    user = User.find_by_email(params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       sign_in user
       redirect_back_or user
