@@ -1,29 +1,69 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!--use the application_helper full_title method here-->
-  <title><%= full_title(yield(:title))%></title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-  <%= render 'layouts/shim' %>
+  <head>
+    <!--use the application_helper full_title method here-->
+    <title><%= full_title(yield(:title))%></title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <%= render 'layouts/shim' %>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-</head>
-<body>
-  <!-- partial for talking to 'layouts/_header' -->
-  <%= render 'layouts/header' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type='text/javascript'>
+    /*
+      * Normalized hide address bar for iOS & Android
+      * (c) Scott Jehl, scottjehl.com
+      * MIT License
+    */
+    (function( win ){
+      var doc = win.document;
+      
+      // If there's a hash, or addEventListener is undefined, stop here
+      if( !location.hash && win.addEventListener ){
+        
+        //scroll to 1
+        window.scrollTo( 0, 1 );
+        var scrollTop = 1,
+          getScrollTop = function(){
+            return win.pageYOffset || doc.compatMode === "CSS1Compat" && doc.documentElement.scrollTop || doc.body.scrollTop || 0;
+          },
+        
+          //reset to 0 on bodyready, if needed
+          bodycheck = setInterval(function(){
+            if( doc.body ){
+              clearInterval( bodycheck );
+              scrollTop = getScrollTop();
+              win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
+            } 
+          }, 15 );
+        
+        win.addEventListener( "load", function(){
+          setTimeout(function(){
+            //at load, if user hasn't scrolled more than 20 or so...
+            if( getScrollTop() < 20 ){
+              //reset to hide addr bar at onload
+              win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
+            }
+          }, 0);
+        } );
+      }
+    })( this );
+    </script>
+  </head>
+  <body>
+    <!-- partial for talking to 'layouts/_header' -->
+    <%= render 'layouts/header' %>
 
-  <% flash.each do |key, value| %>
-    <div class="alert alert-<%= key %>"><%= value %></div>
-  <% end %>
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
 
-  <!--container for the actual content of the page--> 
-  <div class='container'>
-    <%= yield %>
-  <!-- partial for talking to 'layouts/footer' -->
-  <%= render 'layouts/footer' %>
-  <%= debug(params) if Rails.env.development? %>
-  </div>
-</body>
+    <!--container for the actual content of the page--> 
+    <div class='container'>
+      <%= yield %>
+    <!-- partial for talking to 'layouts/footer' -->
+    <%= render 'layouts/footer' %>
+    <%= debug(params) if Rails.env.development? %>
+    </div>
+  </body>
 </html>
