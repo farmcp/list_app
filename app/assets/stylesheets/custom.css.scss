@@ -3,6 +3,10 @@
 $navbarBackground: #D32224;
 $navbarBackgroundHighlight: red;
 
+$navbarLinkColor: white;
+$navbarLinkColorHover:#EEE;
+
+
 @import "bootstrap";
 @import "bootstrap-responsive";
 
@@ -79,10 +83,11 @@ p {
   line-height: 1;
   
   &:hover {
-    color: white;
+    color: #EEE;
     text-decoration: none;
   }
 }
+
 
 /* footer */
 footer {
