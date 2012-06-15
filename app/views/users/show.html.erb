@@ -9,7 +9,9 @@
         <%= @user.first_name.to_s + " " + @user.last_name.to_s %>
       </h1>
       <% if current_user? @user %>
-      	<a class="btn" href="<%=new_list_path%>">Create Bite List</a>
+      	<a class="btn btn-warning" href="<%=new_list_path%>">Create Bite List</a>
+      <%else%>
+      	<a class="btn btn-primary" href="#">Follow</a>
       <%end%>
     </section>
   </aside>
