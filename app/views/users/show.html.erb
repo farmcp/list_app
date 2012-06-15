@@ -8,7 +8,9 @@
         <%= gravatar_for @user %>
         <%= @user.first_name.to_s + " " + @user.last_name.to_s %>
       </h1>
-      <a class="btn" href="<%=new_list_path%>">Create Bite List</a>
+      <% if current_user? @user %>
+      	<a class="btn" href="<%=new_list_path%>">Create Bite List</a>
+      <%end%>
     </section>
   </aside>
 
