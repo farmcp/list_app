@@ -34,6 +34,7 @@ class UsersController < ApplicationController
   #GET /users/:id => this is the GET page to show a user with :id
   def show
     @user = User.find(params[:id])
+    @lists = @user.lists.paginate(page: params[:page])
   end
 
   #GET /users/:id/edit => this is the GET page to show a user with :id the edit page the submission will be a PUT request
@@ -72,16 +73,6 @@ class UsersController < ApplicationController
 #private methods for users
 ####################################
   private
-
-  def signed_in_user
-    unless signed_in?
-      #store the location
-      store_location
-
-      flash[:notice] = "Please sign in."
-      redirect_to signin_path
-    end
-  end
 
   def correct_user
 

@@ -1,13 +1,25 @@
 <%= provide(:title, @user.first_name.to_s + " " + @user.last_name.to_s) %>
 
-
+<!--show the user's profile information -->
 <div class="row">
   <aside class="span4">
     <section>
-      <h1>
+      <h1 style="padding-bottom: 15px;">
         <%= gravatar_for @user %>
         <%= @user.first_name.to_s + " " + @user.last_name.to_s %>
       </h1>
+      <a class="btn" href="<%=new_list_path%>">Create Bite List</a>
     </section>
   </aside>
+
+<!--show the current lists if the user has any on the page -->
+  <div class="span8">
+  	<% if @user.lists.any? %>
+  		<h3 style="text-align: center;">Bite Lists (<%= @user.lists.count %>)</h3>
+  		<ol class = "lists">
+  			<%= render "layouts/lists" %>
+  		</ol>
+  		<%= will_paginate @lists, :page_links => false %>
+  	<%end%>
+  </div>
 </div>

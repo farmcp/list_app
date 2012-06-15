@@ -19,6 +19,9 @@ class User < ActiveRecord::Base
   #then has_secure_password will encrypt, then check that pass and pass_conf match then store in pass_digest
   has_secure_password
 
+  #every user can have many lists
+  has_many :lists
+  
   #before you save the user to the database - downcase the email
   before_save { |user| user.email = email.downcase }
   #before the save create the remember_token for the specific user automatically

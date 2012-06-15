@@ -36,11 +36,19 @@ module SessionsHelper
     user == current_user
   end
 
+  def signed_in_user
+    unless signed_in?
+      store_location
+      redirect_to signin_path, notice: "Please sign in."
+    end 
+  end
+
 ####################################################
 #Friendly Forwarding
 #use session to store cookies :return_to and the path where you're trying to go
 ###################################################
   def store_location
+    #stores the request path to a cookie accessible with key :return_to
     session[:return_to] = request.fullpath
   end
 

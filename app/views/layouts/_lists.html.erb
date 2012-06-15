@@ -1,0 +1,11 @@
+<% @lists.each do |list| %>
+	<li>
+		<!--TODO: need to insert the proper reference to edit the list -->
+		<div class="well">
+		<a href="#"><%= list.state %>, <%= list.city %></a>
+		<% if current_user?(list.user) %>
+			<%= link_to "Remove", list, method: :delete, confirm: "You sure?", title: list.city + ", " + list.state, style: "float:right;" %>
+		<%end%>
+	</div>
+	</li>
+<%end%>
