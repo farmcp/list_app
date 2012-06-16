@@ -14,6 +14,10 @@
 class City < ActiveRecord::Base
   attr_accessible :abbreviation, :active, :name, :state
 
+  #a restaurant can have many cities
+  belongs_to :restaurant
+  has_one :list
+
   def self.select_options
   	options = [["Select a city", ""]]
     where(:active => true).map{|city| options << [city.name, city.id]}
