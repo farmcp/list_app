@@ -8,7 +8,7 @@
     <%= render 'layouts/error_messages_lists' %>
     <%= form_for @list do |f| %>
       <%= f.label :state %>
-      <%= f.select :state, options_for_select([["Select One", ""], "CA", "MA"]) %>
+      <%= f.select :state, options_for_select([["Select One", ""], "CA", "HI", "MA", "NY"]) %>
       <%= f.label :city %>
       <%= f.text_field :city %>
       
