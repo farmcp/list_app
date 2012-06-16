@@ -17,8 +17,8 @@ end
 #  address      :string(255)
 #  postal_code  :integer
 #  comments     :string(255)
-#  city_id      :string(255)
 #  created_at   :datetime        not null
 #  updated_at   :datetime        not null
+#  city_id      :integer
 #
 
