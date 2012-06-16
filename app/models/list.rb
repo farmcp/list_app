@@ -10,9 +10,10 @@
 #
 
 class List < ActiveRecord::Base
+  attr_accessible :user_id, :city_id
+
   belongs_to :user
   belongs_to :city
 
-  validates_associated :user
-  validates_associated :city
+  validates :user_id, :city_id, :presence => true
 end

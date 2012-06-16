@@ -13,5 +13,8 @@ class CreateCities < ActiveRecord::Migration
     add_index :cities, :abbreviation
     add_index :cities, :state
     add_index :cities, :active
+
+    # City.create(:name => 'San Francisco', :abbreviation => 'SF', :state => 'CA', :active => true)
+    # City.create(:name => 'Boston', :abbreviation => 'BOS', :state => 'MA', :active => true)
   end
 end

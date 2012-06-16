@@ -13,4 +13,8 @@
 
 class City < ActiveRecord::Base
   attr_accessible :abbreviation, :active, :name, :state
+
+  def self.select_options
+    where(:active => true).map{|city| [city.name, city.id]}
+  end
 end

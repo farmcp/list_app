@@ -7,11 +7,9 @@
        <!-- render the partial _error_messages.html.erb --> 
     <%= render 'layouts/error_messages_lists' %>
     <%= form_for @list do |f| %>
-      <%= f.label :state %>
-      <%= f.select :state, options_for_select([["Select One", ""], "CA", "MA"]) %>
-      <%= f.label :city %>
-      <%= f.text_field :city %>
-      
+      <%= f.label :city_id %>
+      <%= f.select :city_id, options_for_select(City.select_options) %>
+
       <%= f.submit "Create Bite List", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
