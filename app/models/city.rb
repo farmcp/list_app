@@ -14,8 +14,8 @@
 class City < ActiveRecord::Base
   attr_accessible :abbreviation, :active, :name, :state
 
-  #a restaurant can have many cities
-  belongs_to :restaurant
+  #each restaurant is unique and each city can have many of the restaurants
+  has_many :restaurants
   has_one :list
 
   def self.select_options

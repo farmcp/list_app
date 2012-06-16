@@ -18,8 +18,8 @@
 
 class Restaurant < ActiveRecord::Base
   # attr_accessible :title, :body
-  #a restaurant has many cities (especially if it's a restaurant chain)
-  has_many :cities 
+  #a restaurant belongs to many cities (especially if it's a restaurant chain) => this means t
+  belongs_to :cities 
 
   
 end
