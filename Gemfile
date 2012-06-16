@@ -26,7 +26,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-
+gem 'haml'
 # To use ActiveModel has_secure_password - will need to create a password_digest column in the Migration/database
 gem 'bcrypt-ruby', '~> 3.0.0'
 

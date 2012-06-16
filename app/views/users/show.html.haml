@@ -1,0 +1,20 @@
+= provide(:title, @user.full_name)
+
+.row
+  %aside.span4
+    %section
+      %h1{:style => "padding-bottom: 15px;"}
+        = gravatar_for @user
+        = @user.full_name
+      - if current_user? @user
+        = link_to 'Create Bite List', new_list_path, :class => "btn btn-warning"
+      - else
+        = link_to 'Follow', '#', :class => "btn btn-primary", :disabled => 'disabled'
+
+  .span8
+    - if @user.lists.any?
+      %h3.big_title
+        Bite Lists (#{@user.lists.count})
+      %ol.lists
+        = render "layouts/lists"
+      = will_paginate @lists, :page_links => false

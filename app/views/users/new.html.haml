@@ -1,0 +1,24 @@
+- provide(:title, 'Sign up')
+
+%h1.big_title
+  Sign Up
+
+.row
+  .span6.offset3
+    = render 'layouts/error_messages'
+    = form_for @user do |f|
+      = f.label :first_name
+      = f.text_field :first_name
+
+      = f.label :last_name
+      = f.text_field :last_name
+
+      = f.label :email 
+      = f.email_field :email
+
+      = f.label :password
+      = f.password_field :password
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation
+
+      = f.submit "Create my Account", class: "btn btn-large btn-primary"

@@ -1,0 +1,23 @@
+= provide(:title, 'Edit Profile')
+
+%h1.big_title
+  Update your profile
+.row
+  .span6.offset3
+    = form_for (@user) do |f|
+      = render "layouts/error_messages", object: f.object
+      = f.label :first_name
+      = f.text_field :first_name
+      = f.label :last_name
+      = f.text_field :last_name
+
+      = f.label :password
+      = f.password_field :password
+
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation
+
+      = f.submit "Save changes", class: "btn btn-large btn-primary"
+
+    = gravatar_for @user
+    = link_to 'change', 'http://gravatar.com/emails'

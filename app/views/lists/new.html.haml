@@ -1,0 +1,12 @@
+- provide(:title, 'Create Bite List')
+
+%h1.big_title
+  Create Bite List
+
+.row
+  .span6.offset3
+    = render 'layouts/error_messages_lists'
+    = form_for @list do |f|
+      = f.label :city_id
+      = f.select :city_id, options_for_select(City.select_options)
+      = f.submit "Create Bite List", class: "btn btn-large btn-primary"

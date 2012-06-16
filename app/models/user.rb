@@ -37,7 +37,12 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true, length: {maximum: 50}
   validates :email, presence: true, format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
 
+  def full_name
+    [first_name, last_name].join(' ')
+  end
+
   private
+
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
   end
