@@ -22,6 +22,10 @@ class ListsController < ApplicationController
     redirect_back_or root_path
   end
 
+  def show
+    @list = List.find_by_id(params[:id])
+  end
+
   private
 
   def correct_user
