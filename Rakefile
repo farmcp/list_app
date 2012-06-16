@@ -5,3 +5,4 @@
 require File.expand_path('../config/application', __FILE__)
 
 ListApp::Application.load_tasks
+Dir["#{Gem::Specification.find_by_name("annotate").full_gem_path}/**/tasks/**/*.rake"].each {|ext| load ext}
