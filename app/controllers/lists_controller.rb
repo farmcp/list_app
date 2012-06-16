@@ -8,7 +8,7 @@ class ListsController < ApplicationController
 
   def create
     #create a list for the current user
-    @list = current_user.lists.create(params[:user]) if signed_in?
+    @list = current_user.lists.create(params[:list]) if signed_in?
     if @list.save
       flash[:success] = "Bite List Created!"
       redirect_to root_path
