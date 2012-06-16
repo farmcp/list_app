@@ -2,10 +2,10 @@
   <li>
     <%- # TODO: need to insert the proper reference to edit the list %>
     <div class="well">
-    <a href="#"><%= list.city.name %>, <%= list.city.state %></a>
-    <% if current_user?(list.user) %>
-      <%= link_to "Remove", list, method: :delete, confirm: "You sure?", title: list.city, style: "float:right;" %>
-    <%end%>
-  </div>
+      <%= link_to list.city.name, list %>
+      <% if current_user?(list.user) %>
+        <%= link_to "Remove", list, method: :delete, confirm: "You sure?", title: list.city, style: "float:right;" %>
+      <% end %>
+    </div>
   </li>
-<%end%>
+<% end %>
