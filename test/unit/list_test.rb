@@ -3,11 +3,10 @@
 # Table name: lists
 #
 #  id         :integer         not null, primary key
-#  city       :string(255)
-#  state      :string(255)
 #  user_id    :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
+#  city_id    :integer
 #
 
 require 'test_helper'

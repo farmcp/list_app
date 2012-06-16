@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120616033403) do
+ActiveRecord::Schema.define(:version => 20120616034305) do
 
   create_table "cities", :force => true do |t|
     t.string   "name",         :limit => 64,                    :null => false
@@ -28,12 +28,13 @@ ActiveRecord::Schema.define(:version => 20120616033403) do
   add_index "cities", ["state"], :name => "index_cities_on_state"
 
   create_table "lists", :force => true do |t|
-    t.string   "city"
-    t.string   "state"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "city_id"
   end
+
+  add_index "lists", ["city_id"], :name => "index_lists_on_city_id"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
