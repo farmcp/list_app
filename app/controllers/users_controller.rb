@@ -19,11 +19,11 @@ class UsersController < ApplicationController
       #send a flash hash to view to alert the user they have signed in successfully
       flash[:success] = "You have successfully logged in " + @user.first_name.to_s + "!"
 
-      #sign the user in by dropping a cookie 
+      #sign the user in by dropping a cookie
       sign_in @user
 
       #Handle a successful save
-      #redirect to the users/show/:id page 
+      #redirect to the users/show/:id page
       redirect_to @user
     else
       #if not a successful save then go back to the new page
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
   #GET /users/:id/edit => this is the GET page to show a user with :id the edit page the submission will be a PUT request
   #redirecting the user to update method in controller
-  def edit 
+  def edit
   end
 
   #update the user's profile using this method => it is PUT request to the server on the submission of the form
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
 
   #GET request for /users/
   def index
-    #use the will_paginate gem .paginate method => .paginate(page_number) returns numbers 1-30, 31-60, etc. params[:page] is 
+    #use the will_paginate gem .paginate method => .paginate(page_number) returns numbers 1-30, 31-60, etc. params[:page] is
     #generated automatically by will_paginate
     @users = User.paginate(page: params[:page])
   end

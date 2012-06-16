@@ -40,7 +40,7 @@ module SessionsHelper
     unless signed_in?
       store_location
       redirect_to signin_path, notice: "Please sign in."
-    end 
+    end
   end
 
 ####################################################
@@ -58,7 +58,7 @@ module SessionsHelper
   end
 
 
-  private 
+  private
 
   def user_from_remember_token
     remember_token = cookies[:remember_token]
