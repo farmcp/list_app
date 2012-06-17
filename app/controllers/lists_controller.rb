@@ -7,13 +7,20 @@ class ListsController < ApplicationController
   end
 
   def create
-    #create a list for the current user
-    @list = current_user.lists.create(params[:list]) if signed_in?
-    if @list.save
-      flash[:success] = "Bite List Created!"
-      redirect_to root_path
+    #create a list for the current user if (s)he doesn't have a list already for the specific name and is signed in
+    if signed_in? and current_user.lists.exclude?current_user.lists.find_by_city_id(params[:list][:city_id])
+      @list = current_user.lists.create(params[:list])
+      if @list.save
+        flash.now[:success] = "Bite List Created!"
+        redirect_to root_path
+      else
+        render 'new'
+    end
+
     else
-      render 'new'
+      #need to get flash to show why
+      flash.now[:error] = "Please enter a list that doesn't exist."
+      redirect_to root_path
     end
   end
 
