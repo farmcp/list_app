@@ -11,6 +11,7 @@ class ListsController < ApplicationController
     if signed_in? and current_user.lists.exclude?current_user.lists.find_by_city_id(params[:list][:city_id])
       @list = current_user.lists.create(params[:list])
       if @list.save
+        #if you can save the list then you say success and redirect back to the user
         flash[:success] = "Bite List created for " + current_user.lists.find_by_city_id(params[:list][:city_id]).city.name.to_s + "!"
         redirect_to current_user
       else
@@ -18,7 +19,7 @@ class ListsController < ApplicationController
     end
 
     else
-      #need to get flash to show why
+      #need to get flash to show why you can't upload a new list => mainly because you already have a list with the city
       flash[:error] = "Can't create more than one Bite List for each city."
       redirect_to current_user
     end
