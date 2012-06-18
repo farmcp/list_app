@@ -11,16 +11,16 @@ class ListsController < ApplicationController
     if signed_in? and current_user.lists.exclude?current_user.lists.find_by_city_id(params[:list][:city_id])
       @list = current_user.lists.create(params[:list])
       if @list.save
-        flash.now[:success] = "Bite List Created!"
-        redirect_to root_path
+        flash[:notice] = "Bite List created for " + current_user.lists.find_by_city_id(params[:list][:city_id]).city.name.to_s + "!"
+        redirect_to current_user
       else
         render 'new'
     end
 
     else
       #need to get flash to show why
-      flash.now[:error] = "Please enter a list that doesn't exist."
-      redirect_to root_path
+      flash[:error] = "Can't create more than one Bite List for each city."
+      redirect_to current_user
     end
   end
 
