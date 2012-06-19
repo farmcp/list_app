@@ -18,7 +18,7 @@ Install Postgres:
 Install Rails ERD
 -----------------
 	http://rails-erd.rubyforge.org/install.html
-	$ brew install cairo pango graphviz - for OSX
+	$ brew install cairo pango graphviz 
 	$ rake erd
 
 To Dos:
