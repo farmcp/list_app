@@ -17,7 +17,7 @@ Install Postgres:
 
 Install Rails ERD
 -----------------
-			http://rails-erd.rubyforge.org/install.html
+	http://rails-erd.rubyforge.org/install.html
 
 To Dos:
 --------
