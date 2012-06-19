@@ -18,8 +18,11 @@
 
 class Restaurant < ActiveRecord::Base
   # attr_accessible :title, :body
+  #not sure we want to expose all fo these fields
+  attr_accessible :name, :phone_number, :category, :address, :postal_code, :city_id
+
   #a restaurant belongs to many cities (especially if it's a restaurant chain)
   belongs_to :cities 
-
+  has_one :list_item
   
 end

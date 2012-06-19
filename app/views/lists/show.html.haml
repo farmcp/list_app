@@ -1,9 +1,11 @@
 - provide(:title, 'Bite List')
 
 %h1.big_title
-  Bite List
+  =@list.city.abbreviation + " Bite List"
 
 .row
   .span6.offset3
-    %p
-      = @list.city.name
+    - @list.list_items.each do |item|
+      %ol.lists
+        .well
+          = item.restaurant.name

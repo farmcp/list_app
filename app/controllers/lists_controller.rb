@@ -35,9 +35,22 @@ class ListsController < ApplicationController
     redirect_back_or root_path
   end
 
+  #GET request to show lists/:id
   def show
-    @list = List.find_by_id(params[:id])
+
+    #if the list exists then store a class variable for the list to catch on the view
+    if List.find_by_id(params[:id])
+      @list = List.find_by_id(params[:id])
+    else
+    #else if there is no list, then redirect to root
+      flash[:error] = "There was a problem finding your list."
+      redirect_to current_user
+    end
   end
+
+############################
+#Private methods
+############################
 
   private
 
