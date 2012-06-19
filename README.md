@@ -19,8 +19,8 @@ To Dos:
 --------
 
 1. ~~Add models for lists (done), list_items (done), restaurants (done)~~
-2. Create a Friends tab (done)
-3. Able to search users on app through Friends tab and also sync with users lists
+2. ~~Create a Friends tab (done)~~
+3. Able to search users on app through Friends tab and also sync with Friends' lists
 2. Allow users to follow each other 
 2. Validation for places to eat
 3. Allow users to sync with selected people they follow
