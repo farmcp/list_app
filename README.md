@@ -15,6 +15,10 @@ Install Postgres:
 -----------------
       brew install postgresql
 
+Install Rails ERD
+-----------------
+			http://rails-erd.rubyforge.org/install.html
+
 To Dos:
 --------
 
