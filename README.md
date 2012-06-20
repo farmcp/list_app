@@ -8,12 +8,12 @@
 
 Install Rails:
 ----------------
-      http://installfest.railsbridge.org/installfest/choose_your_operating_system?back=installfest%23step3
+  http://installfest.railsbridge.org/installfest/choose_your_operating_system?back=installfest%23step3
 
 
 Install Postgres:
 -----------------
-      brew install postgresql
+  brew install postgresql
 
 Install Rails ERD
 -----------------
