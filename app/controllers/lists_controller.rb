@@ -38,7 +38,7 @@ class ListsController < ApplicationController
   #GET request to show lists/:id
   def show
     #if the list exists then store a class variable for the list to catch on the view
-    if List.find_by_id(params[:id])
+    if List.find_by_id(params[:id]) and current_user
       @list = List.find_by_id(params[:id])
 
       #pass in a variable to create a new List Item if the user enters a name into the text_field
@@ -46,7 +46,7 @@ class ListsController < ApplicationController
     else
     #else if there is no list, then redirect to root
       flash[:error] = "There was a problem finding your list."
-      redirect_to current_user
+      redirect_to root_path
     end
   end
 
