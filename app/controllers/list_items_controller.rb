@@ -14,6 +14,7 @@ class ListItemsController < ApplicationController
 			#current_list.list_items.create(:restaurant_id => restaurant_variable.id)
 			#used a hidden field to pass in the list_id that this POST request was sent from
 			user_items.create(:restaurant_id => input_restaurant.id)
+			flash[:success] = "Added #{input_restaurant.name} to your Bite List!"
 			
 		else 
 			#create a new Restaurant with the name that was entered
@@ -30,11 +31,11 @@ class ListItemsController < ApplicationController
 	end
 
 	def destroy
+		#flash the user it's been deleted
+		flash[:success] = "You've removed #{ListItem.find(params[:id]).restaurant.name} from your Bite List!"
+
 		#delete the item that's passed in
 		ListItem.find(params[:id]).destroy
-
-		#flash the user it's been deleted
-		flash[:success] = "You've removed the Bite!"
 
 		#After the ListItem has been deleted go back to the original page
 		redirect_to :back
