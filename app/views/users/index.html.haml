@@ -11,6 +11,6 @@
       = link_to user.full_name, user
 
       - if current_user.admin? && !current_user?(user)
-        = link_to "Remove", user, method: :delete, confirm: "Are you sure you want to delete #{user.full_name}?"
+        = link_to "Remove", user, method: :delete, confirm: "Are you sure you want to delete #{user.full_name}?", style: 'float:right;'
 
 = will_paginate(:page_links => false)
