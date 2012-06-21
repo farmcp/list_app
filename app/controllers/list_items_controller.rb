@@ -1,0 +1,44 @@
+class ListItemsController < ApplicationController
+
+	def create
+		restaurant_name = params[:restaurant][:name]
+		input_restaurant = Restaurant.find_by_name(restaurant_name)
+		list_id = params[:restaurant][:list_id]
+		user_items = current_user.lists.find(list_id).list_items
+		current_city = List.find(list_id).city
+
+
+		#if a restaurant exists for a specific city then find it and capture that as a variable. if it doesn't exist then create a new restaurant (Restaurant.create)
+		if(input_restaurant and current_city.restaurants.all.include?input_restaurant)
+
+			#current_list.list_items.create(:restaurant_id => restaurant_variable.id)
+			#used a hidden field to pass in the list_id that this POST request was sent from
+			user_items.create(:restaurant_id => input_restaurant.id)
+			
+		else 
+			#create a new Restaurant with the name that was entered
+			#TODO: need to make a more complete form for filling out new restaurants
+			new_restaurant = Restaurant.create(:name => restaurant_name)
+			#create in the list items as done in above
+			user_items.create(:restaurant_id => new_restaurant.id)
+		end
+
+		#redirect_to list
+		redirect_to list_path(list_id)
+
+
+	end
+
+	def destroy
+		#delete the item that's passed in
+		ListItem.find(params[:id]).destroy
+
+		#flash the user it's been deleted
+		flash[:success] = "You've removed the Bite!"
+
+		#After the ListItem has been deleted go back to the original page
+		redirect_to :back
+	end
+
+
+end

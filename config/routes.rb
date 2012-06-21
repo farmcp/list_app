@@ -10,6 +10,7 @@ ListApp::Application.routes.draw do
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
   resources :lists, :only => [:create, :destroy, :new, :show]
+  resources :list_items, :only => [:create, :destroy]
 
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy', :via => :delete #this means it will be invoked using the DELETE request
