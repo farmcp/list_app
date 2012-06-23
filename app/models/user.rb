@@ -15,7 +15,7 @@
 
 class User < ActiveRecord::Base
   attr_accessible :email, :first_name, :last_name, :password, :password_confirmation
-  #checks to authenticate users. as long as there is a password_digest field in the database and :password and :password_onfirmation
+  #checks to authenticate users. as long as there is a password_digest field in the database and :password and :password_confirmation
   #then has_secure_password will encrypt, then check that pass and pass_conf match then store in pass_digest
   has_secure_password
 
