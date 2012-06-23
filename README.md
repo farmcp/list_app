@@ -30,7 +30,8 @@ To Dos:
 2. ~~Allow users to create and delete list_items~~ 
 2. Allow users to click through list_items to view details on restaurants
 3. Able to search users on app through Friends tab and also sync with Friends' lists
-2. Allow users to follow each other 
+2. ~~Allow users to follow each other~~
+2. Bug: users that follow can't see each other's lists
 2. Validation for places to eat
 3. Allow users to sync with selected people they follow
 4. Add facebook connect that suggests friends already in their fb network to follow
