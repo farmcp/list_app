@@ -15,8 +15,8 @@
 
   .span8
 
-    /TODO: need to add logic so that only displays the list when current_user follows this user
-    - if @user == current_user and @user.lists.any?
+    /only can show when a user is logged in or has something in their lists
+    - if current_user and @user.lists.any?
       %h3.big_title
         Bite Lists (#{@user.lists.count})
       %ol.lists
