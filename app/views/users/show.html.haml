@@ -9,9 +9,12 @@
       - if current_user? @user
         = link_to 'Create Bite List', new_list_path, :class => "btn btn-warning"
       - else
-        = link_to 'Follow', '#', :class => "btn btn-primary", :disabled => 'disabled'
+        = render 'follow_form' if signed_in?
+    %section
+      = render 'layouts/stats'
 
   .span8
+
     /TODO: need to add logic so that only displays the list when current_user follows this user
     - if @user == current_user and @user.lists.any?
       %h3.big_title

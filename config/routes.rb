@@ -7,7 +7,13 @@ ListApp::Application.routes.draw do
   #root is the sign in page instead of the static page - static_pages#home
   root :to => 'sessions#new'
 
-  resources :users
+  resources :users do 
+    member do
+      get :following, :followers
+    end
+  end
+
+  resources :relationships, only: [:destroy, :create]
   resources :sessions, :only => [:new, :create, :destroy]
   resources :lists, :only => [:create, :destroy, :new, :show]
   resources :list_items, :only => [:create, :destroy]
