@@ -1,8 +1,12 @@
 - provide(:title, 'Home')
+-if current_user
+  %script{type: 'text/javascript'}
+    window.location.href="/sessions/new"
+-else
+  .center.hero-unit
+    %h1 
+      Hello! 
+    %h2
+      Grab a bite inspired by yours truly.
+    = link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary"
 
-.center.hero-unit
-  %h1 
-    Hello! 
-  %h2
-    Grab a bite inspired by yours truly.
-  = link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary"
