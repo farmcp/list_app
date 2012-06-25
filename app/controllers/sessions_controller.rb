@@ -27,6 +27,6 @@ class SessionsController < ApplicationController
   #DELETE the cookie and kill the session
   def destroy
     sign_out
-    redirect_to root_path
+    redirect_to new_session_path
   end
 end

@@ -98,7 +98,7 @@ class UsersController < ApplicationController
 
     else
       flash[:notice] = "You do not have access to this page."
-      redirect_to root_path
+      redirect_to new_session_path
     end
 
   end

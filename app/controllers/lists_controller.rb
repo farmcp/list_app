@@ -32,7 +32,7 @@ class ListsController < ApplicationController
   #DELETE request for killing a list => located on the user/:id page for showing a user
   def destroy
     @list.destroy
-    redirect_back_or root_path
+    redirect_back_or new_session_path
   end
 
   #GET request to show lists/:id
@@ -46,7 +46,7 @@ class ListsController < ApplicationController
     else
     #else if there is no list, then redirect to root
       flash[:error] = "There was a problem finding your list."
-      redirect_to root_path
+      redirect_to new_session_path
     end
   end
 
@@ -58,6 +58,6 @@ class ListsController < ApplicationController
 
   def correct_user
     @list = current_user.lists.find_by_id(params[:id])
-    redirect_to root_path if @list.nil?
+    redirect_to new_session_path if @list.nil?
   end
 end

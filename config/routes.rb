@@ -7,7 +7,8 @@ ListApp::Application.routes.draw do
 
   match 'contribute/', to: 'static_pages#contribute'
   #root is the sign in page instead of the static page - static_pages#home
-  root :to => 'sessions#new'
+#  root :to => 'sessions#new'
+  root :to => 'static_pages#home'
 
   resources :users do 
     member do
