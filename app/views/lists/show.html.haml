@@ -22,7 +22,7 @@
     - @list.list_items.each do |item|
       %ol.lists
         .well
-          %h3{style:'float:left;'}
+          %h3.pull-left
             = link_to item.restaurant.name, '#'
           - if current_user?@list.user  
-            = link_to "Remove", item, method: :delete, confirm: "Are you sure you want to delete this Bite?", style: 'float:right; font-size:11px; margin-top:-3px;', class: 'btn btn-danger'
+            = link_to "Remove", item, method: :delete, confirm: "Are you sure you want to delete this Bite?", style: 'font-size:11px; margin-top:-3px;', class: 'btn btn-danger pull-right'
