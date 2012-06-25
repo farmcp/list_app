@@ -22,5 +22,6 @@
     - @list.list_items.each do |item|
       %ol.lists
         .well
-          = item.restaurant.name
-          = link_to "Remove", item, method: :delete, confirm: "Are you sure you want to delete this Bite?", style: 'float:right;'
+          %h3{style:'float:left;'}
+            = link_to item.restaurant.name, '#'
+          = link_to "Remove", item, method: :delete, confirm: "Are you sure you want to delete this Bite?", style: 'float:right; font-size:11px'
