@@ -7,4 +7,8 @@ class StaticPagesController < ApplicationController
 
   def about
   end
+
+  #static page for contributing
+  def contribute
+  end
 end

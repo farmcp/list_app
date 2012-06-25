@@ -4,6 +4,8 @@ ListApp::Application.routes.draw do
   match 'team/', to: 'static_pages#team'
   match 'about/', to: 'static_pages#about'
   match 'home/', to: 'static_pages#home'
+
+  match 'contribute/', to: 'static_pages#contribute'
   #root is the sign in page instead of the static page - static_pages#home
   root :to => 'sessions#new'
 
