@@ -1,23 +1,22 @@
 %h1{style: 'text-align: center;'} Bite Form
-
 .row
-	.span6.offset3
-		=render 'layouts/error_messages_restaurants'
-		=form_for @restaurant do |f|
-			=f.label "Restaurant Name"
-			=f.text_field :name
+  .span6.offset3
+    =render 'layouts/error_messages_restaurants'
+    =form_for @restaurant do |f|
+      =f.label "Restaurant Name"
+      =f.text_field :name
 
-			=f.label "Phone Number"
-			=f.text_field :phone_number
+      =f.label "Phone Number"
+      =f.text_field :phone_number
 
-			=f.label "Address"
-			=f.text_field :address
+      =f.label "Address"
+      =f.text_field :address
 
-			=f.label "Postal Code"
-			=f.text_field :postal_code
+      =f.label "Postal Code"
+      =f.text_field :postal_code
 
-			=fields_for :city, @city do |u|
-				=u.label "City"
-				=u.select :name, options_for_select(City.select_options)
+      =fields_for :city, @city do |u|
+        =u.label "City"
+        =u.select :name, options_for_select(City.select_options)
 
-			=f.submit "Request Restaurant", class: "btn btn-primary"
+      =f.submit "Request Restaurant", class: "btn btn-primary"
