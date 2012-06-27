@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120621082930) do
+ActiveRecord::Schema.define(:version => 20120627073214) do
 
   create_table "cities", :force => true do |t|
     t.string   "name",         :limit => 64,                    :null => false
@@ -60,11 +60,12 @@ ActiveRecord::Schema.define(:version => 20120621082930) do
     t.string   "phone_number"
     t.string   "category"
     t.string   "address"
-    t.integer  "postal_code"
+    t.string   "postal_code"
     t.string   "comments"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.integer  "city_id"
+    t.boolean   "active"
   end
 
   create_table "users", :force => true do |t|

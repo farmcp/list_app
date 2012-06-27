@@ -5,6 +5,11 @@ namespace :db do
 			email: "farm.cp@gmail.com",
 			password: "foobar",
 			password_confirmation: "foobar")
+		sf = City.create!(name:'San Francisco', abbreviation: 'SF', state: 'CA', active: true)
+		bos = City.create!(name:'Boston', abbreviation:'BOS', state:'MA', active:true)
+		hon = City.create!(name:'Honolulu',abbreviation:'HON', state:'HI', active:true)
+		tin = Restaurant.create!(name: 'Tin Vietnamese Cuisine', phone_number:'4158827188', category: 'Vietnamese', address: '937 Howard St', postal_code:'94103',city_id:sf.id)
+
 
 		#not attr_accessible in user model
 		admin.toggle!(:admin)

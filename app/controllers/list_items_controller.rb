@@ -9,7 +9,7 @@ class ListItemsController < ApplicationController
 
 
 		#if a restaurant exists for a specific city then find it and capture that as a variable. if it doesn't exist then create a new restaurant (Restaurant.create)
-		if(input_restaurant and current_city.restaurants.all.include?input_restaurant)
+		if(input_restaurant and current_city.restaurants.all.include?input_restaurant and input_restaurant.active)
 
 			#current_list.list_items.create(:restaurant_id => restaurant_variable.id)
 			#used a hidden field to pass in the list_id that this POST request was sent from
@@ -19,9 +19,7 @@ class ListItemsController < ApplicationController
 		else 
 			#create a new Restaurant with the name that was entered
 			#TODO: need to make a more complete form for filling out new restaurants
-			new_restaurant = Restaurant.create(:name => restaurant_name)
-			#create in the list items as done in above
-			user_items.create(:restaurant_id => new_restaurant.id)
+			flash[:error] = "That restaurant is not in the database."
 		end
 
 		#redirect_to list
