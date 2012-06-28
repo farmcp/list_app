@@ -260,12 +260,16 @@ select{
   }
 }
 
-.list-style{
+.list-item-text{
   font-size: 16px;
   font-weight:bold;
 }
 
 .list-remove-button{
   font-size:11px;
+  margin-top:-3px;
+}
+.list-image{
+  padding-right:10px;
   margin-top:-3px;
 }
