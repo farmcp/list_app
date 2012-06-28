@@ -35,11 +35,11 @@ To Dos:
 2. ~~Create a Friends tab (done)~~
 2. ~~Allow users to create and delete list_items~~ 
 2. ~~Add :active field to Restaurants - not accessible through users and forms. Change :postal_code to :string~~
+2. ~~Allow users to follow each other~~
+2. ~~Bug: users that follow can't see each other's lists~~
 2. Allow users to click through list_items to view details on restaurants
 3. Able to search users on app through Friends tab and also sync with Friends' lists
 4. Integrate google maps for each of the lists in each city
-2. ~~Allow users to follow each other~~
-2. ~~Bug: users that follow can't see each other's lists~~
 2. Email verification - forgotten passwords, account activation
 2. Get off of Gravatar
 2. Validation for places to eat - know when someone enters a valid restaurant
