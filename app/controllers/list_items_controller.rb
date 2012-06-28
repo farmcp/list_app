@@ -18,7 +18,7 @@ class ListItemsController < ApplicationController
 			
 		else 
 			#create a new Restaurant with the name that was entered
-			#TODO: need to make a more complete form for filling out new restaurants
+			#TODO: need to make a more complete form for filling out new restaurants - need to add validation for restaurants
 			flash[:error] = "That restaurant is not in the database."
 		end
 
