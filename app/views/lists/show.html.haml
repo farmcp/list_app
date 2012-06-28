@@ -32,4 +32,4 @@
             .pull-left.list-style
               = link_to item.restaurant.name[0, 12] + '...', '#'
           - if current_user?@list.user  
-            = link_to "Remove", item, method: :delete, confirm: "Are you sure you want to delete this Bite?", style: 'font-size:11px; margin-top:-3px;', class: 'btn btn-danger pull-right'
+            = link_to "Remove", item, method: :delete, confirm: "Are you sure you want to delete this Bite?", class: 'btn btn-danger pull-right list-remove-button'
