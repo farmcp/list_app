@@ -40,7 +40,7 @@ To Dos:
 4. Integrate google maps for each of the lists in each city
 2. ~~Allow users to follow each other~~
 2. ~~Bug: users that follow can't see each other's lists~~
-2. Email verification
+2. Email verification - forgotten passwords, account activation
 2. Get off of Gravatar
 2. Validation for places to eat
 3. Allow users to sync with selected people they follow
