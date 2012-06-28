@@ -42,7 +42,7 @@ To Dos:
 2. ~~Bug: users that follow can't see each other's lists~~
 2. Email verification - forgotten passwords, account activation
 2. Get off of Gravatar
-2. Validation for places to eat
+2. Validation for places to eat - know when someone enters a valid restaurant
 3. Allow users to sync with selected people they follow
 4. Add facebook connect that suggests friends already in their fb network to follow
 5. Create JSON API so we can start the native iOS app
