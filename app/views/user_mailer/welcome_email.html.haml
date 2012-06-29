@@ -3,6 +3,6 @@
     %meta{content: 'text/html'}
 
   %body
-    %h1 Welcome to Bitelist #{@user.first_name.to_s}!
-
-    %p You have successfully signed up to Bitelist. Your username is #{@user.email} and to start biting login here: #{@url}
+    %h1{style:'text-align:center;'} Welcome to Bitelist #{@user.first_name.to_s}!
+    %br/
+    %div{style:'width:500px;'} Congratulations! You have successfully signed up to Bitelist! Your username is #{@user.email}. To start BITING people login here: #{@url}
