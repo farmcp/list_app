@@ -19,6 +19,9 @@ class UsersController < ApplicationController
       #send a flash hash to view to alert the user they have signed in successfully
       flash[:success] = "You have successfully logged in " + @user.first_name.to_s + "!"
 
+      #send a welcome email to the new user
+      UserMailer.welcome_email(@user).deliver
+
       #sign the user in by dropping a cookie
       sign_in @user
 

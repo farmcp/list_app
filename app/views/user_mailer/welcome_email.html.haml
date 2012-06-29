@@ -1,0 +1,8 @@
+%html
+  %head
+    %meta{content: 'text/html'}
+
+  %body
+    %h1 Welcome to Bitelist #{@user.first_name.to_s}!
+
+    %p You have successfully signed up to Bitelist. Your username is #{@user.email} and to start biting login here: #{@url}
