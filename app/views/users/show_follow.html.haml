@@ -3,7 +3,7 @@
   %aside.span4
     %section
       = gravatar_for @user
-      %h1= @user.first_name + " " + @user.last_name
+      %h1= @user.full_name
       %span= link_to "view my profile", @user
 
     %section

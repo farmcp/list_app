@@ -12,7 +12,7 @@ ListApp::Application.routes.draw do
   #root :to => 'sessions#new'
   root :to => 'static_pages#home'
 
-  resources :users do 
+  resources :users do
     member do
       get :following, :followers
     end
