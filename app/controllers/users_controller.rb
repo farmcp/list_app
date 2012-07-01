@@ -11,23 +11,17 @@ class UsersController < ApplicationController
   end
 
   def create
-    #if the user passes all the validation - save the user to the database
+    params[:user][:password_confirmation] = params[:user][:password]
     @user = User.new(params[:user])
     if @user.save
-      #send a flash hash to view to alert the user they have signed in successfully
       flash[:success] = "You have successfully logged in " + @user.first_name.to_s + "!"
 
-      #send a welcome email to the new user
+      # TODO: this should be handled via queue
       UserMailer.welcome_email(@user).deliver
 
-      #sign the user in by dropping a cookie
       sign_in @user
-
-      #Handle a successful save
-      #redirect to the users/show/:id page
       redirect_to @user
     else
-      #if not a successful save then go back to the new page
       render 'new'
     end
   end
