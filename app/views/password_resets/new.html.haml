@@ -1,0 +1,8 @@
+%h1{style: 'text-align:center;'} Reset Password
+
+.row
+  .span6.offset3
+    =form_tag password_resets_path, :method => :post do
+      =label_tag "Please Enter your email below:"
+      =text_field_tag :email, params[:email]
+      =submit_tag "Send Reset Password", class: 'btn btn-primary'

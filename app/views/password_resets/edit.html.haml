@@ -1,0 +1,18 @@
+%h1{style:'text-align:center'} Reset Password
+
+.row
+  .span6.offset3
+    =form_for @user, url: password_reset_path(params[:id]) do |f|
+      -if @user.errors.any?
+        .error_messages
+          %h2 Form is invalid
+          %ul
+            -for message in @user.errors.full_messages
+              %li=message
+      .field
+        =f.label "New Password"
+        =f.password_field :password
+      .field
+        =f.label :password_confirmation
+        =f.password_field :password_confirmation
+      =f.submit "Update Password", class: 'btn btn-primary'

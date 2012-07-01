@@ -2,15 +2,17 @@
 #
 # Table name: users
 #
-#  id              :integer         not null, primary key
-#  first_name      :string(255)
-#  last_name       :string(255)
-#  email           :string(255)
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
-#  password_digest :string(255)
-#  remember_token  :string(255)
-#  admin           :boolean         default(FALSE)
+#  id                     :integer         not null, primary key
+#  first_name             :string(255)
+#  last_name              :string(255)
+#  email                  :string(255)
+#  created_at             :datetime        not null
+#  updated_at             :datetime        not null
+#  password_digest        :string(255)
+#  remember_token         :string(255)
+#  admin                  :boolean         default(FALSE)
+#  password_reset_token   :string(255)
+#  password_reset_sent_at :datetime
 #
 
 class User < ActiveRecord::Base
@@ -63,9 +65,25 @@ class User < ActiveRecord::Base
     self.relationships.find_by_followed_id(other_user.id).destroy
   end
 
+  def send_password_reset
+    #generate a new token to reset password after email is asked for
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    #save the token and the password time
+    self.save(:validate=>false)
+    #send the mail with the token
+    UserMailer.password_reset(self).deliver
+  end
+
   private
 
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
+  end
+
+  def generate_token(column)
+    begin 
+      self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
   end
 end

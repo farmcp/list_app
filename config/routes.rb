@@ -1,4 +1,6 @@
 ListApp::Application.routes.draw do
+  resources :password_resets
+
   match "signup/", to: 'users#new'
 
   match 'team/', to: 'static_pages#team'

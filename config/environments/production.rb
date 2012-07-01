@@ -74,4 +74,6 @@ ListApp::Application.configure do
   :password             => 'bitelist123!',
   :authentication       => 'plain',
   :enable_starttls_auto => true  }
+
+  config.action_mailer.default_url_options = { :host => "www.bitelist.com" }
 end
