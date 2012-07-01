@@ -19,8 +19,6 @@ class City < ActiveRecord::Base
   has_one :list
 
   def self.select_options
-  	options = [["Select a city", ""]]
-    where(:active => true).map{|city| options << [city.name, city.id]}
-    return options
+    where(:active => true).map{|city| [city.name, city.id]}
   end
 end

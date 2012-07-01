@@ -8,5 +8,5 @@
     = render 'layouts/error_messages_lists'
     = form_for @list do |f|
       = f.label :city_id
-      = f.select :city_id, options_for_select(City.select_options)
+      = f.select :city_id, options_for_select(City.select_options), include_blank: 'Select a city'
       = f.submit "Create Bite List", class: "btn btn-large btn-primary"
