@@ -37,7 +37,7 @@ To Dos:
 2. ~~Add :active field to Restaurants - not accessible through users and forms. Change :postal_code to :string~~
 2. ~~Allow users to follow each other~~
 2. ~~Bug: users that follow can't see each other's lists~~
-2. Email verification - ~~welcome email~~, forgotten passwords, account activation (working on this)
+2. Email verification - ~~welcome email~~, ~~forgotten passwords~~, account activation (working on this)
 4. Add facebook connect that suggests friends already in their fb network to follow
 2. Validation for places to eat - know when someone enters a valid restaurant
 3. Able to search users on app through Friends tab 
