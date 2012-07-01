@@ -6,6 +6,8 @@ class ListsController < ApplicationController
   #GET request for displaying how to create a new List
   def new
     @list = List.new
+    @sfo = City.find_by_name 'San Francisco'
+    @bos = City.find_by_name 'Boston'
   end
 
 

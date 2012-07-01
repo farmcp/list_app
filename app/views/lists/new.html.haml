@@ -6,7 +6,12 @@
 .row
   .span6.offset3
     = render 'layouts/error_messages_lists'
+.row
+  .span2.offset4
     = form_for @list do |f|
-      = f.label :city_id
-      = f.select :city_id, options_for_select(City.select_options)
-      = f.submit "Create Bite List", class: "btn btn-large btn-primary"
+      = f.hidden_field :city_id, :value => @sfo.id
+      = f.submit "SF", class: "btn btn-large btn-primary", :style => "width: 100%;"
+  .span2
+    = form_for @list do |f|
+      = f.hidden_field :city_id, :value => @bos.id
+      = f.submit "Boston", class: "btn btn-large btn-primary", :style => "width: 100%;"
