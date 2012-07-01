@@ -66,12 +66,12 @@ class User < ActiveRecord::Base
   end
 
   def send_password_reset
-    #generate a new token to reset password after email is asked for
+    # generate a new token to reset password after email is asked for
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
-    #save the token and the password time
+    # save the token and the password time
     self.save(:validate=>false)
-    #send the mail with the token
+    # send the mail with the token
     UserMailer.password_reset(self).deliver
   end
 
@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
   end
 
   def generate_token(column)
-    begin 
+    begin
       self[column] = SecureRandom.urlsafe_base64
     end while User.exists?(column => self[column])
   end
