@@ -54,15 +54,15 @@ class User < ActiveRecord::Base
   end
 
   def following?(other_user)
-    self.relationships.find_by_followed_id(other_user.id)
+    relationships.find_by_followed_id(other_user.id)
   end
 
   def follow!(other_user)
-    self.relationships.create!(followed_id: other_user.id)
+    relationships.create!(followed_id: other_user.id)
   end
 
   def unfollow!(other_user)
-    self.relationships.find_by_followed_id(other_user.id).destroy
+    relationships.find_by_followed_id(other_user.id).destroy
   end
 
   def send_password_reset
@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
     # save the token and the password time
-    self.save(:validate=>false)
+    save(validate: false)
     # send the mail with the token
     UserMailer.password_reset(self).deliver
   end
