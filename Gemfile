@@ -7,7 +7,7 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-#annotate the rails models
+# annotate the rails models
 gem 'annotate'
 gem 'pg'
 
@@ -17,8 +17,9 @@ gem 'faker'
 # in production environments by default.
 
 group :development do
-	gem "rails-erd"
+  gem "rails-erd"
 end
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -31,6 +32,7 @@ end
 
 gem 'jquery-rails'
 gem 'haml'
+gem 'haml-rails', '= 0.3.4'
 # To use ActiveModel has_secure_password - will need to create a password_digest column in the Migration/database
 gem 'bcrypt-ruby', '~> 3.0.0'
 
