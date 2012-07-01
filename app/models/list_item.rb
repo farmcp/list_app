@@ -17,4 +17,3 @@ class ListItem < ActiveRecord::Base
 
   #TO DO: need to create methods so that you can only have one unique restaurant per list
 end
-

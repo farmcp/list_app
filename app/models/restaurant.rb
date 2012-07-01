@@ -16,20 +16,17 @@
 #  active       :boolean
 #
 
-
 class Restaurant < ActiveRecord::Base
   # attr_accessible :title, :body
   #not sure we want to expose all fo these fields
   attr_accessible :name, :phone_number, :category, :address, :postal_code, :city_id
 
   #a restaurant belongs to many cities (especially if it's a restaurant chain)
-  belongs_to :cities 
+  belongs_to :cities
   has_one :list_item
 
   validates :name, :presence => true
-  validates :phone_number, :presence => true, :format => {with: /\d{10}/, message: "(Only 10 digit numbers are allowed)"}, 
-  	numericality: {only_integer: true}
+  validates :phone_number, :presence => true, :format => {with: /\d{10}/, message: "(Only 10 digit numbers are allowed)"}, numericality: {only_integer: true}
   validates :address, :presence => true
   validates :postal_code, :presence => true
-  
 end
