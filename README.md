@@ -19,14 +19,14 @@ Install Rails ERD
 -----------------
 http://rails-erd.rubyforge.org/install.html
 
-  $ brew install cairo pango graphviz
-  $ rake erd
+     $ brew install cairo pango graphviz
+     $ rake erd
 
 Setup for local
 ---------------
-  $ bundle install
-  $ rake db:migrate
-  $ rake db:populate
+     $ bundle install
+     $ rake db:migrate
+     $ rake db:populate
 
 To Dos:
 --------
