@@ -37,6 +37,7 @@ To Dos:
 2. ~~Add :active field to Restaurants - not accessible through users and forms. Change :postal_code to :string~~
 2. ~~Allow users to follow each other~~
 2. ~~Bug: users that follow can't see each other's lists~~
+2. Add SSL/https to signon
 2. Email verification - ~~welcome email~~, ~~forgotten passwords~~, account activation (working on this)
 4. Add facebook connect that suggests friends already in their fb network to follow
 2. Validation for places to eat - know when someone enters a valid restaurant
@@ -44,6 +45,5 @@ To Dos:
 4. Integrate google maps for each of the lists in each city
 3. Allow users to sync with selected people they follow
 2. Allow users to click through list_items to view details on restaurants
-2. Get off of Gravatar
-5. Create JSON API so we can start the native iOS app
-5. Add SSL/https to signon
+2. Create JSON API so we can start the native iOS app
+5. Get off of Gravatar
