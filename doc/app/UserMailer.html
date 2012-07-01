@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
-<title>module ApplicationHelper - Rails Application Documentation</title>
+<title>class UserMailer - Rails Application Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -20,7 +20,7 @@
 <script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
 
 
-<body id="top" class="module">
+<body id="top" class="class">
 <nav id="metadata">
   <nav id="home-section" class="section">
   <h3 class="section-header">
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>app/helpers/application_helper.rb
+    <li>app/mailers/user_mailer.rb
   </ul>
 </nav>
 
@@ -56,7 +56,13 @@
 
   <div id="class-metadata">
     
-    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActionMailer::Base
+  
+</nav>
+
     
     <!-- Method Quickref -->
 <nav id="method-list-section" class="section">
@@ -64,7 +70,9 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-i-full_title">#full_title</a>
+    <li><a href="#method-i-password_reset">#password_reset</a>
+    
+    <li><a href="#method-i-welcome_email">#welcome_email</a>
     
   </ul>
 </nav>
@@ -136,7 +144,7 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="module">module ApplicationHelper</h1>
+  <h1 class="class">class UserMailer</h1>
 
   <div id="description" class="description">
     
@@ -160,39 +168,68 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-full_title" class="method-detail ">
+      <div id="method-i-password_reset" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">full_title</span><span
-            class="method-args">(page_title)</span>
+          <span class="method-name">password_reset</span><span
+            class="method-args">(user)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
 
         <div class="method-description">
           
-          <p>returns the full title on a per page basis</p>
+          
           
 
           
-          <div class="method-source-code" id="full_title-source">
-            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 3</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">full_title</span> <span class="ruby-identifier">page_title</span>
-  <span class="ruby-identifier">base_title</span> = <span class="ruby-string">'Bitelist'</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">page_title</span>.<span class="ruby-identifier">empty?</span>
-    <span class="ruby-identifier">base_title</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-node">&quot;#{base_title} | #{page_title}&quot;</span>
-  <span class="ruby-keyword">end</span>
+          <div class="method-source-code" id="password_reset-source">
+            <pre><span class="ruby-comment"># File app/mailers/user_mailer.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">password_reset</span>(<span class="ruby-identifier">user</span>)
+  <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
+  <span class="ruby-identifier">mail</span>(<span class="ruby-identifier">to</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Bitelist Password Reset&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- full_title-source -->
+          </div><!-- password_reset-source -->
           
         </div>
 
         
 
         
-      </div><!-- full_title-method -->
+      </div><!-- password_reset-method -->
+
+    
+      <div id="method-i-welcome_email" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">welcome_email</span><span
+            class="method-args">(user)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="welcome_email-source">
+            <pre><span class="ruby-comment"># File app/mailers/user_mailer.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">welcome_email</span>(<span class="ruby-identifier">user</span>)
+  <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
+  <span class="ruby-ivar">@url</span> = <span class="ruby-string">'http://www.bitelist.com/signin'</span>
+
+  <span class="ruby-identifier">mail</span>(<span class="ruby-identifier">to</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Welcome to Bitelist&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- welcome_email-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- welcome_email-method -->
 
     
     </section><!-- public-instance-method-details -->

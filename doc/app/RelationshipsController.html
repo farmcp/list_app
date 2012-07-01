@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
-<title>module ApplicationHelper - Rails Application Documentation</title>
+<title>class RelationshipsController - Rails Application Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -20,7 +20,7 @@
 <script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
 
 
-<body id="top" class="module">
+<body id="top" class="class">
 <nav id="metadata">
   <nav id="home-section" class="section">
   <h3 class="section-header">
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>app/helpers/application_helper.rb
+    <li>app/controllers/relationships_controller.rb
   </ul>
 </nav>
 
@@ -56,7 +56,13 @@
 
   <div id="class-metadata">
     
-    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</nav>
+
     
     <!-- Method Quickref -->
 <nav id="method-list-section" class="section">
@@ -64,7 +70,9 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-i-full_title">#full_title</a>
+    <li><a href="#method-i-create">#create</a>
+    
+    <li><a href="#method-i-destroy">#destroy</a>
     
   </ul>
 </nav>
@@ -136,7 +144,7 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="module">module ApplicationHelper</h1>
+  <h1 class="class">class RelationshipsController</h1>
 
   <div id="description" class="description">
     
@@ -160,39 +168,70 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-full_title" class="method-detail ">
+      <div id="method-i-create" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">full_title</span><span
-            class="method-args">(page_title)</span>
+          <span class="method-name">create</span><span
+            class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
 
         <div class="method-description">
           
-          <p>returns the full title on a per page basis</p>
+          
           
 
           
-          <div class="method-source-code" id="full_title-source">
-            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 3</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">full_title</span> <span class="ruby-identifier">page_title</span>
-  <span class="ruby-identifier">base_title</span> = <span class="ruby-string">'Bitelist'</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">page_title</span>.<span class="ruby-identifier">empty?</span>
-    <span class="ruby-identifier">base_title</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-node">&quot;#{base_title} | #{page_title}&quot;</span>
-  <span class="ruby-keyword">end</span>
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File app/controllers/relationships_controller.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
+  <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:relationship</span>][<span class="ruby-value">:followed_id</span>])
+  <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">follow!</span>(<span class="ruby-ivar">@user</span>)
+  <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-node">&quot;You're following #{@user.first_name} #{@user.last_name}!&quot;</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@user</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- full_title-source -->
+          </div><!-- create-source -->
           
         </div>
 
         
 
         
-      </div><!-- full_title-method -->
+      </div><!-- create-method -->
+
+    
+      <div id="method-i-destroy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="destroy-source">
+            <pre><span class="ruby-comment"># File app/controllers/relationships_controller.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
+  <span class="ruby-ivar">@user</span> = <span class="ruby-constant">Relationship</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">followed</span>
+  <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">unfollow!</span>(<span class="ruby-ivar">@user</span>)
+  <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-node">&quot;You don't follow #{@user.first_name} #{@user.last_name} anymore.&quot;</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@user</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- destroy-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- destroy-method -->
 
     
     </section><!-- public-instance-method-details -->

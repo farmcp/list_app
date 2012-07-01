@@ -76,6 +76,10 @@
     
     <li><a href="#method-i-edit">#edit</a>
     
+    <li><a href="#method-i-followers">#followers</a>
+    
+    <li><a href="#method-i-following">#following</a>
+    
     <li><a href="#method-i-index">#index</a>
     
     <li><a href="#method-i-new">#new</a>
@@ -115,9 +119,21 @@
   
     <li><a href="./ListItem.html">ListItem</a>
   
+    <li><a href="./ListItemsController.html">ListItemsController</a>
+  
     <li><a href="./ListsController.html">ListsController</a>
   
+    <li><a href="./PasswordResetsController.html">PasswordResetsController</a>
+  
+    <li><a href="./PasswordResetsHelper.html">PasswordResetsHelper</a>
+  
+    <li><a href="./Relationship.html">Relationship</a>
+  
+    <li><a href="./RelationshipsController.html">RelationshipsController</a>
+  
     <li><a href="./Restaurant.html">Restaurant</a>
+  
+    <li><a href="./RestaurantsController.html">RestaurantsController</a>
   
     <li><a href="./SessionsController.html">SessionsController</a>
   
@@ -128,6 +144,8 @@
     <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
   
     <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
   
     <li><a href="./UsersController.html">UsersController</a>
   
@@ -175,18 +193,21 @@
 
         <div class="method-description">
           
-          <p>POST /users</p>
+          
           
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 15</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-comment">#if the user passes all the validation - save the user to the database</span>
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">save</span>
     <span class="ruby-comment">#send a flash hash to view to alert the user they have signed in successfully</span>
     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-string">&quot;You have successfully logged in &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">first_name</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;!&quot;</span>
+
+    <span class="ruby-comment">#send a welcome email to the new user</span>
+    <span class="ruby-constant">UserMailer</span>.<span class="ruby-identifier">welcome_email</span>(<span class="ruby-ivar">@user</span>).<span class="ruby-identifier">deliver</span>
 
     <span class="ruby-comment">#sign the user in by dropping a cookie</span>
     <span class="ruby-identifier">sign_in</span> <span class="ruby-ivar">@user</span>
@@ -225,7 +246,7 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 65</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-string">&quot;User has been removed.&quot;</span>
@@ -252,14 +273,12 @@
 
         <div class="method-description">
           
-          <p>GET /users/:id/edit =&gt; this is the GET page to show a user with :id the
-edit page the submission will be a PUT request redirecting the user to
-update method in controller</p>
+          
           
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 42</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
@@ -270,6 +289,72 @@ update method in controller</p>
 
         
       </div><!-- edit-method -->
+
+    
+      <div id="method-i-followers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">followers</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="followers-source">
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">followers</span>
+  <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Followers&quot;</span>
+  <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@users</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">followers</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
+  <span class="ruby-identifier">render</span> <span class="ruby-string">'show_follow'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- followers-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- followers-method -->
+
+    
+      <div id="method-i-following" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">following</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="following-source">
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 64</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">following</span>
+  <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Following&quot;</span>
+  <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@users</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">followed_users</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
+  <span class="ruby-identifier">render</span> <span class="ruby-string">'show_follow'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- following-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- following-method -->
 
     
       <div id="method-i-index" class="method-detail ">
@@ -283,15 +368,13 @@ update method in controller</p>
 
         <div class="method-description">
           
-          <p>GET request for /users/</p>
+          
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 59</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 54</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-comment">#use the will_paginate gem .paginate method =&gt; .paginate(page_number) returns numbers 1-30, 31-60, etc. params[:page] is</span>
-  <span class="ruby-comment">#generated automatically by will_paginate</span>
   <span class="ruby-ivar">@users</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
@@ -315,13 +398,12 @@ update method in controller</p>
 
         <div class="method-description">
           
-          <p>GET /users/new =&gt; this is the GET page to start creating another <a
-href="User.html">User</a></p>
+          
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 10</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
@@ -346,7 +428,7 @@ href="User.html">User</a></p>
 
         <div class="method-description">
           
-          <p>GET /users/:id =&gt; this is the GET page to show a user with :id</p>
+          
           
 
           
@@ -377,13 +459,12 @@ href="User.html">User</a></p>
 
         <div class="method-description">
           
-          <p>update the user’s profile using this method =&gt; it is PUT request to the
-server on the submission of the form</p>
+          
           
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 46</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
     <span class="ruby-comment">#if you can update a user then handle the update for the user</span>
@@ -391,7 +472,6 @@ server on the submission of the form</p>
     <span class="ruby-identifier">sign_in</span> <span class="ruby-ivar">@user</span>
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@user</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-comment">#unsuccessful update</span>
     <span class="ruby-identifier">render</span> <span class="ruby-string">'edit'</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
