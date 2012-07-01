@@ -6,12 +6,10 @@ class UsersController < ApplicationController
   #make sure the correct user is signed in to edit the profile - users can see each other's pages
   before_filter :correct_user, only:[:edit, :update]
 
-  #GET /users/new => this is the GET page to start creating another User
   def new
     @user = User.new
   end
 
-  #POST /users
   def create
     #if the user passes all the validation - save the user to the database
     @user = User.new(params[:user])
@@ -34,18 +32,14 @@ class UsersController < ApplicationController
     end
   end
 
-  #GET /users/:id => this is the GET page to show a user with :id
   def show
     @user = User.find(params[:id])
     @lists = @user.lists.paginate(page: params[:page])
   end
 
-  #GET /users/:id/edit => this is the GET page to show a user with :id the edit page the submission will be a PUT request
-  #redirecting the user to update method in controller
   def edit
   end
 
-  #update the user's profile using this method => it is PUT request to the server on the submission of the form
   def update
     if @user.update_attributes(params[:user])
       #if you can update a user then handle the update for the user
@@ -53,15 +47,11 @@ class UsersController < ApplicationController
       sign_in @user
       redirect_to @user
     else
-      #unsuccessful update
       render 'edit'
     end
   end
 
-  #GET request for /users/
   def index
-    #use the will_paginate gem .paginate method => .paginate(page_number) returns numbers 1-30, 31-60, etc. params[:page] is
-    #generated automatically by will_paginate
     @users = User.paginate(page: params[:page])
   end
 
@@ -85,21 +75,12 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
-
-####################################
-#private methods for users
-####################################
   private
 
   def correct_user
-
-    #define the user for the :edit and :update methods
     @user = User.find(params[:id])
 
-    #unless the user is the current user then redirect to the root path
-    if current_user?(@user)
-
-    else
+    unless current_user?(@user)
       flash[:notice] = "You do not have access to this page."
       redirect_to new_session_path
     end
