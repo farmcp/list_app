@@ -18,6 +18,11 @@ gem 'faker'
 
 group :development do
   gem "rails-erd"
+  gem 'rspec'
+end
+
+group :test, :development do
+  gem "rspec-rails", "~> 2.0"
 end
 
 group :assets do
