@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
 
   def full_name
-    [first_name, last_name].join(' ')
+    "#{first_name} #{last_name}"
   end
 
   def following?(other_user)
