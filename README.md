@@ -41,7 +41,7 @@ To Dos:
 2. Email verification - ~~welcome email~~, ~~forgotten passwords~~, account activation (delaying this)
 4. Add facebook connect that suggests friends already in their fb network to follow
 2. Validation for places to eat - know when someone enters a valid restaurant
-3. Able to search users on app through Friends tab
+3. Able to search users on app through Friends tab - add Search button to friends tab
 4. Integrate google maps for each of the lists in each city
 3. Allow users to sync with selected people they follow
 2. Allow users to click through list_items to view details on restaurants
