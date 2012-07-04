@@ -1,10 +1,13 @@
 class ListItemsController < ApplicationController
 
   def create
+    #get the restaurant
     restaurant_name = params[:restaurant][:name]
     input_restaurant = Restaurant.find_by_name(restaurant_name)
+    #get the list_id and user itmes
     list_id = params[:restaurant][:list_id]
     user_items = current_user.lists.find(list_id).list_items
+    #get the current city
     current_city = List.find(list_id).city
 
     #if a restaurant exists for a specific city then find it and capture that as a variable. if it doesn't exist then create a new restaurant (Restaurant.create)
