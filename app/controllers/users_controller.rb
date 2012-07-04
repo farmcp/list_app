@@ -48,6 +48,7 @@ class UsersController < ApplicationController
   end
 
   def index
+    #see if this is a search. if it's a search then search and return users in an array. if not return all users
     if params[:search]
       @users = User.find(:all, conditions: ['lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{params[:search].downcase}%", "%#{params[:search].downcase}%"]).paginate(page: params[:page], per_page: 10)
     else
