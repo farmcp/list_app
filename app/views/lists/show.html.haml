@@ -24,10 +24,8 @@
             = image_tag(item.restaurant.picture_url, size:'30x30')
 
           - if item.restaurant.name.length < 15
-            .pull-left.list-item-text
-            = link_to item.restaurant.name, '#'
+            = link_to item.restaurant.name, '#', class: 'pull-left list-item-text'
           - else
-            .pull-left.list-item-text
-              = link_to truncate(item.restaurant.name.to_s, length: 15), '#'
+            = link_to truncate(item.restaurant.name.to_s, length: 15), '#', class: 'pull-left list-item-text'
           - if current_user? @list.user
             = link_to "Remove", item, method: :delete, confirm: "Are you sure you want to delete this Bite?", class: 'btn btn-danger pull-right list-remove-button'
