@@ -51,7 +51,7 @@ class UsersController < ApplicationController
     if params[:search]
       @users = User.find(:all, conditions: ['lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{params[:search].downcase}%", "%#{params[:search].downcase}%"]).paginate(page: params[:page], per_page: 10)
     else
-      @users = User.paginate(page: params[:page])
+      @users = User.paginate(page: params[:page], per_page:10)
     end
   end
 
