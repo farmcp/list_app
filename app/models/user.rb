@@ -75,6 +75,15 @@ class User < ActiveRecord::Base
     UserMailer.password_reset(self).deliver
   end
 
+  #create a search on a query
+  def self.search(query)
+    if query
+      find(:all, conditions: ['lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%"])
+    else
+      find(:all)
+    end
+  end
+
   private
 
   def create_remember_token
