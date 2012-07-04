@@ -1,7 +1,14 @@
 = provide(:title, 'All Users')
 
-%h1.big_title
-  All users
+.btn-group-wrap{style:'text-align:center;'}
+  .btn-group{style: 'display: inline-block; text-align:center; width:inherit;'}
+    =link_to "All Users", users_path, class: 'btn active'
+    =link_to "Search", '#', class:'btn'
+
+%br/
+
+%h1{style:'text-align:center;'} All Users
+
 
 - # render the followers and followeds
 %section{style: 'position:absolute; left: 50%; margin-left:-65px;'}
@@ -9,7 +16,7 @@
 %br/
 %br/
 
-= will_paginate(:page_links => false)
+
 %ul.users
   - @users.each do |user|
     %li
