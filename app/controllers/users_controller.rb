@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class UsersController < ApplicationController
 
   #calls this before any of the other defined actions (here just :edit and :update) in this controller
@@ -46,7 +48,11 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.paginate(page: params[:page])
+    if params[:search]
+      @users = User.find(:all, conditions: ['lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{params[:search].downcase}%", "%#{params[:search].downcase}%"]).paginate(page: params[:page], per_page: 10)
+    else
+      @users = User.paginate(page: params[:page])
+    end
   end
 
   def destroy

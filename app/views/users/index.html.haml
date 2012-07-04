@@ -1,13 +1,6 @@
-= provide(:title, 'All Users')
+= provide(:title, 'Search')
 
-.btn-group-wrap{style:'text-align:center;'}
-  .btn-group{style: 'display: inline-block; text-align:center; width:inherit;'}
-    =link_to "All Users", users_path, class: 'btn active'
-    =link_to "Search", '#', class:'btn'
-
-%br/
-
-%h1{style:'text-align:center;'} All Users
+%h1{style:'text-align:center;'} Search Friends
 
 
 - # render the followers and followeds
@@ -15,6 +8,13 @@
   = render 'layouts/stats'
 %br/
 %br/
+%br/
+
+.row
+  .span6.offset3
+    = form_tag users_path, method: 'get' do
+      = text_field_tag :search, params[:search], style: 'width: 84%;'
+      = submit_tag "Search", name: nil, class: 'btn btn-primary', style: 'height:40px;'
 
 
 %ul.users
