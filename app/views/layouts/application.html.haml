@@ -8,6 +8,7 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
     = render 'layouts/shim'
+    = stylesheet_link_tag "gmaps4rails"
 
     %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0"}
   %body
@@ -20,3 +21,5 @@
       = yield
 
       = render 'layouts/footer'
+
+      = yield :scripts

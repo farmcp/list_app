@@ -41,7 +41,17 @@ class ListsController < ApplicationController
   def show
     #if the list exists then store a class variable for the list to catch on the view
     if List.find_by_id(params[:id]) and current_user
+      #get the list from the id that's passed in
       @list = List.find_by_id(params[:id])
+
+      #go through the list and create array of restaurants
+      @restaurants = Array.new
+      @list.list_items.each do |item|
+        @restaurants << item.restaurant
+      end
+
+      #get the json for the maps
+      @maps_json = @restaurants.to_gmaps4rails
 
       #pass in a variable to create a new List Item if the user enters a name into the text_field
       @list_item = ListItem.new
