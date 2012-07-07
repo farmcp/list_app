@@ -36,6 +36,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'gmaps4rails'
 gem 'jquery-rails'
 gem 'haml'
 gem 'haml-rails', '= 0.3.4'
