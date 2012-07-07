@@ -14,6 +14,9 @@
 #  updated_at   :datetime        not null
 #  city_id      :integer
 #  active       :boolean
+#  latitude     :float
+#  longitude    :float
+#  gmaps        :boolean
 #
 
 class Restaurant < ActiveRecord::Base
@@ -29,4 +32,9 @@ class Restaurant < ActiveRecord::Base
   validates :phone_number, :presence => true, :format => {with: /\d{10}/, message: "(Only 10 digit numbers are allowed)"}, numericality: {only_integer: true}
   validates :address, :presence => true
   validates :postal_code, :presence => true
+
+  acts_as_gmappable
+  def gmaps4rails_address
+    "#{self.address}, #{City.find(self.city_id)}, #{self.postal_code}"
+  end
 end
