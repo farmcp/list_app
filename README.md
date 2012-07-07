@@ -48,3 +48,8 @@ To Dos:
 2. Create JSON API so we can start the native iOS app
 5. Get off of Gravatar
 2. Email verification - account activation
+
+
+Gem Documentation:
+-------------------
+`gmaps4rails` https://github.com/apneadiving/Google-Maps-for-Rails
