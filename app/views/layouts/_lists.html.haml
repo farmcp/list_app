@@ -1,0 +1,6 @@
+- @lists.each do |list|
+  %li
+    .well
+      %h3.pull-left= link_to list.city.name, list
+      - if current_user?(list.user)
+        = link_to "Remove", list, method: :delete, confirm: "Are you sure you want to delete this List?", style: "font-size: 11px; margin-top:-3px;", class: 'btn btn-danger pull-right'
