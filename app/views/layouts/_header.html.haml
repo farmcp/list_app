@@ -10,7 +10,7 @@
         %nav
           %ul.nav.pull-right
             - if signed_in?
-              %li= link_to "Profile", current_user
+              %li= link_to "My Lists", current_user
               %li= link_to "Find Biters", users_path
               %li#fat-menu.dropdown
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
