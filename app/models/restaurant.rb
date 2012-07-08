@@ -26,7 +26,7 @@ class Restaurant < ActiveRecord::Base
 
   #a restaurant belongs to many cities (especially if it's a restaurant chain)
   belongs_to :cities
-  has_one :list_item
+  has_one :list_item, :dependent => :destroy
 
   validates :name, :presence => true
   validates :phone_number, :presence => true, :format => {with: /\d{10}/, message: "(Only 10 digit numbers are allowed)"}, numericality: {only_integer: true}

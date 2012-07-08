@@ -14,7 +14,7 @@ class List < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :city
-  has_many :list_items
+  has_many :list_items, :dependent => :destroy
 
   validates :user_id, :city_id, :presence => true
 end
