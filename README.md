@@ -45,8 +45,9 @@ To Dos:
 5. ~~BUG: maps not fully accurate with geocoding~~
 3. Allow users to sync with selected people they follow
 2. Allow users to click through list_items to view details on restaurants
-2. Create JSON API so we can start the native iOS app
 5. Get off of Gravatar
+6. Add images to cities
+2. Create JSON API so we can start the native iOS app
 2. Email verification - account activation
 
 
