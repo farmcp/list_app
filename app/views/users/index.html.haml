@@ -2,7 +2,6 @@
 
 %h1{style:'text-align:center;'} Find Biters
 
-
 - # render the followers and followeds
 %section{style: 'position:absolute; left: 50%; margin-left:-65px;'}
   = render 'layouts/stats'
@@ -15,7 +14,6 @@
     = form_tag users_path, method: 'get' do
       = text_field_tag :search, params[:search], style: 'width: 75%%;'
       = submit_tag "Search", name: nil, class: 'btn btn-primary', style: 'height:40px;'
-
 
 %ul.users
   - @users.each do |user|

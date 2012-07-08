@@ -1,0 +1,10 @@
+@user ||= current_user %>
+.stats
+  = link_to following_user_path(@user) do
+    %strong#following.stat
+      = @user.followed_users.count
+    following
+  = link_to followers_user_path(@user) do
+    %strong#followers.stat
+      = @user.followers.count %>
+    followers

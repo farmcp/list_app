@@ -15,8 +15,8 @@
       = f.label "Postal Code"
       = f.text_field :postal_code
 
-      = fields_for :city, @city do |u|
+      = fields_for :city do |u|
         = u.label "City"
-        = u.select :name, options_for_select(City.select_options), include_blank: 'Select a city'
+        = u.select :name, options_for_select(City.select_options)
 
       = f.submit "Request Restaurant", class: "btn btn-primary"
