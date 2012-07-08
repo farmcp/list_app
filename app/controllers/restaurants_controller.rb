@@ -3,7 +3,6 @@ class RestaurantsController < ApplicationController
   #GET page for creating a new restaurant
   def new
     @restaurant = Restaurant.new
-    @city = City.new
   end
 
   #POST action for creating a new restaurant
