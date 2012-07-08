@@ -1,12 +1,5 @@
-<% if @restaurant.errors.any? %>
-  <div id="error_explanation">
-    <div class="alert alert-error">
-      The form contains <%= pluralize(@restaurant.errors.count, "error") %>.
-    </div>
-    <ul>
-      <% @restaurant.errors.full_messages.each do |msg| %>
-        <li>* <%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+- if @restaurant.errors.any?
+  #error_explanation
+    %ul
+      - @restaurant.errors.full_messages.each do |msg|
+        %li= msg
