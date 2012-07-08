@@ -12,12 +12,18 @@ class ListItemsController < ApplicationController
 
     #if a restaurant exists for a specific city then find it and capture that as a variable. if it doesn't exist then create a new restaurant (Restaurant.create)
     if(input_restaurant and current_city.restaurants.all.include?input_restaurant and input_restaurant.active)
+      #get the ids for the restaurants in the current list => need to check if the id exists in the list
+      restaurant_ids = Array.new
 
-      #current_list.list_items.create(:restaurant_id => restaurant_variable.id)
-      #used a hidden field to pass in the list_id that this POST request was sent from
-      user_items.create(:restaurant_id => input_restaurant.id)
-      flash[:success] = "Added #{input_restaurant.name} to your Bite List!"
-
+      #populate array with restaurant ids that exist
+      user_items.each {|item| restaurant_ids << item.restaurant.id}
+      if(restaurant_ids.include?input_restaurant.id)
+        flash[:error] = "The restaurant already exists in your Bite List."
+      else
+        #used a hidden field to pass in the list_id that this POST request was sent from
+        user_items.create(:restaurant_id => input_restaurant.id)
+        flash[:success] = "Added #{input_restaurant.name} to your Bite List!"
+      end
     else
       #create a new Restaurant with the name that was entered
       #TODO: need to make a more complete form for filling out new restaurants - need to add validation for restaurants
