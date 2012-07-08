@@ -10,14 +10,13 @@ class ListItemsController < ApplicationController
     #get the current city
     current_city = List.find(list_id).city
 
-    #if a restaurant exists for a specific city then find it and capture that as a variable. if it doesn't exist then create a new restaurant (Restaurant.create)
-    if(input_restaurant and current_city.restaurants.all.include?input_restaurant and input_restaurant.active)
+    # if a restaurant exists for a specific city then find it and capture that as a variable.
+    # if it doesn't exist then create a new restaurant (Restaurant.create)
+    if input_restaurant && input_restaurant.city == current_city && input_restaurant.active?
       #get the ids for the restaurants in the current list => need to check if the id exists in the list
-      restaurant_ids = Array.new
+      restaurant_ids = user_items.map(&:restaurant_id)
 
-      #populate array with restaurant ids that exist
-      user_items.each {|item| restaurant_ids << item.restaurant.id}
-      if(restaurant_ids.include?input_restaurant.id)
+      if restaurant_ids.include? input_restaurant.id
         flash[:error] = "The restaurant already exists in your Bite List."
       else
         #used a hidden field to pass in the list_id that this POST request was sent from
