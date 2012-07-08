@@ -14,7 +14,6 @@
       = render 'layouts/stats'
 
   .span8
-
     - # only can show when a user is logged in or has something in their lists
     - if current_user and @user.lists.any?
       %h3.big_title

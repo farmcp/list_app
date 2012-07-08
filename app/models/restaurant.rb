@@ -20,21 +20,28 @@
 #
 
 class Restaurant < ActiveRecord::Base
+  acts_as_gmappable
+
   # attr_accessible :title, :body
   #not sure we want to expose all fo these fields
   attr_accessible :name, :phone_number, :category, :address, :postal_code, :city_id
 
-  #a restaurant belongs to many cities (especially if it's a restaurant chain)
-  belongs_to :cities
+  #a restaurant belongs to a single city (create new entry for each restaurant chain location)
+  belongs_to :city
   has_one :list_item, :dependent => :destroy
 
   validates :name, :presence => true
-  validates :phone_number, :presence => true, :format => {with: /\d{10}/, message: "(Only 10 digit numbers are allowed)"}, numericality: {only_integer: true}
+  validates :phone_number, allow_blank: true, :format => {with: /\d{10}/, message: "(Only 10 digit numbers are allowed)"}, numericality: {only_integer: true}
   validates :address, :presence => true
   validates :postal_code, :presence => true
 
-  acts_as_gmappable
+  before_validation :fix_phone_number
+
   def gmaps4rails_address
-    "#{self.address}, #{City.find(self.city_id).name}, #{City.find(self.city_id).state},#{self.postal_code}"
+    "#{address}, #{city.name}, #{city.state} #{postal_code}"
+  end
+
+  def fix_phone_number
+    self.phone_number = phone_number.to_s.gsub(/\D/, '')
   end
 end
