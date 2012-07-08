@@ -35,6 +35,6 @@ class Restaurant < ActiveRecord::Base
 
   acts_as_gmappable
   def gmaps4rails_address
-    "#{self.address}, #{City.find(self.city_id)}, #{self.postal_code}"
+    "#{self.address}, #{City.find(self.city_id).name}, #{City.find(self.city_id).state},#{self.postal_code}"
   end
 end
