@@ -12,6 +12,4 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail(to: user.email, subject: "Bitelist Password Reset")
   end
-
-
 end
