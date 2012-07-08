@@ -28,7 +28,7 @@ class Restaurant < ActiveRecord::Base
 
   #a restaurant belongs to a single city (create new entry for each restaurant chain location)
   belongs_to :city
-  has_one :list_item
+  has_one :list_item, :dependent => :destroy
 
   validates :name, :presence => true
   validates :phone_number, allow_blank: true, :format => {with: /\d{10}/, message: "(Only 10 digit numbers are allowed)"}, numericality: {only_integer: true}
@@ -38,7 +38,7 @@ class Restaurant < ActiveRecord::Base
   before_validation :fix_phone_number
 
   def gmaps4rails_address
-    "#{address}, #{city}, #{postal_code}"
+    "#{address}, #{city.name}, #{city.state} #{postal_code}"
   end
 
   def fix_phone_number

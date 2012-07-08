@@ -42,7 +42,7 @@ To Dos:
 2. Validation for places to eat - know when someone enters a valid restaurant and populating the database
 3. ~~Able to search users on app through Friends tab - add Search button to friends tab (working on this)~~
 4. ~~Integrate google maps for each of the lists in each city~~
-5. BUG: maps not fully accurate with geocoding
+5. ~~BUG: maps not fully accurate with geocoding~~
 3. Allow users to sync with selected people they follow
 2. Allow users to click through list_items to view details on restaurants
 2. Create JSON API so we can start the native iOS app
