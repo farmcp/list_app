@@ -21,4 +21,8 @@ class City < ActiveRecord::Base
   def self.select_options
     where(:active => true).map{|city| [city.name, city.id]}
   end
+
+  def name_with_state
+    state.present? ? "#{name}, #{state}" : name
+  end
 end

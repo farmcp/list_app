@@ -1,6 +1,6 @@
 - @lists.each do |list|
   %li
     .well
-      %h3.pull-left= link_to list.city.name.to_s + ", " + list.city.state.to_s, list
+      %h3.pull-left= link_to list.city.name_with_state, list
       - if current_user?(list.user)
         = link_to 'x', list, method: :delete, confirm: "Are you sure you want to delete this List?", style: "font-size: 20px; font-style:bold; margin-top:-3px;", class: 'close'
