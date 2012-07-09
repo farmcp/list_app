@@ -8,7 +8,7 @@ class RestaurantsController < ApplicationController
   #POST action for creating a new restaurant
   def create
 
-    #TODO: Need to check if the Restaurant exists already. Need to change the restaurant model zipcode to :string.
+    #TODO: Need to check if the Restaurant exists already.
     @restaurant = Restaurant.new(params[:restaurant])
     city_input = City.find(params[:city][:name])
 
