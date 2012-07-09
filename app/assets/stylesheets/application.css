@@ -15,3 +15,6 @@
 .big_title {
   text-align: center;
 }
+.full_width {
+  width: 100% !important;
+}
