@@ -37,12 +37,12 @@ To Dos:
 2. ~~Add :active field to Restaurants - not accessible through users and forms. Change :postal_code to :string~~
 2. ~~Allow users to follow each other~~
 2. ~~Bug: users that follow can't see each other's lists~~
-2. Add SSL/https to signon
-4. Add facebook connect that suggests friends already in their fb network to follow
-2. Validation for places to eat - know when someone enters a valid restaurant and populating the database
 3. ~~Able to search users on app through Friends tab - add Search button to friends tab (working on this)~~
 4. ~~Integrate google maps for each of the lists in each city~~
 5. ~~BUG: maps not fully accurate with geocoding~~
+2. Add SSL/https to signon
+4. Add facebook connect that suggests friends already in their fb network to follow
+2. Validation for places to eat - know when someone enters a valid restaurant and populating the database
 3. Allow users to sync with selected people they follow
 2. Allow users to click through list_items to view details on restaurants
 5. Get off of Gravatar - handle image storage with aws S3
