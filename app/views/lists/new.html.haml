@@ -8,10 +8,12 @@
     = render 'layouts/error_messages_lists'
 .row
   .span2.offset4
+    = image_submit_tag 'sf.jpg'
     = form_for @list do |f|
       = f.hidden_field :city_id, :value => @sfo.id
       = f.submit "SF", class: "btn btn-large btn-primary", :style => "width: 100%;"
   .span2
     = form_for @list do |f|
+      = image_submit_tag 'boston.jpg'
       = f.hidden_field :city_id, :value => @bos.id
       = f.submit "Boston", class: "btn btn-large btn-primary", :style => "width: 100%;"
