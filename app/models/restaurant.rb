@@ -42,6 +42,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def fix_phone_number
+    #get rid of all non digits then validate
     self.phone_number = phone_number.to_s.gsub(/\D/, '')
   end
 end
