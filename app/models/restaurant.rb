@@ -37,12 +37,13 @@ class Restaurant < ActiveRecord::Base
 
   before_validation :fix_phone_number
 
+  #pass in the location so that can set model lat/lng data
   def gmaps4rails_address
     "#{address}, #{city.name}, #{city.state} #{postal_code}"
   end
-
+  
+  #get rid of all non digits then validate
   def fix_phone_number
-    #get rid of all non digits then validate
     self.phone_number = phone_number.to_s.gsub(/\D/, '')
   end
 end

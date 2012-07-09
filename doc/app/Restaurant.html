@@ -199,14 +199,13 @@ gmaps        :boolean</pre>
 
         <div class="method-description">
           
-          
+          <p>get rid of all non digits then validate</p>
           
 
           
           <div class="method-source-code" id="fix_phone_number-source">
-            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 44</span>
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">fix_phone_number</span>
-  <span class="ruby-comment">#get rid of all non digits then validate</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">phone_number</span> = <span class="ruby-identifier">phone_number</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r\D/</span>, <span class="ruby-string">''</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- fix_phone_number-source -->
@@ -230,12 +229,12 @@ gmaps        :boolean</pre>
 
         <div class="method-description">
           
-          
+          <p>pass in the location so that can set model lat/lng data</p>
           
 
           
           <div class="method-source-code" id="gmaps4rails_address-source">
-            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 40</span>
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 41</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">gmaps4rails_address</span>
   <span class="ruby-node">&quot;#{address}, #{city.name}, #{city.state} #{postal_code}&quot;</span>
 <span class="ruby-keyword">end</span></pre>

@@ -179,12 +179,12 @@
 
         <div class="method-description">
           
-          
+          <p>send the user a password reset email</p>
           
 
           
           <div class="method-source-code" id="password_reset-source">
-            <pre><span class="ruby-comment"># File app/mailers/user_mailer.rb, line 11</span>
+            <pre><span class="ruby-comment"># File app/mailers/user_mailer.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">password_reset</span>(<span class="ruby-identifier">user</span>)
   <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
   <span class="ruby-identifier">mail</span>(<span class="ruby-identifier">to</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Bitelist Password Reset&quot;</span>)
@@ -210,12 +210,12 @@
 
         <div class="method-description">
           
-          
+          <p>send the user a welcome email</p>
           
 
           
           <div class="method-source-code" id="welcome_email-source">
-            <pre><span class="ruby-comment"># File app/mailers/user_mailer.rb, line 4</span>
+            <pre><span class="ruby-comment"># File app/mailers/user_mailer.rb, line 5</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">welcome_email</span>(<span class="ruby-identifier">user</span>)
   <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
   <span class="ruby-ivar">@url</span> = <span class="ruby-string">'http://www.bitelist.com/signin'</span>
