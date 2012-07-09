@@ -71,7 +71,7 @@ ListApp::Application.configure do
   :port                 => 587,
   :domain               => 'bitelist.com',
   :user_name            => 'info@bitelist.com',
-  :password             => 'bitelist123!',
+  :password             => 'bitelist123',
   :authentication       => 'plain',
   :enable_starttls_auto => true  }
 

@@ -2,10 +2,18 @@ class PasswordResetsController < ApplicationController
   def new
   end
 
+  #check to make sure that the user is valid before sending mail
   def create
     user = User.find_by_email(params[:email])
-    user.send_password_reset if user
-    redirect_to signin_path, :notice => "Email sent with password reset instructions."
+    if user
+      user.send_password_reset 
+      flash[:success] = "Email sent with password reset instructions."
+      redirect_to signin_path
+    else
+      flash[:error] = "This user does not exist on Bitelist. Feel free to register below!"
+      redirect_to signup_path
+    end
+
   end
 
   def edit

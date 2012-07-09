@@ -64,6 +64,7 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(other_user.id).destroy
   end
 
+  #send the password reset after generating and storing a new token
   def send_password_reset
     # generate a new token to reset password after email is asked for
     generate_token(:password_reset_token)
