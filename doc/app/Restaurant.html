@@ -64,7 +64,19 @@
 </nav>
 
     
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
     
+    <li><a href="#method-i-fix_phone_number">#fix_phone_number</a>
+    
+    <li><a href="#method-i-gmaps4rails_address">#gmaps4rails_address</a>
+    
+  </ul>
+</nav>
+
   </div>
 
   <div id="project-metadata">
@@ -151,7 +163,10 @@ comments     :string(255)
 created_at   :datetime        not null
 updated_at   :datetime        not null
 city_id      :integer
-active       :boolean</pre>
+active       :boolean
+latitude     :float
+longitude    :float
+gmaps        :boolean</pre>
 
   </div><!-- description -->
 
@@ -169,6 +184,73 @@ active       :boolean</pre>
 
     <!-- Methods -->
     
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-fix_phone_number" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fix_phone_number</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="fix_phone_number-source">
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fix_phone_number</span>
+  <span class="ruby-comment">#get rid of all non digits then validate</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">phone_number</span> = <span class="ruby-identifier">phone_number</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r\D/</span>, <span class="ruby-string">''</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- fix_phone_number-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- fix_phone_number-method -->
+
+    
+      <div id="method-i-gmaps4rails_address" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">gmaps4rails_address</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="gmaps4rails_address-source">
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 40</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">gmaps4rails_address</span>
+  <span class="ruby-node">&quot;#{address}, #{city.name}, #{city.state} #{postal_code}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- gmaps4rails_address-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- gmaps4rails_address-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
   </section><!-- 5Buntitled-5D -->
 
 </div><!-- documentation -->

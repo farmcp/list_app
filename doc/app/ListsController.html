@@ -188,7 +188,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 13</span>
+            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-comment">#create a list for the current user if (s)he doesn't have a list already for the specific name and is signed in</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">signed_in?</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">lists</span>.<span class="ruby-identifier">exclude?</span><span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">lists</span>.<span class="ruby-identifier">find_by_city_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:list</span>][<span class="ruby-value">:city_id</span>])
@@ -234,7 +234,7 @@ showing a user</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 33</span>
+            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@list</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">redirect_back_or</span> <span class="ruby-identifier">new_session_path</span>
@@ -268,6 +268,8 @@ showing a user</p>
             <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 7</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@list</span> = <span class="ruby-constant">List</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@sfo</span> = <span class="ruby-constant">City</span>.<span class="ruby-identifier">find_by_name</span> <span class="ruby-string">'San Francisco'</span>
+  <span class="ruby-ivar">@bos</span> = <span class="ruby-constant">City</span>.<span class="ruby-identifier">find_by_name</span> <span class="ruby-string">'Boston'</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -295,11 +297,21 @@ showing a user</p>
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 39</span>
+            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 41</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-comment">#if the list exists then store a class variable for the list to catch on the view</span>
   <span class="ruby-keyword">if</span> <span class="ruby-constant">List</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]) <span class="ruby-keyword">and</span> <span class="ruby-identifier">current_user</span>
+    <span class="ruby-comment">#get the list from the id that's passed in</span>
     <span class="ruby-ivar">@list</span> = <span class="ruby-constant">List</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+
+    <span class="ruby-comment">#go through the list and create array of restaurants</span>
+    <span class="ruby-ivar">@restaurants</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-ivar">@list</span>.<span class="ruby-identifier">list_items</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@restaurants</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">restaurant</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment">#get the json for the maps</span>
+    <span class="ruby-ivar">@maps_json</span> = <span class="ruby-ivar">@restaurants</span>.<span class="ruby-identifier">to_gmaps4rails</span>
 
     <span class="ruby-comment">#pass in a variable to create a new List Item if the user enters a name into the text_field</span>
     <span class="ruby-ivar">@list_item</span> = <span class="ruby-constant">ListItem</span>.<span class="ruby-identifier">new</span>

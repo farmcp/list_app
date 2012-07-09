@@ -186,20 +186,29 @@
           <div class="method-source-code" id="create-source">
             <pre><span class="ruby-comment"># File app/controllers/list_items_controller.rb, line 3</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
+  <span class="ruby-comment">#get the restaurant</span>
   <span class="ruby-identifier">restaurant_name</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:restaurant</span>][<span class="ruby-value">:name</span>]
   <span class="ruby-identifier">input_restaurant</span> = <span class="ruby-constant">Restaurant</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-identifier">restaurant_name</span>)
+  <span class="ruby-comment">#get the list_id and user itmes</span>
   <span class="ruby-identifier">list_id</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:restaurant</span>][<span class="ruby-value">:list_id</span>]
   <span class="ruby-identifier">user_items</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">lists</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">list_id</span>).<span class="ruby-identifier">list_items</span>
+  <span class="ruby-comment">#get the current city</span>
   <span class="ruby-identifier">current_city</span> = <span class="ruby-constant">List</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">list_id</span>).<span class="ruby-identifier">city</span>
 
   <span class="ruby-comment">#if a restaurant exists for a specific city then find it and capture that as a variable. if it doesn't exist then create a new restaurant (Restaurant.create)</span>
   <span class="ruby-keyword">if</span>(<span class="ruby-identifier">input_restaurant</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">current_city</span>.<span class="ruby-identifier">restaurants</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">include?</span><span class="ruby-identifier">input_restaurant</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">input_restaurant</span>.<span class="ruby-identifier">active</span>)
+    <span class="ruby-comment">#get the ids for the restaurants in the current list =&gt; need to check if the id exists in the list</span>
+    <span class="ruby-identifier">restaurant_ids</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
 
-    <span class="ruby-comment">#current_list.list_items.create(:restaurant_id =&gt; restaurant_variable.id)</span>
-    <span class="ruby-comment">#used a hidden field to pass in the list_id that this POST request was sent from</span>
-    <span class="ruby-identifier">user_items</span>.<span class="ruby-identifier">create</span>(<span class="ruby-value">:restaurant_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">input_restaurant</span>.<span class="ruby-identifier">id</span>)
-    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-node">&quot;Added #{input_restaurant.name} to your Bite List!&quot;</span>
-
+    <span class="ruby-comment">#populate array with restaurant ids that exist</span>
+    <span class="ruby-identifier">user_items</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span> <span class="ruby-identifier">restaurant_ids</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">restaurant</span>.<span class="ruby-identifier">id</span>}
+    <span class="ruby-keyword">if</span>(<span class="ruby-identifier">restaurant_ids</span>.<span class="ruby-identifier">include?</span><span class="ruby-identifier">input_restaurant</span>.<span class="ruby-identifier">id</span>)
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;The restaurant already exists in your Bite List.&quot;</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-comment">#used a hidden field to pass in the list_id that this POST request was sent from</span>
+      <span class="ruby-identifier">user_items</span>.<span class="ruby-identifier">create</span>(<span class="ruby-value">:restaurant_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">input_restaurant</span>.<span class="ruby-identifier">id</span>)
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-node">&quot;Added #{input_restaurant.name} to your Bite List!&quot;</span>
+    <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-comment">#create a new Restaurant with the name that was entered</span>
     <span class="ruby-comment">#TODO: need to make a more complete form for filling out new restaurants - need to add validation for restaurants</span>
@@ -235,7 +244,7 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/list_items_controller.rb, line 28</span>
+            <pre><span class="ruby-comment"># File app/controllers/list_items_controller.rb, line 37</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-comment">#flash the user it's been deleted</span>
   <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-node">&quot;You've removed #{ListItem.find(params[:id]).restaurant.name} from your Bite List!&quot;</span>

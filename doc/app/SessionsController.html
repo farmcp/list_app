@@ -186,7 +186,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/sessions_controller.rb, line 14</span>
+            <pre><span class="ruby-comment"># File app/controllers/sessions_controller.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-comment">#if the email and password exist in the database then drop a cookie - downcase the email since all the emails are lowercased</span>
   <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_email</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:session</span>][<span class="ruby-value">:email</span>].<span class="ruby-identifier">downcase</span>)
@@ -197,7 +197,6 @@
     <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;Invalid Username or Password combination&quot;</span>
     <span class="ruby-identifier">render</span> <span class="ruby-string">'new'</span>
   <span class="ruby-keyword">end</span>
-
 <span class="ruby-keyword">end</span></pre>
           </div><!-- create-source -->
           
@@ -225,7 +224,7 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/sessions_controller.rb, line 28</span>
+            <pre><span class="ruby-comment"># File app/controllers/sessions_controller.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">sign_out</span>
   <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_session_path</span>
@@ -258,13 +257,10 @@
           <div class="method-source-code" id="new-source">
             <pre><span class="ruby-comment"># File app/controllers/sessions_controller.rb, line 3</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
-
   <span class="ruby-comment">#on initial visit, check if there is a current user and if so redirect to their profile</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">current_user</span>
-  <span class="ruby-keyword">else</span>
   <span class="ruby-keyword">end</span>
-
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
