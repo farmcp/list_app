@@ -41,7 +41,7 @@ class Restaurant < ActiveRecord::Base
   def gmaps4rails_address
     "#{address}, #{city.name}, #{city.state} #{postal_code}"
   end
-  
+
   #get rid of all non digits then validate
   def fix_phone_number
     self.phone_number = phone_number.to_s.gsub(/\D/, '')
