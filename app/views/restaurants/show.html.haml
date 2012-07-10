@@ -7,9 +7,10 @@
         = image_tag(@restaurant.picture_url, size: '80x80')
         
       %div
-        %h1{:style => "margin-left: 10px; float:left;"}
+        %h1{:style => "margin-left: 7px; float:left;"}
           = truncate(@restaurant.name, length:20)
-      =link_to @restaurant.display_phone_number, 'tel:' + @restaurant.phone_number, style: 'margin-top:5px; margin-left: 10px;',class: 'btn btn-warning'
+          %br/
+          =link_to @restaurant.display_phone_number, 'tel:' + @restaurant.phone_number, style: 'float:left; font-weight:normal; margin-top:10px;', class: 'btn btn-warning'
 
 
   .span8
