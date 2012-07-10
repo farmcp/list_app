@@ -20,8 +20,8 @@ group :development do
   gem "rails-erd"
   gem 'rspec'
   #get rid of quiet asset output
-  gem 'quiet_assets', :group => :development
-  gem 'thin'
+  gem 'quiet_assets'
+
 end
 
 group :test, :development do
@@ -45,8 +45,7 @@ gem 'haml'
 gem 'haml-rails', '= 0.3.4'
 # To use ActiveModel has_secure_password - will need to create a password_digest column in the Migration/database
 gem 'bcrypt-ruby', '~> 3.0.0'
-
-
+gem 'thin'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
