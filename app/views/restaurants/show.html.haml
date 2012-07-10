@@ -9,6 +9,7 @@
       %div
         %h1{:style => "margin-left: 10px; float:left; overflow:auto;"}
           = @restaurant.name
+      =link_to @restaurant.phone_number, 'tel:'+@restaurant.phone_number, style: 'margin-top:5px; margin-left: 10px;',class: 'btn btn-warning'
 
 
   .span8
