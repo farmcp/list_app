@@ -6,12 +6,19 @@ class UserMailer < ActionMailer::Base
     @user = user
     @url = 'http://www.bitelist.com/signin'
 
-    mail(to: user.email, subject: "Welcome to Bitelist")
+    mail(to: user.email, subject: "Welcome to Bitelist!")
   end
 
   #send the user a password reset email
   def password_reset(user)
     @user = user
     mail(to: user.email, subject: "Bitelist Password Reset")
+  end
+
+  #mail followed user
+  def mail_followed_user(user, other_user)
+    @user = user
+    @other_user = other_user
+    mail(to: other_user.email, subject: "You have a new follower on Bitelist!")
   end
 end
