@@ -7,11 +7,10 @@
         = image_tag(@restaurant.picture_url, size: '80x80')
         
       %div
-        %h1{:style => "margin-left: 10px; float:left; overflow:auto;"}
-          = @restaurant.name
-      =link_to @restaurant.phone_number, 'tel:'+@restaurant.phone_number, style: 'margin-top:5px; margin-left: 10px;',class: 'btn btn-warning'
+        %h1{:style => "margin-left: 10px; float:left;"}
+          = truncate(@restaurant.name, length:20)
+      =link_to @restaurant.phone_number, 'tel:' + @restaurant.phone_number, style: 'margin-top:5px; margin-left: 10px;',class: 'btn btn-warning'
 
 
   .span8
-    - # only can show when a user is logged in or has something in their lists
-
+    -#put the restaurant's website, pictures, address, comments here
