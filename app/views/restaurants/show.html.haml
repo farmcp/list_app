@@ -7,8 +7,8 @@
         = image_tag(@restaurant.picture_url, size: '80x80')
         
       %div
-        %h1{:style => "margin-left: 10px; float:left;"}
-          = truncate(@restaurant.name, length: 20)
+        %h1{:style => "margin-left: 10px; float:left; overflow:auto;"}
+          = @restaurant.name
 
 
   .span8
