@@ -1,0 +1,12 @@
+= provide(:title, @restaurant.name)
+
+.row
+  %aside.span4
+    %section
+      %h1{:style => "padding-bottom: 15px;"}
+        = image_tag(@restaurant.picture_url, size: '50x50')
+        = @restaurant.name
+
+  .span8
+    - # only can show when a user is logged in or has something in their lists
+

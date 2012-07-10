@@ -5,6 +5,11 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new
   end
 
+  #need to show the restaurant details and comments
+  def show
+    @restaurant = Restaurant.find(params[:id])
+  end
+
   #POST action for creating a new restaurant
   def create
 

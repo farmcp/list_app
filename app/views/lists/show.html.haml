@@ -26,11 +26,11 @@
       - @list.list_items.each do |item|
         .well
           .pull-left.list-image
-            = image_tag(item.restaurant.picture_url, size:'30x30')
+            = image_tag(item.restaurant.picture_url, size:'40x40')
 
           - if item.restaurant.name.length < 20
-            = link_to item.restaurant.name, '#', class: 'pull-left list-item-text'
+            = link_to item.restaurant.name, item.restaurant, class: 'pull-left list-item-text'
           - else
-            = link_to truncate(item.restaurant.name.to_s, length: 20), '#', class: 'pull-left list-item-text'
+            = link_to truncate(item.restaurant.name.to_s, length: 20), item.restaurant, class: 'pull-left list-item-text'
           - if current_user? @list.user
             = link_to 'x', item, method: :delete, confirm: "Are you sure you want to delete this List?", style: "font-size: 20px; font-style:bold; margin-top:-3px;", class: 'close'
