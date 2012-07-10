@@ -10,8 +10,8 @@
         %nav
           %ul.nav.pull-right
             - if signed_in?
-              %li= link_to "My Bites", current_user
-              %li= link_to "Find Bites", users_path
+              %li= link_to "Profile", current_user
+              %li= link_to "Search", users_path
               %li#fat-menu.dropdown
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                   Account
