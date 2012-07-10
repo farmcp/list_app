@@ -8,7 +8,7 @@
         
       %div
         %h1{:style => "margin-left: 10px; float:left;"}
-          = @restaurant.name
+          = truncate(@restaurant.name, length: 20)
 
 
   .span8
