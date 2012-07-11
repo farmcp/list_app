@@ -17,7 +17,17 @@
     %br/
     %div{class:'pull-left'}
       =[@restaurant.city.name, @restaurant.city.state, @restaurant.postal_code].join(', ')
+    %br/
+    %br/
+    %section
+
+
   .span8
     -#put the restaurant's website, pictures, address, comments here
+    %h3.big_title
+      Map
+    %ol.lists
+      .well
+        =gmaps4rails(@maps_json)
 
 
