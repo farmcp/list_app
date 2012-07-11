@@ -40,13 +40,14 @@ To Dos:
 3. ~~Able to search users on app through Friends tab - add Search button to friends tab (working on this)~~
 4. ~~Integrate google maps for each of the lists in each city~~
 5. ~~BUG: maps not fully accurate with geocoding~~
+2. ~~Allow users to click through list_items to view details on restaurants~~
+6. ~~Add images to cities~~
 2. Add SSL/https to signon
 4. Add facebook connect that suggests friends already in their fb network to follow
 2. Validation for places to eat - know when someone enters a valid restaurant and populating the database
 3. Allow users to sync with selected people they follow
-2. Allow users to click through list_items to view details on restaurants
+2. http://www.opentable.com/info/affiliates.aspx - add open table reservations
 5. Get off of Gravatar - handle image storage with aws S3
-6. Add images to cities
 2. Create JSON API so we can start the native iOS app
 2. Email verification - account activation
 
