@@ -12,8 +12,10 @@
           %br/
 
           =link_to @restaurant.display_phone_number, 'tel:' + @restaurant.phone_number, style: 'font-weight:normal; margin-top:10px;', class: 'btn btn-warning pull-left'
+ 
     %div{class:'pull-left'}
       =@restaurant.address
+
     %br/
     %div{class:'pull-left'}
       =[@restaurant.city.name, @restaurant.city.state, @restaurant.postal_code].join(', ')
@@ -25,9 +27,8 @@
   .span8
     -#put the restaurant's website, pictures, address, comments here
     %h3.big_title
-      Map
+      Location
     %ol.lists
-      .well
-        =gmaps4rails(@maps_json)
-
-
+      %li
+        .well
+          = gmaps("map_options" => {"zoom" => 15, "auto_zoom" => false},"markers" => { "data" => @maps_json })
