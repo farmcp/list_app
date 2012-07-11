@@ -53,4 +53,5 @@ class Restaurant < ActiveRecord::Base
       '(%s) %s-%s' % [self.phone_number[0,3], self.phone_number[3,3], self.phone_number[6,4]]
     end
   end
+
 end

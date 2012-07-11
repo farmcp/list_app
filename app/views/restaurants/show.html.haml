@@ -3,15 +3,21 @@
 .row
   %aside.span4
     %section
-      %h1{:style => "padding-bottom: 15px;float:left;"}
+      %h1{:style => "padding-bottom: 5px;float:left;"}
         = image_tag(@restaurant.picture_url, size: '80x80')
         
       %div
         %h1{:style => "margin-left: 7px; float:left;"}
           = truncate(@restaurant.name, length:20)
           %br/
-          =link_to @restaurant.display_phone_number, 'tel:' + @restaurant.phone_number, style: 'float:left; font-weight:normal; margin-top:10px;', class: 'btn btn-warning'
 
-
+          =link_to @restaurant.display_phone_number, 'tel:' + @restaurant.phone_number, style: 'font-weight:normal; margin-top:10px;', class: 'btn btn-warning pull-left'
+    %div{class:'pull-left'}
+      =@restaurant.address
+    %br/
+    %div{class:'pull-left'}
+      =[@restaurant.city.name, @restaurant.city.state, @restaurant.postal_code].join(', ')
   .span8
     -#put the restaurant's website, pictures, address, comments here
+
+
