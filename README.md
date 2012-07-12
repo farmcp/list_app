@@ -46,6 +46,7 @@ To Dos:
 4. Add facebook connect that suggests friends already in their fb network to follow
 2. Validation for places to eat - know when someone enters a valid restaurant and populating the database
 3. Allow users to sync with selected people they follow
+4. Adding user's comments to each list item
 2. http://www.opentable.com/info/affiliates.aspx - add open table reservations
 5. Get off of Gravatar - handle image storage with aws S3
 2. Create JSON API so we can start the native iOS app
