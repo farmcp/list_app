@@ -5,30 +5,30 @@
     %section
       %h1{:style => "padding-bottom: 5px;float:left;"}
         = image_tag(@restaurant.picture_url, size: '80x80')
-        
+
       %div
         %h1{:style => "margin-left: 7px; float:left;"}
           = truncate(@restaurant.name, length:20)
           %br/
 
-          =link_to @restaurant.display_phone_number, 'tel:' + @restaurant.phone_number, style: 'font-weight:normal; margin-top:10px;', class: 'btn btn-warning pull-left'
- 
-    %div{class:'pull-left'}
-      =@restaurant.address
+          = link_to @restaurant.display_phone_number, "tel:#{@restaurant.phone_number}, style: 'font-weight:normal; margin-top:10px;', class: 'btn btn-warning pull-left'
+
+    .pull-left
+      = @restaurant.address
 
     %br/
-    %div{class:'pull-left'}
-      =[@restaurant.city.name, @restaurant.city.state, @restaurant.postal_code].join(', ')
+    .pull-left
+      #{@restaurant.city.name}, #{@restaurant.city.state} #{@restaurant.postal_code}
     %br/
     %br/
     %section
 
 
   .span8
-    -#put the restaurant's website, pictures, address, comments here
+    - # put the restaurant's website, pictures, address, comments here
     %h3.big_title
       Location
     %ol.lists
       %li
         .well
-          = gmaps("map_options" => {"zoom" => 15, "auto_zoom" => false},"markers" => { "data" => @maps_json })
+          = gmaps("map_options" => { "zoom" => 15, "auto_zoom" => false }, "markers" => { "data" => @maps_json })
