@@ -2,6 +2,7 @@
   .navbar-inner
     .container-fluid
       = link_to "Bitelist", new_session_path, id: "logo"
+      .divider-vertical{style:'float:left;'}
       %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
         %span.icon-bar
         %span.icon-bar
@@ -9,7 +10,7 @@
       .nav-collapse{:style => "height:10px;"}
         %nav
           - if signed_in?
-            .navbar-search.pull-right
+            .navbar-search.pull-left
               =form_tag users_path, method:'get' do
                 =text_field_tag :search, params[:search], class: 'search-query', placeholder:'Search', style: 'background-color:white; margin: 3px 15px -5px 15px; border-style:none; width:250px;'
           %ul.nav.pull-right
