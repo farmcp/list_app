@@ -4,14 +4,14 @@
   %aside.span4
     %section
       %h1{:style => "padding-bottom: 5px;float:left;"}
-        = image_tag(@restaurant.picture_url, size: '80x80')
+        = image_tag(@restaurant.picture_url, size: '80x80', title: @restaurant.name, alt: @restaurant.name)
 
       %div
         %h1{:style => "margin-left: 7px; float:left;"}
           = truncate(@restaurant.name, length:20)
           %br/
 
-          = link_to @restaurant.display_phone_number, "tel:#{@restaurant.phone_number}, style: 'font-weight:normal; margin-top:10px;', class: 'btn btn-warning pull-left'
+          = link_to_phone(@restaurant.phone_number)
 
     .pull-left
       = @restaurant.address

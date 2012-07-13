@@ -46,12 +46,4 @@ class Restaurant < ActiveRecord::Base
   def fix_phone_number
     self.phone_number = phone_number.to_s.gsub(/\D/, '')
   end
-
-  #fix formatting of phone number to display
-  def display_phone_number
-    if self.phone_number.length == 10
-      '(%s) %s-%s' % [self.phone_number[0,3], self.phone_number[3,3], self.phone_number[6,4]]
-    end
-  end
-
 end
