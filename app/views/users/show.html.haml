@@ -19,5 +19,6 @@
       %h3.big_title
         Bite Lists (#{@user.lists.count})
       %ol.lists
+        %li
         = render "layouts/lists"
       = will_paginate @lists, :page_links => false
