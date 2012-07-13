@@ -15,6 +15,7 @@
           %ul.nav.pull-right
             - if signed_in?
               %li= link_to "Profile", current_user
+              %li= link_to "Sync", '#'
               %li#fat-menu.dropdown
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                   Account
