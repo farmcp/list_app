@@ -10,12 +10,6 @@
 %br/
 %br/
 
-.row
-  .span7.offset3
-    = form_tag users_path, method: 'get' do
-      = text_field_tag :search, params[:search], style: 'width: 75%%;'
-      = submit_tag "Search", name: nil, class: 'btn btn-primary', style: 'height:40px;'
-
 %ul.users
   - @users.each do |user|
     %li

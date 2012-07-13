@@ -8,10 +8,13 @@
         %span.icon-bar
       .nav-collapse{:style => "height:10px;"}
         %nav
+          - if signed_in?
+            .navbar-search.pull-right
+              =form_tag users_path, method:'get' do
+                =text_field_tag :search, params[:search], class: 'search-query', placeholder:'Search', style: 'background-color:white; margin: 3px 15px -5px 15px; border-style:none; width:250px;'
           %ul.nav.pull-right
             - if signed_in?
               %li= link_to "Profile", current_user
-              %li= link_to "Search", users_path
               %li#fat-menu.dropdown
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                   Account
