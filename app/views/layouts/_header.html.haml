@@ -1,6 +1,6 @@
 %header.navbar.navbar-fixed-top
   .navbar-inner
-    .container-fluid
+    .container
       %ul.nav
         %li= link_to "Bitelist", new_session_path, id: "logo"
         %li.divider-vertical.pull-left
@@ -11,9 +11,9 @@
       .nav-collapse
         %nav
           - if signed_in?
-            .navbar-search.pull-left.input-medium
+            .navbar-search.pull-left
               =form_tag users_path, method:'get' do
-                =text_field_tag :search, params[:search], class: 'search-query', placeholder:'Search', style: 'background-color:white; margin: 3px 15px -5px 10px; border-style:none;'
+                =text_field_tag :search, params[:search], class: 'search-query', placeholder:'Search', style: 'background-color:white; margin: 3px 0px -5px 0px; border-style:none;'
           %ul.nav.pull-right
             - if signed_in?
               %li= link_to "Profile", current_user
