@@ -20,5 +20,5 @@
         Bite Lists (#{@user.lists.count})
       %ol.lists
         %li
-          = render "lists/lists"
+          = render "lists/list"
       = will_paginate @lists, :page_links => false
