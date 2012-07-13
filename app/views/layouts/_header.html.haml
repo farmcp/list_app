@@ -1,18 +1,19 @@
 %header.navbar.navbar-fixed-top
   .navbar-inner
     .container-fluid
-      = link_to "Bitelist", new_session_path, id: "logo"
-      .divider-vertical{style:'float:left;'}
-      %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      .nav-collapse{:style => "height:10px;"}
+      %ul.nav
+        %li= link_to "Bitelist", new_session_path, id: "logo"
+        %li.divider-vertical.pull-left
+        %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+      .nav-collapse
         %nav
           - if signed_in?
-            .navbar-search.pull-left
+            .navbar-search.pull-left.input-medium
               =form_tag users_path, method:'get' do
-                =text_field_tag :search, params[:search], class: 'search-query', placeholder:'Search', style: 'background-color:white; margin: 3px 15px -5px 15px; border-style:none; width:250px;'
+                =text_field_tag :search, params[:search], class: 'search-query', placeholder:'Search', style: 'background-color:white; margin: 3px 15px -5px 10px; border-style:none;'
           %ul.nav.pull-right
             - if signed_in?
               %li= link_to "Profile", current_user
