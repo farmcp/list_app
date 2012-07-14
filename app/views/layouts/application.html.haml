@@ -9,6 +9,8 @@
     = csrf_meta_tags
     = render 'layouts/shim'
     = stylesheet_link_tag "gmaps4rails"
+    = analytics_init if Rails.env.production?
+    = analytics_init local: Rails.env.development?
 
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
   %body
@@ -23,12 +25,8 @@
       = render 'layouts/footer'
 
       = yield :scripts
-    - if Rails.env.production?
-      %a{ :title => "Web Analytics", :href => "http://getclicky.com/66616442"}
-        %img{ :alt => "Web Analytics", :src => "//static.getclicky.com/media/links/badge.gif", :border => "0" }
-      %script{ :src => "//static.getclicky.com/js", :type => "text/javascript" }
-      :javascript
-        try{ clicky.init(66616442); }catch(e){}
-      %noscript
-        %p
-          %img{ :alt => "Clicky", :width => "1", :height => "1", :src => "//in.getclicky.com/66616442ns.gif" }
+
+
+
+
+

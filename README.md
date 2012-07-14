@@ -59,3 +59,4 @@ To Dos:
 Gem Documentation:
 -------------------
 `gmaps4rails` https://github.com/apneadiving/Google-Maps-for-Rails
+`google-analytics-rails` https://github.com/bgarret/google-analytics-rails

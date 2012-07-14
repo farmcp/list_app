@@ -76,4 +76,6 @@ ListApp::Application.configure do
   :enable_starttls_auto => true  }
 
   config.action_mailer.default_url_options = { :host => "www.bitelist.com" }
+
+  GA.tracker = "UA-33388722-1"
 end

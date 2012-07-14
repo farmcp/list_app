@@ -47,4 +47,6 @@ ListApp::Application.configure do
 
   config.action_mailer.default_url_options = { :host => "localhost:3000" }
 
+  GA.tracker = "UA-33383385-1"
+
 end
