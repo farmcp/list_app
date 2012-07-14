@@ -4,8 +4,8 @@
   Update your profile
 .row
   .span6.offset3
-    = form_for (@user) do |f|
-      = render "layouts/error_messages", object: f.object
+    = form_for @user do |f|
+      = render 'shared/error_messages', :record => @user
       = f.label :first_name
       = f.text_field :first_name
       = f.label :last_name

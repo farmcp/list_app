@@ -5,7 +5,7 @@
 
 .row
   .span6.offset3
-    = render 'layouts/error_messages_lists'
+    = render 'shared/error_messages', :record => @list
 .row
   .span2.offset4
     = form_for @list do |f|

@@ -53,6 +53,7 @@ To Dos:
 2. Email verification - account activation
 4. Don't actually delete stuff. Set hidden = true
 2. Add SSL/https to signon
+1. Creating list should go to list
 
 Gem Documentation:
 -------------------

@@ -3,7 +3,7 @@
 
 .row
   .span6.offset3
-    = render 'layouts/error_messages_restaurants'
+    = render 'shared/error_messages', :record => @restaurant
     = form_for @restaurant do |f|
       = f.label :name, "Restaurant Name"
       = f.text_field :name
