@@ -54,6 +54,7 @@ To Dos:
 4. Don't actually delete stuff. Set hidden = true
 2. Add SSL/https to signon
 1. Creating list should go to list
+3. favicon
 
 Gem Documentation:
 -------------------
