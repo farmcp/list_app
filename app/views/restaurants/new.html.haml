@@ -5,7 +5,7 @@
   .span6.offset3
     = render 'layouts/error_messages_restaurants'
     = form_for @restaurant do |f|
-      = f.label "Restaurant Name"
+      = f.label :name, "Restaurant Name"
       = f.text_field :name
 
       = f.label :phone_number
@@ -18,7 +18,7 @@
       = f.text_field :postal_code
 
       = fields_for :city do |u|
-        = u.label :city
+        = u.label :name, 'City'
         = u.select :name, options_for_select(City.select_options)
 
       = f.submit "Request Restaurant", class: "btn btn-primary"
