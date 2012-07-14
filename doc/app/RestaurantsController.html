@@ -74,6 +74,8 @@
     
     <li><a href="#method-i-new">#new</a>
     
+    <li><a href="#method-i-show">#show</a>
+    
   </ul>
 </nav>
 
@@ -184,10 +186,10 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 9</span>
+            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
 
-  <span class="ruby-comment">#TODO: Need to check if the Restaurant exists already. Need to change the restaurant model zipcode to :string.</span>
+  <span class="ruby-comment">#TODO: Need to check if the Restaurant exists already.</span>
   <span class="ruby-ivar">@restaurant</span> = <span class="ruby-constant">Restaurant</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:restaurant</span>])
   <span class="ruby-identifier">city_input</span> = <span class="ruby-constant">City</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:city</span>][<span class="ruby-value">:name</span>])
 
@@ -240,6 +242,37 @@
 
         
       </div><!-- new-method -->
+
+    
+      <div id="method-i-show" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">show</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>need to show the restaurant details and comments</p>
+          
+
+          
+          <div class="method-source-code" id="show-source">
+            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
+  <span class="ruby-ivar">@restaurant</span> = <span class="ruby-constant">Restaurant</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@maps_json</span> = <span class="ruby-ivar">@restaurant</span>.<span class="ruby-identifier">to_gmaps4rails</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- show-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- show-method -->
 
     
     </section><!-- public-instance-method-details -->

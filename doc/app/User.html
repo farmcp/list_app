@@ -221,7 +221,7 @@ password_reset_sent_at :datetime</pre>
 
           
           <div class="method-source-code" id="search-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 78</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 82</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>
     <span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-identifier">conditions</span><span class="ruby-operator">:</span> [<span class="ruby-string">'lower(first_name) LIKE ? OR lower(last_name) LIKE ?'</span>, <span class="ruby-node">&quot;%#{query.downcase}%&quot;</span>, <span class="ruby-node">&quot;%#{query.downcase}%&quot;</span>])
@@ -264,6 +264,9 @@ password_reset_sent_at :datetime</pre>
             <pre><span class="ruby-comment"># File app/models/user.rb, line 59</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">follow!</span>(<span class="ruby-identifier">other_user</span>)
   <span class="ruby-identifier">relationships</span>.<span class="ruby-identifier">create!</span>(<span class="ruby-identifier">followed_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">other_user</span>.<span class="ruby-identifier">id</span>)
+
+  <span class="ruby-comment">#send a mail to user that is followed</span>
+  <span class="ruby-constant">UserMailer</span>.<span class="ruby-identifier">mail_followed_user</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">other_user</span>).<span class="ruby-identifier">deliver</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- follow-21-source -->
           
@@ -346,12 +349,12 @@ password_reset_sent_at :datetime</pre>
 
         <div class="method-description">
           
-          
+          <p>send the password reset after generating and storing a new token</p>
           
 
           
           <div class="method-source-code" id="send_password_reset-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 67</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 71</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">send_password_reset</span>
   <span class="ruby-comment"># generate a new token to reset password after email is asked for</span>
   <span class="ruby-identifier">generate_token</span>(<span class="ruby-value">:password_reset_token</span>)
@@ -387,7 +390,7 @@ password_reset_sent_at :datetime</pre>
 
           
           <div class="method-source-code" id="unfollow-21-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 63</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">unfollow!</span>(<span class="ruby-identifier">other_user</span>)
   <span class="ruby-identifier">relationships</span>.<span class="ruby-identifier">find_by_followed_id</span>(<span class="ruby-identifier">other_user</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">destroy</span>
 <span class="ruby-keyword">end</span></pre>

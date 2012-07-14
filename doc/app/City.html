@@ -72,6 +72,8 @@
     
     <li><a href="#method-c-select_options">::select_options</a>
     
+    <li><a href="#method-i-name_with_state">#name_with_state</a>
+    
   </ul>
 </nav>
 
@@ -209,6 +211,42 @@ updated_at   :datetime        not null</pre>
 
     
     </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-name_with_state" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">name_with_state</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="name_with_state-source">
+            <pre><span class="ruby-comment"># File app/models/city.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">name_with_state</span>
+  <span class="ruby-identifier">state</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">?</span> <span class="ruby-node">&quot;#{name}, #{state}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">name</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- name_with_state-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- name_with_state-method -->
+
+    
+    </section><!-- public-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 

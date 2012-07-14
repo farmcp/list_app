@@ -70,6 +70,8 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-i-mail_followed_user">#mail_followed_user</a>
+    
     <li><a href="#method-i-password_reset">#password_reset</a>
     
     <li><a href="#method-i-welcome_email">#welcome_email</a>
@@ -168,6 +170,38 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="method-i-mail_followed_user" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">mail_followed_user</span><span
+            class="method-args">(user, other_user)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>mail followed user</p>
+          
+
+          
+          <div class="method-source-code" id="mail_followed_user-source">
+            <pre><span class="ruby-comment"># File app/mailers/user_mailer.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">mail_followed_user</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">other_user</span>)
+  <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
+  <span class="ruby-ivar">@other_user</span> = <span class="ruby-identifier">other_user</span>
+  <span class="ruby-identifier">mail</span>(<span class="ruby-identifier">to</span><span class="ruby-operator">:</span> <span class="ruby-identifier">other_user</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;You have a new follower on Bitelist!&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- mail_followed_user-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- mail_followed_user-method -->
+
+    
       <div id="method-i-password_reset" class="method-detail ">
         
         <div class="method-heading">
@@ -220,7 +254,7 @@
   <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
   <span class="ruby-ivar">@url</span> = <span class="ruby-string">'http://www.bitelist.com/signin'</span>
 
-  <span class="ruby-identifier">mail</span>(<span class="ruby-identifier">to</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Welcome to Bitelist&quot;</span>)
+  <span class="ruby-identifier">mail</span>(<span class="ruby-identifier">to</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Welcome to Bitelist!&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- welcome_email-source -->
           
