@@ -42,7 +42,6 @@ To Dos:
 5. ~~BUG: maps not fully accurate with geocoding~~
 2. ~~Allow users to click through list_items to view details on restaurants~~
 6. ~~Add images to cities~~
-2. Add SSL/https to signon
 4. Add facebook connect that suggests friends already in their fb network to follow
 2. Validation for places to eat - know when someone enters a valid restaurant and populating the database
 3. Allow users to sync with selected people they follow
@@ -52,7 +51,8 @@ To Dos:
 5. Get off of Gravatar - handle image storage with aws S3
 2. Create JSON API so we can start the native iOS app
 2. Email verification - account activation
-
+4. Don't actually delete stuff. Set hidden = true
+2. Add SSL/https to signon
 
 Gem Documentation:
 -------------------
