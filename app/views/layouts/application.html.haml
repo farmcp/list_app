@@ -23,3 +23,12 @@
       = render 'layouts/footer'
 
       = yield :scripts
+    - if Rails.env.production?
+      = link_to title: "Web Analytics", href: "http://getclicky.com/66616442" do
+        %img{ :alt => "Web Analytics", :src => "//static.getclicky.com/media/links/badge.gif", :border => "0" }
+      %script{ :src => "//static.getclicky.com/js", :type => "text/javascript" }
+      :javascript
+        try{ clicky.init(66616442); }catch(e){}
+      %noscript
+        %p
+          %img{ :alt => "Clicky", :width => "1", :height => "1", :src => "//in.getclicky.com/66616442ns.gif" }
