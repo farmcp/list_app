@@ -24,7 +24,7 @@
 
       = yield :scripts
     - if Rails.env.production?
-      = link_to title: "Web Analytics", href: "http://getclicky.com/66616442" do
+      %a{ :title => "Web Analytics", :href => "http://getclicky.com/66616442"}
         %img{ :alt => "Web Analytics", :src => "//static.getclicky.com/media/links/badge.gif", :border => "0" }
       %script{ :src => "//static.getclicky.com/js", :type => "text/javascript" }
       :javascript
