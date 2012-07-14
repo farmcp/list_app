@@ -11,7 +11,9 @@
       = render 'layouts/stats'
 
   .span8
-    %h3= @title
+    %h3.big_title= @title
+    %br/
+
     - if @users.any?
       %ul.users
         - @users.each do |user|
