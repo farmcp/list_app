@@ -24,6 +24,9 @@ class User < ActiveRecord::Base
   #every user can have many lists
   has_many :lists
 
+  #has many list_items
+  has_many :list_items, :through => :lists
+
   #every user has many relationships - also should destroy the relationship if the user is destroyed
   has_many :relationships, :foreign_key => "follower_id", :dependent => :destroy
 
@@ -80,7 +83,7 @@ class User < ActiveRecord::Base
     UserMailer.password_reset(self).deliver
   end
 
-  #create a search on a query
+  #create a static method search on a query
   def self.search(query)
     if query
       find(:all, conditions: ['lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%"])
