@@ -17,7 +17,7 @@
 .row
   .span6.offset3
     - if @list.list_items.count > 1
-      .well=gmaps4rails(@maps_json)
+      .well= gmaps4rails(@maps_json)
     - if @list.list_items.count == 1
       .well= gmaps("map_options" => { "zoom" => 15, "auto_zoom" => false }, "markers" => { "data" => @maps_json })
 
