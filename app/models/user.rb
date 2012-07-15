@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(other_user.id)
   end
 
+  #create a relationship between this user's followedid and the other user's id
   def follow!(other_user)
     relationships.create!(followed_id: other_user.id)
 
@@ -63,6 +64,7 @@ class User < ActiveRecord::Base
     UserMailer.mail_followed_user(self, other_user).deliver
   end
 
+  #destroy the relationship
   def unfollow!(other_user)
     relationships.find_by_followed_id(other_user.id).destroy
   end
