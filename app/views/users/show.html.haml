@@ -14,11 +14,23 @@
       = render 'layouts/stats'
 
   .span8
-    - # only can show when a user is logged in or has something in their lists
-    - if current_user && @user.lists.any?
+    - #if a user isn't the current user and there arne't any items in their lists => show that you need to create a list with items
+    - if @user.id != current_user.id && !any_items_in_lists?(current_user.lists)
+      %h3.big_title
+        .hero-unit
+          Create a list with your own bites first!
+    - # if logged in and the user has lists and the current user has items
+    - if current_user && @user.lists.any? && any_items_in_lists?(current_user.lists)
+      %h3.big_title
+        Bite Lists (#{@user.lists.count})
+      %ol.lists
+        %li
+          = render "lists/list"
+    - elsif current_user.id == @user.id 
       %h3.big_title
         Bite Lists (#{@user.lists.count})
       %ol.lists
         %li
           = render "lists/list"
       = will_paginate @lists, :page_links => false
+
