@@ -1,0 +1,13 @@
+%h1{style:'text-align: center'} Sync
+
+%ul.users
+  %h2 Choose someone you follow to sync with
+  - @followeds.each do |followed|
+    %li
+      = gravatar_for followed
+      = link_to followed.full_name, followed
+  %h2 Choose a follower to sync with
+  - @followers.each do |follower|
+    %li
+      = gravatar_for follower
+      = link_to follower.full_name, follower
