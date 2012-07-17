@@ -1,13 +1,38 @@
-%h1{style:'text-align: center'} Sync
+- provide(:title, 'Sync')
 
-%ul.users
-  %h2 Choose someone you follow to sync with
-  - @followeds.each do |followed|
+%h1.big_title
+  Sync
+
+- # create a form to post to list_item_path (create method in list_items_controller)
+.row{style: 'text-align:center;'}
+  .span6.offset3
+    - # only allow to post when it's the current user's account
+    - if current_user 
+      = form_for :user, as: :get, :url => list_items_path do |f|
+        = f.text_field :name, :style => 'width:75%;'
+        = f.hidden_field :list_id, value: params[:id]
+
+        = f.submit "Add", class: 'btn btn-primary', :style => 'height:40px;'
+
+%h1{style:'text-align: center'} Sync
+.tabbable
+  %ul.nav.nav-tabs
+    %li.active
+      %a{"data-toggle" => "tab", :href => "#tab1"} Following
     %li
-      = gravatar_for followed
-      = link_to followed.full_name, followed
-  %h2 Choose a follower to sync with
-  - @followers.each do |follower|
-    %li
-      = gravatar_for follower
-      = link_to follower.full_name, follower
+      %a{"data-toggle" => "tab", :href => "#tab2"} Followers
+  .tab-content
+    #tab1.tab-pane.active
+      - if @followeds
+        %ul.users        
+          - @followeds.each do |followed|
+            %li
+              = gravatar_for followed
+              = link_to followed.full_name, followed
+    #tab2.tab-pane
+      - if @followers
+        %ul.users
+          - @followers.each do |follower|
+            %li
+              = gravatar_for follower
+              = link_to follower.full_name, follower
