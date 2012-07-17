@@ -12,8 +12,8 @@
           %br/
         .pull-left
           - if @restaurant.category
-            %b Category: 
-            #{@restaurant.category}
+            %b Category:
+            = restaurant.category
 
           = link_to_phone(@restaurant.phone_number)
 
@@ -22,7 +22,7 @@
 
     %br/
     .pull-left
-      #{@restaurant.city.name}, #{@restaurant.city.state} #{@restaurant.postal_code}
+      = @restaurant.city_state_zip
     %br/
     %br/
     %section

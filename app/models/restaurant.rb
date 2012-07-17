@@ -39,7 +39,11 @@ class Restaurant < ActiveRecord::Base
 
   #pass in the location so that can set model lat/lng data
   def gmaps4rails_address
-    "#{address}, #{city.name}, #{city.state} #{postal_code}"
+    "#{address}, #{city_state_zip}"
+  end
+
+  def city_state_zip
+    "#{city.name}, #{city.state} #{postal_code}"
   end
 
   #get rid of all non digits then validate
