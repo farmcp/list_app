@@ -6,10 +6,14 @@
       %h1{:style => "padding-bottom: 5px;float:left;"}
         = image_tag(@restaurant.picture_url, size: '80x80', title: @restaurant.name, alt: @restaurant.name)
 
-      %div
-        %h1{:style => "margin-left: 7px; float:left;"}
+      %div{style: 'margin-left: 7px; float:left;'}
+        %h1
           = truncate(@restaurant.name, length:20)
           %br/
+        .pull-left
+          - if @restaurant.category
+            %b Category: 
+            #{@restaurant.category}
 
           = link_to_phone(@restaurant.phone_number)
 
