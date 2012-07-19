@@ -9,7 +9,7 @@
     - # only allow to post when it's the current user's account
     - if current_user 
       =form_tag get_sync_path, method: :get, remote: true do
-        = text_field_tag 'search-box', :style => 'display:none;'
+        = text_field_tag 'search-box'
         %br/
         = submit_tag "Run Bitelist Sync", class: 'btn btn-primary', :style => 'height:40px;'
 
