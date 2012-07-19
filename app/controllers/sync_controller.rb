@@ -1,6 +1,8 @@
 class SyncController < ApplicationController
   def show
-    @followeds = current_user.followed_users
-    @followers = current_user.followers
+  end
+
+  def get_sync
+    #TODO: run algorithms with the params passed in
   end
 end

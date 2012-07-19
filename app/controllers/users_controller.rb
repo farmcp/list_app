@@ -57,29 +57,47 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  #return all followeds
   def following
     @title = "Following"
     @user = User.find(params[:id])
     @users = @user.followed_users.paginate(page: params[:page])
-    @followeds = @user.followed_users.find(:all, :select=> 'users.id, users.first_name, users.last_name', :conditions => ["users.first_name like ?", "%" + params[:q] + "%"])
+    if params[:q]
+      @followeds = @user.followed_users.search(params[:q])
+    end
 
     respond_to do |format|
       format.html {render 'show_follow'}
-      format.json {render :json => @followeds}
+      format.json {render :json => @followeds.to_json(:only => [:id], :methods => [:full_name])}
     end
 
   end
 
+  #return all followers
   def followers
     @title = "Followers"
     @user = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
-    @followers = @user.followers.find(:all, :select => 'users.id, users.first_name, users.last_name', :conditions => ["users.first_name like ?","%" + params[:q] + "%"])
+    if params[:q]
+      @followers = @user.followers.search(params[:q])
+    end
 
     respond_to do |format|
       format.html {render 'show_follow'}
-      format.json {render :json => @followers}
+      format.json {render :json => @followers.to_json(:only => [:id], :methods => [:full_name])}
     end
+  end
+
+  #return all followers and followeds
+  def following_followers
+    @user = User.find(params[:id])
+    if params[:q]
+      @following_followers = @user.followers.search(params[:q]).concat(@user.followed_users.search(params[:q]))
+    end
+    respond_to do |format|
+      format.json { render :json => @following_followers.to_json(:only => [:id], :methods => [:full_name])}
+    end
+
   end
 
   private

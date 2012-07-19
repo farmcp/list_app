@@ -9,12 +9,13 @@ ListApp::Application.routes.draw do
 
   match 'contribute/', to: 'static_pages#contribute'
   match 'sync/', to: 'sync#show'
+  match 'get_sync/', to: 'sync#get_sync'
 
   root :to => 'static_pages#home'
 
   resources :users do
     member do
-      get :following, :followers
+      get :following, :followers, :following_followers
     end
   end
 
