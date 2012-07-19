@@ -61,14 +61,25 @@ class UsersController < ApplicationController
     @title = "Following"
     @user = User.find(params[:id])
     @users = @user.followed_users.paginate(page: params[:page])
-    render 'show_follow'
+    @followeds = @user.followed_users.find(:all, :select=> 'users.id, users.first_name, users.last_name', :conditions => ["users.first_name like ?", "%" + params[:q] + "%"])
+
+    respond_to do |format|
+      format.html {render 'show_follow'}
+      format.json {render :json => @followeds}
+    end
+
   end
 
   def followers
     @title = "Followers"
     @user = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
-    render 'show_follow'
+    @followers = @user.followers.find(:all, :select => 'users.id, users.first_name, users.last_name', :conditions => ["users.first_name like ?","%" + params[:q] + "%"])
+
+    respond_to do |format|
+      format.html {render 'show_follow'}
+      format.json {render :json => @followers}
+    end
   end
 
   private
@@ -80,6 +91,5 @@ class UsersController < ApplicationController
       flash[:notice] = "You do not have access to this page."
       redirect_to new_session_path
     end
-
   end
 end

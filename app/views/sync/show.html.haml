@@ -14,25 +14,4 @@
 
         = f.submit "Add", class: 'btn btn-primary', :style => 'height:40px;'
 
-%h1{style:'text-align: center'} Sync
-.tabbable
-  %ul.nav.nav-tabs
-    %li.active
-      %a{"data-toggle" => "tab", :href => "#tab1"} Following
-    %li
-      %a{"data-toggle" => "tab", :href => "#tab2"} Followers
-  .tab-content
-    #tab1.tab-pane.active
-      - if @followeds
-        %ul.users        
-          - @followeds.each do |followed|
-            %li
-              = gravatar_for followed
-              = link_to followed.full_name, followed
-    #tab2.tab-pane
-      - if @followers
-        %ul.users
-          - @followers.each do |follower|
-            %li
-              = gravatar_for follower
-              = link_to follower.full_name, follower
+%input{id:'search-box', style: 'display:none;'}
