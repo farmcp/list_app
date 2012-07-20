@@ -13,7 +13,7 @@
         .pull-left
           - if @restaurant.category
             %b Category:
-            = restaurant.category
+            = @restaurant.category
 
           = link_to_phone(@restaurant.phone_number)
 
