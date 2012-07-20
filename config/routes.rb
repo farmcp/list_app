@@ -15,7 +15,10 @@ ListApp::Application.routes.draw do
 
   resources :users do
     member do
-      get :following, :followers, :following_followers
+      get :following, :followers
+    end
+    collection do
+      get :syncable_users
     end
   end
 
