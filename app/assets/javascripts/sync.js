@@ -1,5 +1,5 @@
 $(document).ready(function () {
   //need to figure out how to get the current_user.id in here and how to search the full_name
-  $("#search-box").tokenInput("/users/"+ $('#current_user_id').val() +
+  $("#search-box").tokenInput("/users/"+ $('#user').data('id') +
       "/following_followers.json", {propertyToSearch:"full_name", theme:"facebook", hintText:"Enter a name in your network", searchingText:"Searching your network..."});
 });

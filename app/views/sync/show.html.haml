@@ -14,4 +14,4 @@
         = submit_tag "Run Bitelist Sync", class: 'btn btn-primary', :style => 'height:40px;'
 
       -#hidden tag is for passing in user.id into javascript
-      = hidden_field_tag "current_user_id", current_user.id, {id:"current_user_id"}
+      = content_tag "div", id: "user", data:{id: current_user.id} {}
