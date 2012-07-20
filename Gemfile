@@ -21,12 +21,15 @@ group :development do
   gem 'rspec'
   #get rid of quiet asset output
   gem 'quiet_assets'
-
 end
 
 group :test, :development do
   gem "rspec-rails", "~> 2.0"
   gem "factory_girl_rails", "~> 3.0"
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'pry-remote'
+  gem 'pry-nav'
 end
 
 group :assets do

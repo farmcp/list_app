@@ -8,13 +8,17 @@ ListApp::Application.routes.draw do
   match 'home/', to: 'static_pages#home'
 
   match 'contribute/', to: 'static_pages#contribute'
-  #root is the sign in page instead of the static page - static_pages#home
-  #root :to => 'sessions#new'
+  match 'sync/', to: 'sync#show'
+  match 'get_sync/', to: 'sync#get_sync'
+
   root :to => 'static_pages#home'
 
   resources :users do
     member do
       get :following, :followers
+    end
+    collection do
+      get :syncable_users
     end
   end
 
