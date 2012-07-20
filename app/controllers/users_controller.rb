@@ -3,7 +3,7 @@ require 'will_paginate/array'
 class UsersController < ApplicationController
 
   #calls this before any of the other defined actions (here just :edit and :update) in this controller
-  before_filter :signed_in_user, only: [:edit, :update, :show, :index, :destroy]
+  before_filter :signed_in_user, only: [:edit, :update, :show, :index, :destroy, :syncable_users]
 
   #make sure the correct user is signed in to edit the profile - users can see each other's pages
   before_filter :correct_user, only:[:edit, :update]
@@ -88,16 +88,18 @@ class UsersController < ApplicationController
     end
   end
 
-  #return all followers and followeds
-  def following_followers
-    @user = User.find(params[:id])
+  def syncable_users
     if params[:q]
-      @following_followers = @user.followers.search(params[:q]).concat(@user.followed_users.search(params[:q]))
-    end
-    respond_to do |format|
-      format.json { render :json => @following_followers.to_json(:only => [:id], :methods => [:full_name])}
+      # TODO can do this in a single query with arel magic
+      friends = current_user.followers.search(params[:q]) | current_user.followed_users.search(params[:q])
+      json = friends.to_json(:only => [:id], :methods => [:full_name])
+    else
+      json = '[]'
     end
 
+    respond_to do |format|
+      format.json { render :json => json }
+    end
   end
 
   private
