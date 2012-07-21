@@ -895,6 +895,8 @@ $.TokenList = function (input, url_or_data, settings) {
     // obj: a jQuery object to focus()
     function focus_with_timeout(obj) {
         //setTimeout(function() { obj.focus(); }, 50);
+
+        //focus doesn't work with timeout on the iphone
         obj.focus();
     }
 
