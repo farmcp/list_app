@@ -475,7 +475,9 @@ $.TokenList = function (input, url_or_data, settings) {
         // Enter new content into resizer and resize input accordingly
         var escaped = input_val.replace(/&/g, '&amp;').replace(/\s/g,' ').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         input_resizer.html(escaped);
-        input_box.width(input_resizer.width() + 30);
+
+        //input box width should be dynamically calculated based on the remaining width that's left- original: input_resizer.width() + 30
+        input_box.width("auto");
     }
 
     function is_printable_character(keycode) {

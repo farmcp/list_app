@@ -1,7 +1,7 @@
 var options = {
   propertyToSearch: "full_name",
-  theme: "facebook",
   hintText: "Enter a name in your network",
+  theme: "facebook", 
   searchingText: "Searching your network...",
 };
 $(document).ready(function () {
