@@ -477,7 +477,7 @@ $.TokenList = function (input, url_or_data, settings) {
         input_resizer.html(escaped);
 
         //input box width should be dynamically calculated based on the remaining width that's left- original: input_resizer.width() + 30
-        input_box.width(372);
+        input_box.width(input_resizer.width() + 30);
     }
 
     function is_printable_character(keycode) {
