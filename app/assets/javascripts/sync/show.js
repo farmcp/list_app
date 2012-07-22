@@ -1,7 +1,7 @@
 var options = {
   propertyToSearch: "full_name",
   hintText: "Enter a name in your network",
-  theme: "facebook", 
+  theme: "facebook",
   searchingText: "Searching your network...",
 };
 $(document).ready(function () {
@@ -9,11 +9,12 @@ $(document).ready(function () {
 
   $("input[type=submit]").click(function(){
     //create the array of ids that are returned on the submit
-    var sync_ids = $(this).siblings("input[type=text]").val().split(',');
+    var syncIds = $(this).siblings("input[type=text]").val().split(',');
     
     //pass in a list of ids to the controller
-    var url = '/get_sync?ids='.concat(sync_ids);
+    var url = '/get_sync?ids='.concat(syncIds);
 
     document.location.href = url;
+    return false;
   });
 });
