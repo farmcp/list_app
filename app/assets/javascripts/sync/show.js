@@ -9,8 +9,8 @@ $(document).ready(function () {
 
   $("input[type=submit]").click(function(){
     //create the array of ids that are returned on the submit
-    var syncIds = $(this).siblings("input[type=text]").val().split(',');
-    
+    var syncIds = $(this).siblings("input[type=text]").val();
+
     //pass in a list of ids to the controller
     var url = '/get_sync?ids='.concat(syncIds);
 
