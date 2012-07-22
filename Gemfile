@@ -21,6 +21,7 @@ group :development do
   gem 'rspec'
   #get rid of quiet asset output
   gem 'quiet_assets'
+  gem 'hpricot'
 end
 
 group :test, :development do
