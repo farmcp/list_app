@@ -1,0 +1,18 @@
+%h1{style: 'text-align: center;'}
+  Recommendations
+
+.row
+  .span6.offset3
+    - if @recommendations.count > 1
+      .well= gmaps4rails(@maps_json)
+    - if @recommendations.count == 1
+      .well= gmaps("map_options" => { "zoom" => 15, "auto_zoom" => false }, "markers" => { "data" => @maps_json })
+
+.row
+  .span6.offset3
+    - if @users.any?
+      %ul.users
+        - @recommendations.each do |recommendation|
+          .well
+            .pull-left.list-image= image_tag recommendation.picture_url, size: '40x40'
+            %h3.pull-left= link_to recommendation.name, recommendation

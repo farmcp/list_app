@@ -29,7 +29,7 @@
       - @list.list_items.each do |item|
         .well
           .pull-left.list-image
-            = image_tag(item.restaurant.picture_url, size:'40x40')
+            = image_tag item.restaurant.picture_url, size:'40x40'
 
           - if item.restaurant.name.length < 20
             = link_to item.restaurant.name, item.restaurant, class: 'pull-left list-item-text'

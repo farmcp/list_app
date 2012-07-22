@@ -10,8 +10,10 @@ $(document).ready(function () {
   $("input[type=submit]").click(function(){
     //create the array of ids that are returned on the submit
     var sync_ids = $(this).siblings("input[type=text]").val().split(',');
-
+    
     //pass in a list of ids to the controller
-    window.location.replace('/get_sync.json/?ids='.concat(sync_ids));
+    var url = '/get_sync?ids='.concat(sync_ids);
+
+    document.location.href = url;
   });
 });
