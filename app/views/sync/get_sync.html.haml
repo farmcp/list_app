@@ -1,5 +1,9 @@
 %h1{style: 'text-align: center;'}
-  Recommendations
+  Group Bites
+
+%h2{style: 'text-align:center;'}
+  Bitelist recommends the following places for your group!
+
 
 .row
   .span6.offset3
@@ -15,4 +19,4 @@
         - @recommendations.each do |recommendation|
           .well
             .pull-left.list-image= image_tag recommendation.picture_url, size: '40x40'
-            %h3.pull-left= link_to recommendation.name, recommendation
+            %h3.pull-left= link_to truncate(recommendation.name, length: 20), recommendation
