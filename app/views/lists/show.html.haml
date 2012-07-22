@@ -9,10 +9,10 @@
     - # only allow to post when it's the current user's account
     - if current_user == @list.user
       = form_for :restaurant, as: :post, :url => list_items_path do |f|
-        = f.text_field :name, :style => 'width:75%;'
+        = f.text_field :name, :style => 'width:75%;', :placeholder => 'Add new restaurant'
         = f.hidden_field :list_id, value: params[:id]
 
-        = f.submit "Add", class: 'btn btn-primary', :style => 'height:40px;'
+        = f.submit "&nbsp;+&nbsp;".html_safe, class: 'btn btn-primary', :style => 'height:40px;'
 
 .row
   .span6.offset3
