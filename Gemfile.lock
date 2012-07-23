@@ -65,7 +65,6 @@ GEM
       haml (~> 3.0)
       railties (~> 3.0)
     hike (1.2.1)
-    hpricot (0.8.6)
     i18n (0.6.0)
     journey (1.0.3)
     jquery-rails (2.0.2)
@@ -177,7 +176,6 @@ DEPENDENCIES
   google-analytics-rails
   haml
   haml-rails (= 0.3.4)
-  hpricot
   jquery-rails
   pg
   pry
