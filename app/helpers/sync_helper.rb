@@ -12,9 +12,7 @@ module SyncHelper
   
     @restaurants = []
     count_hash.sort_by{|k,v| @restaurants << k }.reverse
-  
-    puts @restaurants
-    puts count_hash
+
     #return a list of restaurants
     return @restaurants
   end
