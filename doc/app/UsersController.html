@@ -86,6 +86,8 @@
     
     <li><a href="#method-i-show">#show</a>
     
+    <li><a href="#method-i-syncable_users">#syncable_users</a>
+    
     <li><a href="#method-i-update">#update</a>
     
   </ul>
@@ -115,6 +117,8 @@
   
     <li><a href="./City.html">City</a>
   
+    <li><a href="./Enumerable.html">Enumerable</a>
+  
     <li><a href="./List.html">List</a>
   
     <li><a href="./ListItem.html">ListItem</a>
@@ -122,6 +126,8 @@
     <li><a href="./ListItemsController.html">ListItemsController</a>
   
     <li><a href="./ListsController.html">ListsController</a>
+  
+    <li><a href="./Object.html">Object</a>
   
     <li><a href="./PasswordResetsController.html">PasswordResetsController</a>
   
@@ -142,6 +148,10 @@
     <li><a href="./StaticPagesController.html">StaticPagesController</a>
   
     <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
+  
+    <li><a href="./SyncController.html">SyncController</a>
+  
+    <li><a href="./SyncHelper.html">SyncHelper</a>
   
     <li><a href="./User.html">User</a>
   
@@ -296,17 +306,24 @@
 
         <div class="method-description">
           
-          
+          <p>return all followers</p>
           
 
           
           <div class="method-source-code" id="followers-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 67</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 77</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">followers</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Followers&quot;</span>
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@users</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">followers</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
-  <span class="ruby-identifier">render</span> <span class="ruby-string">'show_follow'</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:q</span>]
+    <span class="ruby-ivar">@followers</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">followers</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:q</span>])
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> {<span class="ruby-identifier">render</span> <span class="ruby-string">'show_follow'</span>}
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> {<span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@followers</span>.<span class="ruby-identifier">to_json</span>(<span class="ruby-value">:only</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">:id</span>], <span class="ruby-value">:methods</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">:full_name</span>])}
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- followers-source -->
           
@@ -329,17 +346,25 @@
 
         <div class="method-description">
           
-          
+          <p>return all followeds</p>
           
 
           
           <div class="method-source-code" id="following-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 60</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">following</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Following&quot;</span>
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@users</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">followed_users</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
-  <span class="ruby-identifier">render</span> <span class="ruby-string">'show_follow'</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:q</span>]
+    <span class="ruby-ivar">@followeds</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">followed_users</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:q</span>])
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> {<span class="ruby-identifier">render</span> <span class="ruby-string">'show_follow'</span>}
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> {<span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@followeds</span>.<span class="ruby-identifier">to_json</span>(<span class="ruby-value">:only</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">:id</span>], <span class="ruby-value">:methods</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">:full_name</span>])}
+  <span class="ruby-keyword">end</span>
+
 <span class="ruby-keyword">end</span></pre>
           </div><!-- following-source -->
           
@@ -440,6 +465,46 @@
 
         
       </div><!-- show-method -->
+
+    
+      <div id="method-i-syncable_users" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">syncable_users</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="syncable_users-source">
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">syncable_users</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:q</span>]
+    <span class="ruby-comment"># TODO can do this in a single query with arel magic</span>
+    <span class="ruby-identifier">friends</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">followers</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:q</span>]) <span class="ruby-operator">|</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">followed_users</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:q</span>])
+    <span class="ruby-identifier">json</span> = <span class="ruby-identifier">friends</span>.<span class="ruby-identifier">to_json</span>(<span class="ruby-value">:only</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">:id</span>], <span class="ruby-value">:methods</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">:full_name</span>])
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">json</span> = <span class="ruby-string">'[]'</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">json</span> }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- syncable_users-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- syncable_users-method -->
 
     
       <div id="method-i-update" class="method-detail ">

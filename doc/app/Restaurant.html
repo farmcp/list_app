@@ -70,6 +70,8 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-i-city_state_zip">#city_state_zip</a>
+    
     <li><a href="#method-i-fix_phone_number">#fix_phone_number</a>
     
     <li><a href="#method-i-gmaps4rails_address">#gmaps4rails_address</a>
@@ -101,6 +103,8 @@
   
     <li><a href="./City.html">City</a>
   
+    <li><a href="./Enumerable.html">Enumerable</a>
+  
     <li><a href="./List.html">List</a>
   
     <li><a href="./ListItem.html">ListItem</a>
@@ -108,6 +112,8 @@
     <li><a href="./ListItemsController.html">ListItemsController</a>
   
     <li><a href="./ListsController.html">ListsController</a>
+  
+    <li><a href="./Object.html">Object</a>
   
     <li><a href="./PasswordResetsController.html">PasswordResetsController</a>
   
@@ -128,6 +134,10 @@
     <li><a href="./StaticPagesController.html">StaticPagesController</a>
   
     <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
+  
+    <li><a href="./SyncController.html">SyncController</a>
+  
+    <li><a href="./SyncHelper.html">SyncHelper</a>
   
     <li><a href="./User.html">User</a>
   
@@ -188,6 +198,36 @@ gmaps        :boolean</pre>
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="method-i-city_state_zip" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">city_state_zip</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="city_state_zip-source">
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">city_state_zip</span>
+  <span class="ruby-node">&quot;#{city.name}, #{city.state} #{postal_code}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- city_state_zip-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- city_state_zip-method -->
+
+    
       <div id="method-i-fix_phone_number" class="method-detail ">
         
         <div class="method-heading">
@@ -204,7 +244,7 @@ gmaps        :boolean</pre>
 
           
           <div class="method-source-code" id="fix_phone_number-source">
-            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 46</span>
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 50</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">fix_phone_number</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">phone_number</span> = <span class="ruby-identifier">phone_number</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r\D/</span>, <span class="ruby-string">''</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -236,7 +276,7 @@ gmaps        :boolean</pre>
           <div class="method-source-code" id="gmaps4rails_address-source">
             <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 41</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">gmaps4rails_address</span>
-  <span class="ruby-node">&quot;#{address}, #{city.name}, #{city.state} #{postal_code}&quot;</span>
+  <span class="ruby-node">&quot;#{address}, #{city_state_zip}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- gmaps4rails_address-source -->
           
