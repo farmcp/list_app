@@ -5,6 +5,6 @@ module SyncHelper
     restaurants = users.collect(&:list_items).flatten.collect(&:restaurant)
     # histogram returns { restaurant => frequency }
     popularity = restaurants.histogram
-    popularity.sort_by(&:last).collect(&:first)
+    popularity.sort_by(&:last).collect(&:first).reverse
   end
 end
