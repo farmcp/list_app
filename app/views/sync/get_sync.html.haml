@@ -8,7 +8,7 @@
   .span6.offset3
     -if @users.any?
       - @users.each do |user|
-        = gravatar_for user, :size => 50
+        = link_to (gravatar_for user, :size => 50), user
 %br/
 
 .row
