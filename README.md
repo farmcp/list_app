@@ -43,7 +43,7 @@ To Dos:
 2. ~~Allow users to click through list_items to view details on restaurants~~
 6. ~~Add images to cities~~
 4. Add facebook connect that suggests friends already in their fb network to follow
-2. Validation for places to eat - know when someone enters a valid restaurant and populating the database
+2. Validation for places to eat - know when someone enters a valid restaurant and populating the database. Finish autocomplete for adding restaurants to your bitelist
 3. ~~Allow users to sync with selected people they follow~~
 4. Create a better algorithm for restaurant recommendations
 4. Add a Friends tab and allows you to view all your followers and people you follow - this will replace current `users_path`
