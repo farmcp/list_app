@@ -17,6 +17,7 @@
 #  latitude     :float
 #  longitude    :float
 #  gmaps        :boolean
+#  yelp_url     :string(255)
 #
 
 class Restaurant < ActiveRecord::Base
@@ -29,6 +30,9 @@ class Restaurant < ActiveRecord::Base
   #a restaurant belongs to a single city (create new entry for each restaurant chain location)
   belongs_to :city
   has_one :list_item, :dependent => :destroy
+
+  #a restaurant has many comments and it'd dependent
+  has_many :comments, :dependent => :destroy
 
   validates :name, :presence => true
   validates :phone_number, allow_blank: true, :format => {with: /\d{10}/, message: "(Only 10 digit numbers are allowed)"}, numericality: {only_integer: true}

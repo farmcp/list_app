@@ -37,6 +37,9 @@ class User < ActiveRecord::Base
   has_many :reverse_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
 
+  #a user has many comments
+  has_many :comments, :dependent => :destroy
+
   #before you save the user to the database - downcase the email
   before_save { |user| user.email = email.downcase }
   #before the save create the remember_token for the specific user automatically
