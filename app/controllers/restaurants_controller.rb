@@ -9,6 +9,10 @@ class RestaurantsController < ApplicationController
   def show
     @restaurant = Restaurant.find(params[:id])
     @maps_json = @restaurant.to_gmaps4rails
+
+    #get comments for the current restaurant
+    @comments = @restaurant.comments
+
   end
 
   #POST action for creating a new restaurant

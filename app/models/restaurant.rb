@@ -31,7 +31,7 @@ class Restaurant < ActiveRecord::Base
   belongs_to :city
   has_one :list_item, :dependent => :destroy
 
-  #a restaurant has many comments and it'd dependent
+  #a restaurant has many comments and the comments are dependent that the restaurant exists
   has_many :comments, :dependent => :destroy
 
   validates :name, :presence => true

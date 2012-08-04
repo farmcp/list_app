@@ -30,9 +30,15 @@
 
   .span8
     - # put the restaurant's website, pictures, address, comments here
-    %h3.big_title
-      Location
+    %h3.big_title Location
     %ol.lists
       %li
         .well
           = gmaps("map_options" => { "zoom" => 15, "auto_zoom" => false }, "markers" => { "data" => @maps_json })
+
+    %br/
+    %h3.big_title 
+      Comments
+    %div
+      = render 'comments/comment'
+
