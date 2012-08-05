@@ -12,6 +12,7 @@ class RestaurantsController < ApplicationController
 
     #get comments for the current restaurant - only show the followers' and followed users' comments
     friends = current_user.followers | current_user.followed_users
+    friends << current_user
     @comments = []
     friends.each do |friend|
       @comments << friend.comments.where('restaurant_id = '.concat(params[:id].to_s))
