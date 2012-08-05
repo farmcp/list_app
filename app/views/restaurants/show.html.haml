@@ -42,4 +42,7 @@
         Comments
       %div
         = render 'comments/comment'
-
+    -else
+      .well
+        %h2{style:'margin-bottom: 0px;'}
+          =link_to "Sign in to get exclusive content!", signin_path
