@@ -10,9 +10,13 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
     @maps_json = @restaurant.to_gmaps4rails
 
-    #get comments for the current restaurant
-    @comments = @restaurant.comments
-
+    #get comments for the current restaurant - only show the followers' and followed users' comments
+    friends = current_user.followers | current_user.followed_users
+    @comments = []
+    friends.each do |friend|
+      @comments << friend.comments.where('restaurant_id = '.concat(params[:id].to_s))
+    end
+    @comments = @comments.flatten
   end
 
   #POST action for creating a new restaurant

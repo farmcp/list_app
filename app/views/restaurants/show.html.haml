@@ -37,8 +37,9 @@
           = gmaps("map_options" => { "zoom" => 15, "auto_zoom" => false }, "markers" => { "data" => @maps_json })
 
     %br/
-    %h3.big_title 
-      Comments
-    %div
-      = render 'comments/comment'
+    - if signed_in?
+      %h3.big_title 
+        Comments
+      %div
+        = render 'comments/comment'
 
