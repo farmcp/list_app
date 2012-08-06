@@ -64,9 +64,10 @@ class ListsController < ApplicationController
   # TODO: maybe this should be json?
   def add_to
     list = List.find(params[:restaurant][:list_id])
-    rest_ids = params[:restaurant][:name]
+    rest_ids = params[:restaurant][:name].split(',')
     restaurants = Restaurant.where(:city_id => list.city_id, :id => rest_ids)
     restaurants.each do |restaurant|
+      next if list.list_items.where(:restaurant_id => restaurant.id).present?
       item = list.list_items.build(:restaurant_id => restaurant.id)
       item.save!
     end
