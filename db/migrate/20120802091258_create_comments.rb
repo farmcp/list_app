@@ -7,5 +7,7 @@ class CreateComments < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :comments, :user_id
+    add_index :comments, :restaurant_id
   end
 end

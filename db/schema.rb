@@ -35,6 +35,9 @@ ActiveRecord::Schema.define(:version => 20120802091258) do
     t.datetime "updated_at",    :null => false
   end
 
+  add_index "comments", ["restaurant_id"], :name => "index_comments_on_restaurant_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
   create_table "list_items", :force => true do |t|
     t.integer  "list_id"
     t.integer  "restaurant_id"
