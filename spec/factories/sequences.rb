@@ -4,7 +4,7 @@ FactoryGirl.define do
   end
 
   sequence :email do |n|
-    "user#{Time.now.to_f}@tapjoy.com"
+    "user#{Time.now.to_f}@bitelist.com"
   end
 
   sequence :udid do |n|
