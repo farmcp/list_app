@@ -27,6 +27,9 @@ class User < ActiveRecord::Base
   #has many list_items
   has_many :list_items, :through => :lists
 
+  #has many restaurants through list_items
+  has_many :restaurants, :through => :list_items
+
   #every user has many relationships - also should destroy the relationship if the user is destroyed
   has_many :relationships, :foreign_key => "follower_id", :dependent => :destroy
 
@@ -36,6 +39,9 @@ class User < ActiveRecord::Base
   #can say User.followers => returns an array of followers for the user. using the Relationship class and using reverse_relationships
   has_many :reverse_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
+
+  #a user has many comments
+  has_many :comments, :dependent => :destroy
 
   #before you save the user to the database - downcase the email
   before_save { |user| user.email = email.downcase }

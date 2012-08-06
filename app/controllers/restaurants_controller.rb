@@ -9,6 +9,14 @@ class RestaurantsController < ApplicationController
   def show
     @restaurant = Restaurant.find(params[:id])
     @maps_json = @restaurant.to_gmaps4rails
+
+    #get comments for the current restaurant - only show the followers' and followed users' comments
+    if current_user 
+      friends_ids = current_user.followers.map(&:id) | current_user.followed_users.map(&:id) | [current_user.id]
+      @comments = Comment.where(:restaurant_id => params[:id], :user_id => friends_ids.uniq).flatten
+    else
+      @comments = []
+    end
   end
 
   #POST action for creating a new restaurant
