@@ -48,7 +48,7 @@ To Dos:
 4. Create a better algorithm for restaurant recommendations
 4. Add a Friends tab and allows you to view all your followers and people you follow - this will replace current `users_path`
 2. Add directions to restaurants (button on the restaurant show)
-4. Adding user's comments to each list item
+4. ~~Adding user's comments to each list item~~
 2. http://www.opentable.com/info/affiliates.aspx - add open table reservations
 5. Get off of Gravatar - handle image storage with aws S3
 2. Create JSON API so we can start the native iOS app
