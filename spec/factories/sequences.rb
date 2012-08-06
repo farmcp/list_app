@@ -11,6 +11,14 @@ FactoryGirl.define do
     "#{('0' * (40 - n.to_s.length))}#{n}"
   end
 
+  sequence :longitude do |n|
+    rand(360)
+  end
+
+  sequence :latitude do |n|
+    rand(180) - 90
+  end
+
   sequence :guid do |n|
     "#{UUIDTools::UUID.random_create}"
   end

@@ -38,6 +38,7 @@ class Restaurant < ActiveRecord::Base
   validates :phone_number, allow_blank: true, :format => {with: /\d{10}/, message: "(Only 10 digit numbers are allowed)"}, numericality: {only_integer: true}
   validates :address, :presence => true
   validates :postal_code, :presence => true
+  validates :yelp_url, :presence => true, :uniqueness => true
 
   before_validation :fix_phone_number
 
