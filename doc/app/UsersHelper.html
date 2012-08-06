@@ -93,6 +93,10 @@
   
     <li><a href="./City.html">City</a>
   
+    <li><a href="./Comment.html">Comment</a>
+  
+    <li><a href="./CommentsController.html">CommentsController</a>
+  
     <li><a href="./Enumerable.html">Enumerable</a>
   
     <li><a href="./List.html">List</a>
@@ -172,7 +176,7 @@
         
         <div class="method-heading">
           <span class="method-name">gravatar_for</span><span
-            class="method-args">(user, options = {size:50})</span>
+            class="method-args">(user, options = {size:''})</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
@@ -185,11 +189,11 @@
           
           <div class="method-source-code" id="gravatar_for-source">
             <pre><span class="ruby-comment"># File app/helpers/users_helper.rb, line 2</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">gravatar_for</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">options</span> = {<span class="ruby-identifier">size</span><span class="ruby-value">50</span><span class="ruby-value">50</span>})
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">gravatar_for</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">options</span> = {<span class="ruby-identifier">size</span><span class="ruby-value">:''</span>})
   <span class="ruby-identifier">gravatar_class</span> = <span class="ruby-string">&quot;gravatar&quot;</span>
   <span class="ruby-identifier">gravatar_id</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span><span class="ruby-operator">::</span><span class="ruby-identifier">hexdigest</span>(<span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>.<span class="ruby-identifier">downcase</span>)
-  <span class="ruby-identifier">gravatar_url</span> = <span class="ruby-node">&quot;http://gravatar.com/avatar/#{gravatar_id}.png?r=r&quot;</span>
-  <span class="ruby-identifier">image_tag</span>(<span class="ruby-identifier">gravatar_url</span>, <span class="ruby-identifier">alt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">first_name</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">last_name</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-keyword">class</span><span class="ruby-operator">:</span> <span class="ruby-identifier">gravatar_class</span>)
+  <span class="ruby-identifier">gravatar_url</span> = <span class="ruby-node">&quot;http://gravatar.com/avatar/#{gravatar_id}.png?r=r&amp;size=#{options[:size]}&quot;</span>
+  <span class="ruby-identifier">image_tag</span>(<span class="ruby-identifier">gravatar_url</span>, <span class="ruby-identifier">alt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">full_name</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-keyword">class</span><span class="ruby-operator">:</span> <span class="ruby-identifier">gravatar_class</span>, <span class="ruby-value">:gravatar</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- gravatar_for-source -->
           

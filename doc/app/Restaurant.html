@@ -103,6 +103,10 @@
   
     <li><a href="./City.html">City</a>
   
+    <li><a href="./Comment.html">Comment</a>
+  
+    <li><a href="./CommentsController.html">CommentsController</a>
+  
     <li><a href="./Enumerable.html">Enumerable</a>
   
     <li><a href="./List.html">List</a>
@@ -176,7 +180,8 @@ city_id      :integer
 active       :boolean
 latitude     :float
 longitude    :float
-gmaps        :boolean</pre>
+gmaps        :boolean
+yelp_url     :string(255)</pre>
 
   </div><!-- description -->
 
@@ -214,7 +219,7 @@ gmaps        :boolean</pre>
 
           
           <div class="method-source-code" id="city_state_zip-source">
-            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 45</span>
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 49</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">city_state_zip</span>
   <span class="ruby-node">&quot;#{city.name}, #{city.state} #{postal_code}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -244,7 +249,7 @@ gmaps        :boolean</pre>
 
           
           <div class="method-source-code" id="fix_phone_number-source">
-            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 50</span>
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 54</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">fix_phone_number</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">phone_number</span> = <span class="ruby-identifier">phone_number</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r\D/</span>, <span class="ruby-string">''</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -274,7 +279,7 @@ gmaps        :boolean</pre>
 
           
           <div class="method-source-code" id="gmaps4rails_address-source">
-            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 41</span>
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 45</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">gmaps4rails_address</span>
   <span class="ruby-node">&quot;#{address}, #{city_state_zip}&quot;</span>
 <span class="ruby-keyword">end</span></pre>

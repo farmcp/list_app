@@ -64,9 +64,9 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-i-histogram">#histogram</a>
-    
     <li><a href="#method-i-mean">#mean</a>
+    
+    <li><a href="#method-i-sort_by_frequency">#sort_by_frequency</a>
     
     <li><a href="#method-i-standard_deviation">#standard_deviation</a>
     
@@ -98,6 +98,10 @@
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
   
     <li><a href="./City.html">City</a>
+  
+    <li><a href="./Comment.html">Comment</a>
+  
+    <li><a href="./CommentsController.html">CommentsController</a>
   
     <li><a href="./Enumerable.html">Enumerable</a>
   
@@ -174,40 +178,6 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-histogram" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">histogram</span><span
-            class="method-args">() { |i| ... }</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Gives counts of items, or of items categories if the categorization is
-given a block (1..30).histogram{ |x| x % 3 } #=&gt; {0=&gt;10, 1=&gt;10,
-2=&gt;10}</p>
-          
-
-          
-          <div class="method-source-code" id="histogram-source">
-            <pre><span class="ruby-comment"># File lib/extensions/enumerable.rb, line 20</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">histogram</span>(&amp;<span class="ruby-identifier">to_category_block</span>)
-  <span class="ruby-identifier">hist</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">0</span>)
-  <span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">hist</span>[<span class="ruby-identifier">block_given?</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">i</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">i</span>] <span class="ruby-operator">+=</span> <span class="ruby-value">1</span> }
-  <span class="ruby-identifier">hist</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- histogram-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- histogram-method -->
-
-    
       <div id="method-i-mean" class="method-detail ">
         
         <div class="method-heading">
@@ -224,7 +194,7 @@ given a block (1..30).histogram{ |x| x % 3 } #=&gt; {0=&gt;10, 1=&gt;10,
 
           
           <div class="method-source-code" id="mean-source">
-            <pre><span class="ruby-comment"># File lib/extensions/enumerable.rb, line 3</span>
+            <pre><span class="ruby-comment"># File lib/extensions/enumerable.rb, line 2</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">mean</span>
   <span class="ruby-identifier">sum</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">length</span>.<span class="ruby-identifier">to_f</span>
 <span class="ruby-keyword">end</span></pre>
@@ -236,6 +206,38 @@ given a block (1..30).histogram{ |x| x % 3 } #=&gt; {0=&gt;10, 1=&gt;10,
 
         
       </div><!-- mean-method -->
+
+    
+      <div id="method-i-sort_by_frequency" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sort_by_frequency</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="sort_by_frequency-source">
+            <pre><span class="ruby-comment"># File lib/extensions/enumerable.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">sort_by_frequency</span>
+  <span class="ruby-identifier">hist</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">0</span>)
+  <span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">hist</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-=</span> <span class="ruby-value">1</span> }
+  <span class="ruby-identifier">hist</span>.<span class="ruby-identifier">sort_by</span>(&amp;<span class="ruby-value">:last</span>).<span class="ruby-identifier">collect</span>(&amp;<span class="ruby-value">:first</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- sort_by_frequency-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- sort_by_frequency-method -->
 
     
       <div id="method-i-standard_deviation" class="method-detail ">
@@ -254,7 +256,7 @@ given a block (1..30).histogram{ |x| x % 3 } #=&gt; {0=&gt;10, 1=&gt;10,
 
           
           <div class="method-source-code" id="standard_deviation-source">
-            <pre><span class="ruby-comment"># File lib/extensions/enumerable.rb, line 14</span>
+            <pre><span class="ruby-comment"># File lib/extensions/enumerable.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">standard_deviation</span>
   <span class="ruby-constant">Math</span>.<span class="ruby-identifier">sqrt</span>(<span class="ruby-identifier">variance</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -284,7 +286,7 @@ given a block (1..30).histogram{ |x| x % 3 } #=&gt; {0=&gt;10, 1=&gt;10,
 
           
           <div class="method-source-code" id="variance-source">
-            <pre><span class="ruby-comment"># File lib/extensions/enumerable.rb, line 7</span>
+            <pre><span class="ruby-comment"># File lib/extensions/enumerable.rb, line 6</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">variance</span>
   <span class="ruby-keyword">return</span> <span class="ruby-value">0</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
   <span class="ruby-identifier">avg</span> = <span class="ruby-identifier">mean</span>

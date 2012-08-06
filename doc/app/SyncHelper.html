@@ -93,6 +93,10 @@
   
     <li><a href="./City.html">City</a>
   
+    <li><a href="./Comment.html">Comment</a>
+  
+    <li><a href="./CommentsController.html">CommentsController</a>
+  
     <li><a href="./Enumerable.html">Enumerable</a>
   
     <li><a href="./List.html">List</a>
@@ -190,8 +194,7 @@ users that were inputted and their restaurants</p>
   <span class="ruby-comment">#simple algorithm is to show the most popular places at the top and if there are ties then show the closest ones?</span>
   <span class="ruby-identifier">restaurants</span> = <span class="ruby-identifier">users</span>.<span class="ruby-identifier">collect</span>(&amp;<span class="ruby-value">:list_items</span>).<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">collect</span>(&amp;<span class="ruby-value">:restaurant</span>)
   <span class="ruby-comment"># histogram returns { restaurant =&gt; frequency }</span>
-  <span class="ruby-identifier">popularity</span> = <span class="ruby-identifier">restaurants</span>.<span class="ruby-identifier">histogram</span>
-  <span class="ruby-identifier">popularity</span>.<span class="ruby-identifier">sort_by</span>(&amp;<span class="ruby-value">:last</span>).<span class="ruby-identifier">collect</span>(&amp;<span class="ruby-value">:first</span>).<span class="ruby-identifier">reverse</span>
+  <span class="ruby-identifier">restaurants</span>.<span class="ruby-identifier">sort_by_frequency</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- get_recommendations-source -->
           

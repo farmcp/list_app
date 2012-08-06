@@ -109,6 +109,10 @@
   
     <li><a href="./City.html">City</a>
   
+    <li><a href="./Comment.html">Comment</a>
+  
+    <li><a href="./CommentsController.html">CommentsController</a>
+  
     <li><a href="./Enumerable.html">Enumerable</a>
   
     <li><a href="./List.html">List</a>
@@ -229,7 +233,7 @@ password_reset_sent_at :datetime</pre>
 
           
           <div class="method-source-code" id="search-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 87</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 93</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>
     <span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-identifier">conditions</span><span class="ruby-operator">:</span> [<span class="ruby-string">'lower(first_name) LIKE ? OR lower(last_name) LIKE ?'</span>, <span class="ruby-node">&quot;%#{query.downcase}%&quot;</span>, <span class="ruby-node">&quot;%#{query.downcase}%&quot;</span>])
@@ -270,7 +274,7 @@ id</p>
 
           
           <div class="method-source-code" id="follow-21-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 63</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 69</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">follow!</span>(<span class="ruby-identifier">other_user</span>)
   <span class="ruby-identifier">relationships</span>.<span class="ruby-identifier">create!</span>(<span class="ruby-identifier">followed_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">other_user</span>.<span class="ruby-identifier">id</span>)
 
@@ -303,7 +307,7 @@ id</p>
 
           
           <div class="method-source-code" id="following-3F-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 58</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">following?</span>(<span class="ruby-identifier">other_user</span>)
   <span class="ruby-identifier">relationships</span>.<span class="ruby-identifier">find_by_followed_id</span>(<span class="ruby-identifier">other_user</span>.<span class="ruby-identifier">id</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -333,7 +337,7 @@ id</p>
 
           
           <div class="method-source-code" id="full_name-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 54</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">full_name</span>
   <span class="ruby-node">&quot;#{first_name} #{last_name}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -363,7 +367,7 @@ id</p>
 
           
           <div class="method-source-code" id="send_password_reset-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 76</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 82</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">send_password_reset</span>
   <span class="ruby-comment"># generate a new token to reset password after email is asked for</span>
   <span class="ruby-identifier">generate_token</span>(<span class="ruby-value">:password_reset_token</span>)
@@ -399,7 +403,7 @@ id</p>
 
           
           <div class="method-source-code" id="unfollow-21-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 71</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 77</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">unfollow!</span>(<span class="ruby-identifier">other_user</span>)
   <span class="ruby-identifier">relationships</span>.<span class="ruby-identifier">find_by_followed_id</span>(<span class="ruby-identifier">other_user</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">destroy</span>
 <span class="ruby-keyword">end</span></pre>

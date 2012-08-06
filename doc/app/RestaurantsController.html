@@ -103,6 +103,10 @@
   
     <li><a href="./City.html">City</a>
   
+    <li><a href="./Comment.html">Comment</a>
+  
+    <li><a href="./CommentsController.html">CommentsController</a>
+  
     <li><a href="./Enumerable.html">Enumerable</a>
   
     <li><a href="./List.html">List</a>
@@ -194,7 +198,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 15</span>
+            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
 
   <span class="ruby-comment">#TODO: Need to check if the Restaurant exists already.</span>
@@ -272,6 +276,14 @@
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@restaurant</span> = <span class="ruby-constant">Restaurant</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@maps_json</span> = <span class="ruby-ivar">@restaurant</span>.<span class="ruby-identifier">to_gmaps4rails</span>
+
+  <span class="ruby-comment">#get comments for the current restaurant - only show the followers' and followed users' comments</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span> 
+    <span class="ruby-identifier">friends_ids</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">followers</span>.<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:id</span>) <span class="ruby-operator">|</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">followed_users</span>.<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:id</span>) <span class="ruby-operator">|</span> [<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>]
+    <span class="ruby-ivar">@comments</span> = <span class="ruby-constant">Comment</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:restaurant_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>], <span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">friends_ids</span>.<span class="ruby-identifier">uniq</span>).<span class="ruby-identifier">flatten</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@comments</span> = []
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
           
