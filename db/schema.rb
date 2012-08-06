@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120802091258) do
+ActiveRecord::Schema.define(:version => 20120806042257) do
 
   create_table "cities", :force => true do |t|
     t.string   "name",         :limit => 64,                    :null => false
@@ -82,6 +82,8 @@ ActiveRecord::Schema.define(:version => 20120802091258) do
     t.boolean  "gmaps"
     t.string   "yelp_url"
   end
+
+  add_index "restaurants", ["yelp_url"], :name => "index_restaurants_on_yelp_url"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
