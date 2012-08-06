@@ -25,6 +25,7 @@ end
 
 group :test, :development do
   gem "rspec-rails", "~> 2.0"
+  gem 'shoulda-matchers'
   gem "factory_girl_rails", "~> 3.0"
   gem 'pry'
   gem 'pry-rails'
@@ -42,7 +43,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'gmaps4rails'
+group :development, :production do
+  gem 'gmaps4rails'
+end
+
 gem 'jquery-rails'
 gem 'haml'
 gem 'haml-rails', '= 0.3.4'

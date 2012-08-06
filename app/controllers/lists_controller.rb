@@ -10,7 +10,6 @@ class ListsController < ApplicationController
     @bos = City.find_by_name 'Boston'
   end
 
-
   #POST request for creating a new List
   def create
     #create a list for the current user if (s)he doesn't have a list already for the specific name and is signed in
@@ -62,9 +61,18 @@ class ListsController < ApplicationController
     end
   end
 
-############################
-#Private methods
-############################
+  # TODO: maybe this should be json?
+  def add_to
+    list = List.find(params[:restaurant][:list_id])
+    rest_ids = params[:restaurant][:name].split(',')
+    restaurants = Restaurant.where(:city_id => list.city_id, :id => rest_ids)
+    restaurants.each do |restaurant|
+      next if list.list_items.where(:restaurant_id => restaurant.id).present?
+      item = list.list_items.build(:restaurant_id => restaurant.id)
+      item.save!
+    end
+    redirect_to :back
+  end
 
   private
 
