@@ -24,7 +24,11 @@ ListApp::Application.routes.draw do
 
   resources :relationships, only: [:destroy, :create]
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :lists, :only => [:create, :destroy, :new, :show]
+  resources :lists, :only => [:create, :destroy, :new, :show] do
+    member do
+      post :add_to
+    end
+  end
   resources :list_items, :only => [:create, :destroy]
   resources :restaurants, :only => [:new, :create, :show] do
     member do
