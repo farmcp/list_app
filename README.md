@@ -46,7 +46,7 @@ To Dos:
 2. Validation for places to eat - know when someone enters a valid restaurant and populating the database. Finish autocomplete for adding restaurants to your bitelist
 3. ~~Allow users to sync with selected people they follow~~
 4. Create a better algorithm for restaurant recommendations
-4. Add a Friends tab and allows you to view all your followers and people you follow - this will replace current `users_path`
+4. ~~Add a Friends tab and allows you to view all your followers and people you follow - this will replace current `users_path`~~
 2. Add directions to restaurants (button on the restaurant show)
 4. ~~Adding user's comments to each list item~~
 2. http://www.opentable.com/info/affiliates.aspx - add open table reservations
