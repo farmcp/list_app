@@ -1,24 +1,24 @@
 %ol.lists
-  %li 
+  %li
     .well{style:'padding-bottom: 0px; height: 125px;'}
       = form_for :comment, as: :post, :url => comments_path do |f|
         = f.text_area :body, :placeholder => 'Add your thoughts...', style:'height: 70px; margin-bottom:15px;'
         %br/
         = f.submit "Post".html_safe, class: 'btn btn-primary pull-right', style: 'height:30px; width: 100px; margin-bottom: 0px;'
-  -if @comments.any?
+  - if @comments.any?
     - @comments.each do |comment|
       .well
         %table
           %tr
             %td{style:'width:60px;'}
-              =gravatar_for User.find(comment.user_id), size: 40
+              = gravatar_for User.find(comment.user_id), size: 40
             %td
               %b
-                = link_to comment.user.full_name + ": ", comment.user
+                = link_to "#{comment.user.full_name}:", comment.user
               = comment.body
-            -if current_user?comment.user
+            - if current_user? comment.user
               %td{style:'width:30px;'}
                 = link_to 'x', comment, method: :delete, confirm: "Are you sure you want to delete this comment?", style: 'font-size: 20px; font-style:bold; margin-top:-3px;', class: 'close pull-right'
-  -else
+  - else
     %h2.well{style: 'text-align: center; font-size: 1.2em;'}
       Currently no comments, be the first!
