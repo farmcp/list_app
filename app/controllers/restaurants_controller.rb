@@ -11,7 +11,7 @@ class RestaurantsController < ApplicationController
     @maps_json = @restaurant.to_gmaps4rails
 
     #get comments for the current restaurant - only show the followers' and followed users' comments
-    if current_user 
+    if current_user
       friends_ids = current_user.followers.map(&:id) | current_user.followed_users.map(&:id) | [current_user.id]
       @comments = Comment.where(:restaurant_id => params[:id], :user_id => friends_ids.uniq).flatten
     else
@@ -35,6 +35,19 @@ class RestaurantsController < ApplicationController
       redirect_to new_restaurant_path
     else
       render 'new'
+    end
+  end
+
+  def search
+    if params[:q]
+      query = params[:q].to_s.strip
+      json = Restaurant.in(params[:city_id]).search(query).to_json(:only => [:id, :name])
+    else
+      json = '[]'
+    end
+
+    respond_to do |format|
+      format.json { render :json => json }
     end
   end
 end

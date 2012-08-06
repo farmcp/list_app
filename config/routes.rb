@@ -30,6 +30,9 @@ ListApp::Application.routes.draw do
     member do
       resources :comments, :only => [:create, :destroy]
     end
+    collection do
+      get :search
+    end
   end
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy', :via => :delete #this means it will be invoked using the DELETE request

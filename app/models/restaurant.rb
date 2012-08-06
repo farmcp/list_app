@@ -55,4 +55,29 @@ class Restaurant < ActiveRecord::Base
   def fix_phone_number
     self.phone_number = phone_number.to_s.gsub(/\D/, '')
   end
+
+  def self.in(city_id)
+    where(:city_id => city_id)
+  end
+
+  def self.search(query)
+    results = [search_by_yelp(query)  ].flatten
+    results = [search_by_prefix(query)].flatten if results.blank?
+    results = [search_rest(query)     ].flatten if results.blank?
+    results
+  end
+
+  private
+
+  def self.search_by_yelp(query)
+    where(:yelp_url => query)
+  end
+
+  def self.search_by_prefix(query)
+    where(['name ilike ?', "#{query}%"])
+  end
+
+  def self.search_rest(query)
+    where(['name ilike ?', "%#{query}%"])
+  end
 end
