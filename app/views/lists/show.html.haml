@@ -9,7 +9,7 @@
     - # only allow to post when it's the current user's account
     - if current_user? @list.user
       = form_for :restaurant, as: :post, :url => add_to_list_path(@list) do |f|
-        = f.text_field :name, :style => 'width:75%;', :placeholder => "#{@list.city.abbreviation} Restaurant name", :id => 'search-restaurant'
+        = f.text_field :name, :id => 'search-restaurant'
         = f.hidden_field :list_id, value: params[:id]
         %br
         = f.submit "Add restaurant", class: 'btn btn-primary', :style => 'height:40px;'
@@ -42,7 +42,7 @@
     propertyToSearch: "name",
     hintText: "Enter a restaurant name in #{@list.city.name}",
     theme: "facebook",
-    searchingText: "Searching your network...",
+    searchingText: "Searching Bitelist...",
   };
   $(document).ready(function () {
     $("#search-restaurant").tokenInput("/restaurants/search?city_id=#{@list.city.id}", options);
