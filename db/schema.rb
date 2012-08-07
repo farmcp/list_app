@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120806042257) do
+ActiveRecord::Schema.define(:version => 20120806091152) do
 
   create_table "cities", :force => true do |t|
     t.string   "name",         :limit => 64,                    :null => false
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(:version => 20120806042257) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  add_index "list_items", ["list_id", "restaurant_id"], :name => "index_list_items_on_list_id_and_restaurant_id", :unique => true
 
   create_table "lists", :force => true do |t|
     t.integer  "user_id"
