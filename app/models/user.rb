@@ -92,7 +92,12 @@ class User < ActiveRecord::Base
   #create a static method search on a query
   def self.search(query)
     if query
-      find(:all, conditions: ['lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%"])
+      results = []
+      queries = query.split(' ')
+      queries.each do |q|
+        results << find(:all, conditions: ['lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{q.downcase}%","%#{q.downcase}%" ])
+      end
+      return results.uniq.flatten
     else
       find(:all)
     end
