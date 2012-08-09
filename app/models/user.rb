@@ -114,4 +114,18 @@ class User < ActiveRecord::Base
       self[column] = SecureRandom.urlsafe_base64
     end while User.exists?(column => self[column])
   end
+
+  def self.create_with_omniauth(auth)
+    create! do |user|
+      user.provider = auth['provider']
+      user.fb_id = auth['uid']
+      user.remember_token = auth['credentials']['token']
+      user.first_name = auth['info']['first_name']
+      user.last_name = auth['info']['last_name']
+      user.email = auth['info']['email']
+      user.image_url = auth['info']['image']
+      user.password = auth['uid']
+      user.password_confirmation = auth['uid']
+    end
+  end
 end

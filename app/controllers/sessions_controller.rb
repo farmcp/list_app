@@ -25,4 +25,18 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to new_session_path
   end
+
+  def facebook
+    auth = request.env['omniauth.auth']
+    begin
+      user = User.find_by_provider_and_fb_id(auth['provider'], auth['uid']) || User.create_with_omniauth(auth)
+      sign_in user
+      redirect_back_or user
+    rescue 
+      flash.now[:error] = "Something went wrong with the authentication."
+      render 'new'
+    end
+      
+  end
+
 end
