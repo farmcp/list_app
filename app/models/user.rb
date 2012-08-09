@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
 
   #create a static method search on a query
   def self.search(query)
-    if query
+    if !query.empty?
       results = []
       queries = query.split(' ')
       queries.each do |q|
@@ -124,8 +124,8 @@ class User < ActiveRecord::Base
       user.last_name = auth['info']['last_name']
       user.email = auth['info']['email']
       user.image_url = auth['info']['image']
-      user.password = auth['uid']
-      user.password_confirmation = auth['uid']
+      user.password = SecureRandom.urlsafe_base64
+      user.password_confirmation = user.password
     end
   end
 end
