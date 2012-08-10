@@ -16,6 +16,8 @@ gem 'faker'
 # Gems used only for assets and not required
 # in production environments by default.
 
+gem 'omniauth-facebook'
+
 group :development do
   gem "rails-erd"
   gem 'rspec'

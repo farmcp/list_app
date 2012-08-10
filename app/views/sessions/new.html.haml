@@ -4,16 +4,25 @@
   Sign In
 
 .row
-  .span6.offset3
+  .span6.offset3.center
     = form_for(:session, url: sessions_path) do |f|
-      = f.label :email
+      .pull-left
+        = f.label :email
       = f.email_field :email
-      = f.label :password
+      .pull-left
+        = f.label :password
       = f.password_field :password
-      = f.submit "Sign in", class: "btn btn-large btn-primary"
-      %p
-        Don't have an account? 
-        = link_to "Sign up now!", new_user_path
-      %p
-        Forgot your password? 
-        = link_to "Recover it here!", new_password_reset_path
+      = f.submit "Login", class: "btn btn-large btn-primary", style:'width:200px;'
+
+    %p
+      Don't have an account? 
+      = link_to "Sign up now!", new_user_path
+
+    %p
+      Forgot your password? 
+      = link_to "Recover it here!", new_password_reset_path
+
+    %h3 OR
+    %br/
+    %p
+      =link_to image_tag("fb_connect.png"), "/auth/facebook"

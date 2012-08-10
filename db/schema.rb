@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120806091152) do
+ActiveRecord::Schema.define(:version => 20120809083222) do
 
   create_table "cities", :force => true do |t|
     t.string   "name",         :limit => 64,                    :null => false
@@ -98,6 +98,9 @@ ActiveRecord::Schema.define(:version => 20120806091152) do
     t.boolean  "admin",                  :default => false
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
+    t.string   "fb_id"
+    t.string   "provider"
+    t.string   "image_url"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

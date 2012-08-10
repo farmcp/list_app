@@ -11,6 +11,8 @@ ListApp::Application.routes.draw do
   match 'sync/', to: 'sync#show'
   match 'get_sync/', to: 'sync#get_sync'
 
+  #facebook callback
+  match '/auth/facebook/callback', to: 'sessions#facebook'
   root :to => 'static_pages#home'
 
   resources :users do
