@@ -29,6 +29,7 @@ class SessionsController < ApplicationController
   def facebook
     begin
       auth = request.env['omniauth.auth']
+      p auth.to_yaml
       user = User.find_by_provider_and_fb_id(auth['provider'], auth['uid']) || User.create_with_omniauth(auth)
       sign_in user
       redirect_back_or user
