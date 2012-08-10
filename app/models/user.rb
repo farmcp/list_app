@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
 
   #create a static method search on a query
   def self.search(query)
-    if !query.empty?
+    if query.present?
       results = []
       queries = query.split(' ')
       queries.each do |q|
