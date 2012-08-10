@@ -4,15 +4,24 @@
   Sign Up
 
 .row
-  .span6.offset3
+  .span6.offset3.center
     = render 'shared/error_messages', :record => @user
     = form_for @user do |f|
-      = f.label :first_name
+      .pull-left
+        = f.label :first_name
       = f.text_field :first_name
-      = f.label :last_name
+      .pull-left
+        = f.label :last_name
       = f.text_field :last_name
-      = f.label :email
+      .pull-left
+        = f.label :email
       = f.email_field :email
-      = f.label :password
+      .pull-left
+        = f.label :password
       = f.password_field :password
       = f.submit "Create my Account", class: "btn btn-large btn-primary"
+
+    %h3 OR
+    %br/
+    %p
+      =link_to image_tag("fb_connect.png"), "/auth/facebook"
