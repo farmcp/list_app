@@ -12,7 +12,7 @@ module ApplicationHelper
   def link_to_phone(number_str)
     if number_str
       formatted_str = number_str.sub(/(\d{3})(\d{3})(\d{4})/, "( \\1 ) \\2-\\3")
-      link_to formatted_str, "tel:#{number_str}", style: 'font-weight:normal; margin-top:10px;', class: 'btn btn-warning pull-left'
+      link_to formatted_str, "tel:#{number_str}", style: 'font-weight:normal; margin-top:3px;', class: 'btn btn-warning pull-left'
     end
   end
 

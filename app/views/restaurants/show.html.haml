@@ -11,12 +11,14 @@
           = truncate(@restaurant.name, length:20)
           %br/
         .pull-left
-          - if @restaurant.category
-            %b Category:
-            = @restaurant.category
-
           = link_to_phone(@restaurant.phone_number)
-
+    .pull-left 
+      - if @restaurant.category
+        %b Category:
+        = @restaurant.category
+    %br/
+    %br/
+  
     .pull-left
       = @restaurant.address
 
