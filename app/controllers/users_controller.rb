@@ -31,6 +31,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @lists = @user.lists.paginate(page: params[:page])
+
+    #TODO need to get a list of activity for the user feed
+    #will include activity on whomever they decide to follow 
+    @feed = @lists
   end
 
   def edit
