@@ -1,7 +1,7 @@
 = provide(:title, @user.full_name)
 
 .row
-  %aside.span4
+  %aside.span4.offset1
     %section
       %h1{:style => "padding-bottom: 5px;"}
         = gravatar_for @user
@@ -12,8 +12,8 @@
         = render 'follow_form' if signed_in?
     %section
       = render 'layouts/stats'
-
-  .span8
+      %br/
+      %br/
     - # only can show when a user is logged in or has something in their lists
     - if current_user && @user.lists.any?
       %h3.big_title
@@ -22,3 +22,9 @@
         %li
           = render "lists/list"
       = will_paginate @lists, :page_links => false
+
+  .span6
+    %h3.big_title
+      Bite Activity
+    %ol.lists
+      %li
