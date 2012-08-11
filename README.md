@@ -42,13 +42,15 @@ To Dos:
 5. ~~BUG: maps not fully accurate with geocoding~~
 2. ~~Allow users to click through list_items to view details on restaurants~~
 6. ~~Add images to cities~~
-4. Add facebook connect that suggests friends already in their fb network to follow
-2. Validation for places to eat - know when someone enters a valid restaurant and populating the database. Finish autocomplete for adding restaurants to your bitelist
+4. ~~Add facebook connect~~ 
 3. ~~Allow users to sync with selected people they follow~~
-4. Create a better algorithm for restaurant recommendations
 4. ~~Add a Friends tab and allows you to view all your followers and people you follow - this will replace current `users_path`~~
-2. Add directions to restaurants (button on the restaurant show)
 4. ~~Adding user's comments to each list item~~
+3. Facebook friends import and invite
+3. Activity feed
+2. Validation for places to eat - know when someone enters a valid restaurant and populating the database. Finish autocomplete for adding restaurants to your bitelist
+4. Create a better algorithm for restaurant recommendations
+2. Add directions to restaurants (button on the restaurant show)
 2. http://www.opentable.com/info/affiliates.aspx - add open table reservations
 5. Get off of Gravatar - handle image storage with aws S3
 2. Create JSON API so we can start the native iOS app
