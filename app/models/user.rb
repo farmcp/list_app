@@ -126,6 +126,7 @@ class User < ActiveRecord::Base
       user.image_url = auth['info']['image']
       user.password = SecureRandom.urlsafe_base64
       user.password_confirmation = user.password
+      UserMailer.welcome_email(user).deliver
     end
   end
 end
