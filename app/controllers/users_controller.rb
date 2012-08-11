@@ -37,10 +37,11 @@ class UsersController < ApplicationController
     
     restaurants = activity_users.collect(&:list_items).flatten
     comments = activity_users.collect(&:comments).flatten
+    lists = activity_users.collect(&:lists).flatten
 
     #TODO need to get a list of activity for the user feed
     #will include activity on whomever they decide to follow 
-    @feed = (restaurants + comments).sort_by(&:created_at).reverse.paginate(page:params[:page])
+    @feed = (restaurants + comments + lists).sort_by(&:created_at).reverse.paginate(page:params[:page])
   end
 
   def edit
