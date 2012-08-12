@@ -26,6 +26,7 @@ group :development do
 end
 
 group :test, :development do
+  gem 'mail_safe', '0.3.1'
   gem "rspec-rails", "~> 2.0"
   gem 'shoulda-matchers'
   gem "factory_girl_rails", "~> 3.0"
