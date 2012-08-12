@@ -22,13 +22,45 @@
           = render "lists/list"
       = will_paginate @lists, :page_links => false
 
-  .span6
-    %h3.big_title
-      Bite Activity
-    %ol.lists
-      - if @feed.any?
-        = render 'lists/feed'
-      - else
+  .span6.tabbable
+    %ul.nav.nav-tabs
+      -if current_user == @user
+        %li.active
+          %a{"data-toggle" => "tab", :href => "#tab1"} Bite Feed
         %li
-          .well
-            Nothing new happened yet :(
+          %a{"data-toggle" => "tab", :href => "#tab2"} My Activity
+      -else
+        %li.active
+          %a{"data-toggle" => "tab", :href => "#tab2"} My Activity
+    
+
+    .tab-content
+      -if current_user == @user
+        #tab1.tab-pane.active
+          %ol.lists
+            -if @feed.any?
+              = render 'lists/feed'
+            -else
+              %li
+                .well
+                  Nothing new has happened yet :(
+          = will_paginate @lists, :page_links => false
+        #tab2.tab-pane
+          %ol.lists
+            -if @user_feed.any?
+              = render 'lists/user_feed'
+            -else
+              %li
+                .well
+                  Nothing new has happened yet :(
+          = will_paginate @user_lists, :page_links => false
+      -else
+        #tab2.tab-pane.active
+          %ol.lists
+            -if @user_feed.any?
+              = render 'lists/user_feed'
+            -else
+              %li
+                .well
+                  Nothing new has happened yet :(
+          = will_paginate @user_lists, :page_links => false

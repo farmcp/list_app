@@ -30,14 +30,12 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @lists = @user.lists.paginate(page: params[:page])
-    @feed = User.create_feed([@user])
-  end
+    @user_lists = @user.lists.paginate(page: params[:page])
+    @user_feed = User.create_feed([@user])
 
-  def me
-    users = [current_user.followed_users, current_user].flatten
+    feed_users = [current_user.followed_users, current_user].flatten
     @lists = current_user.lists.paginate(page: params[:page])
-    @feed = User.create_feed(users)
+    @feed= User.create_feed(feed_users)
   end
 
   def edit
