@@ -4,7 +4,7 @@
   %aside.span4.offset1
     %section
       %h1{:style => "padding-bottom: 5px;"}
-        = gravatar_for @user
+        = avatar_tag @user
         = @user.full_name
       - if current_user? @user
         = link_to 'Create Bitelist', new_list_path, :class => "btn btn-warning"
@@ -27,9 +27,9 @@
     %h3.big_title
       Bite Activity
     %ol.lists
-      -if @feed.any?
+      - if @feed.any?
         = render 'lists/feed'
-      -else
+      - else
         %li
           .well
             Nothing new happened yet :(

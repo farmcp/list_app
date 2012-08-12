@@ -3,7 +3,7 @@
 .row
   %aside.span4
     %section
-      = gravatar_for @user
+      = avatar_tag @user
       %h1= @user.full_name
       %span= link_to "view my profile", @user
 
@@ -12,12 +12,11 @@
 
   .span8
     %h3.big_title= @title
-    %br/
+    %br
 
-    - if @users.any?
-      %ul.users
-        - @users.each do |user|
-          %li
-            = gravatar_for user
-            = link_to user.full_name, user
-      = will_paginate @users
+    %ul.users
+      - @users.each do |user|
+        %li
+          = avatar_tag user
+          = link_to user.full_name, user
+    = will_paginate @users

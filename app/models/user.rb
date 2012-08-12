@@ -129,4 +129,10 @@ class User < ActiveRecord::Base
       UserMailer.welcome_email(user).deliver
     end
   end
+
+  def avatar_url(size = 50)
+    return image_url unless image_url.blank?
+    gravatar_id = Digest::MD5::hexdigest(email.downcase)
+    "http://gravatar.com/avatar/#{gravatar_id}.png?r=r&size=#{size}"
+  end
 end

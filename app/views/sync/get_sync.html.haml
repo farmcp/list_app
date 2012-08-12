@@ -4,12 +4,11 @@
 %h2{style: 'text-align:center;'}
   Bitelist recommends the following places for your group!
 
-.row 
+.row
   .span6.offset3
-    -if @users.any?
-      - @users.each do |user|
-        = link_to (gravatar_for user, :size => 50), user
-%br/
+    - @users.each do |user|
+      = link_to avatar_tag(user, :size => 50), user
+%br
 
 .row
   .span6.offset3
@@ -20,9 +19,8 @@
 
 .row
   .span6.offset3
-    - if @users.any?
-      %ul.users
-        - @recommendations.each do |recommendation|
-          .well
-            .pull-left.list-image= image_tag recommendation.picture_url, size: '40x40'
-            %h3.pull-left= link_to truncate(recommendation.name, length: 20), recommendation
+    %ul.users
+      - @recommendations.each do |recommendation|
+        .well
+          .pull-left.list-image= image_tag recommendation.picture_url, size: '40x40'
+          %h3.pull-left= link_to truncate(recommendation.name, length: 20), recommendation

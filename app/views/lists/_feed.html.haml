@@ -1,10 +1,7 @@
 - @feed.each do |f|
   %li{style:'height: 80px;'}
     %span.content
-      - if f.user.image_url
-        = image_tag f.user.image_url, class: 'gravatar'
-      - else
-        = gravatar_for f.user
+      = avatar_tag f.user
       = link_to f.user.full_name, f.user, style: 'font-weight:bold'
       - case f
         - when Comment
