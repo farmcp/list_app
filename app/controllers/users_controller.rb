@@ -36,14 +36,14 @@ class UsersController < ApplicationController
     if @user == current_user
       activity_users << current_user
     end
-    
-    restaurants = activity_users.collect(&:list_items).flatten
-    comments = activity_users.collect(&:comments).flatten
-    lists = activity_users.collect(&:lists).flatten
 
-    #TODO need to get a list of activity for the user feed
-    #will include activity on whomever they decide to follow 
-    @feed = (restaurants + comments + lists).sort_by(&:created_at).reverse.paginate(page:params[:page])
+    restaurants = activity_users.collect(&:list_items)
+    comments = activity_users.collect(&:comments)
+    lists = activity_users.collect(&:lists)
+
+    # TODO need to get a list of activity for the user feed
+    # will include activity on whomever they decide to follow
+    @feed = (restaurants + comments + lists).flatten.sort_by(&:created_at).reverse.paginate(page:params[:page])
   end
 
   def edit
