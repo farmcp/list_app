@@ -26,12 +26,12 @@
     %ul.nav.nav-tabs
       -if current_user == @user
         %li.active
-          %a{"data-toggle" => "tab", :href => "#tab1"} Bite Feed
+          %a{"data-toggle" => "tab", :href => "#tab1", style:'font-weight:bold;'} Bite Feed
         %li
-          %a{"data-toggle" => "tab", :href => "#tab2"} My Activity
+          %a{"data-toggle" => "tab", :href => "#tab2", style:'font-weight:bold;'} My Activity
       -else
         %li.active
-          %a{"data-toggle" => "tab", :href => "#tab2"} My Activity
+          %a{"data-toggle" => "tab", :href => "#tab2", style:'font-weight:bold;'} My Activity
     
 
     .tab-content
