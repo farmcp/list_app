@@ -103,6 +103,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def avatar_url(size = 50)
+    return image_url unless image_url.blank?
+    gravatar_id = Digest::MD5::hexdigest(email.downcase)
+    "http://gravatar.com/avatar/#{gravatar_id}.png?r=r&size=#{size}"
+  end
+
   private
 
   def create_remember_token
@@ -128,11 +134,5 @@ class User < ActiveRecord::Base
       user.password_confirmation = user.password
       UserMailer.welcome_email(user).deliver
     end
-  end
-
-  def avatar_url(size = 50)
-    return image_url unless image_url.blank?
-    gravatar_id = Digest::MD5::hexdigest(email.downcase)
-    "http://gravatar.com/avatar/#{gravatar_id}.png?r=r&size=#{size}"
   end
 end
