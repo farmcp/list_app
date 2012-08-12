@@ -11,7 +11,7 @@
           = succeed(':') do
             = object.restaurant.city.name.to_s
           %blockquote.comment
-            = truncate(object.body, :length => 15)
+            = truncate(object.body, :length => 100)
         - when ListItem
           has added
           = link_to object.restaurant.name, object.restaurant

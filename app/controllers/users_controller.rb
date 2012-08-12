@@ -32,9 +32,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @lists = @user.lists.paginate(page: params[:page])
 
-    activity_users = @user.followed_users.clone
-    if @user == current_user
+   if @user == current_user
+      activity_users = @user.followed_users.clone
       activity_users << current_user
+    elsif @user.followers.include?current_user
+      activity_users = [@user]
+    else
+      activity_users = []
     end
 
     restaurants = activity_users.collect(&:list_items)
