@@ -32,22 +32,14 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @lists = @user.lists.paginate(page: params[:page])
 
-   if @user == current_user
-      activity_users = @user.followed_users.clone
-      activity_users << current_user
-    elsif @user.followers.include?current_user
-      activity_users = [@user]
-    else
-      activity_users = []
-    end
-
-    restaurants = activity_users.collect(&:list_items)
-    comments = activity_users.collect(&:comments)
-    lists = activity_users.collect(&:lists)
+    restaurants = ListItem.includes(:list).where(:lists => {:user_id => @user.id}).order('list_items.created_at')
+    comments = Comment.where(:user_id => @user.id).order('created_at')
+    lists = List.where(:user_id => @user.id).order('created_at')
 
     # TODO need to get a list of activity for the user feed
     # will include activity on whomever they decide to follow
-    @feed = (restaurants + comments + lists).flatten.sort_by(&:created_at).reverse.paginate(page:params[:page])
+    @feed = (restaurants + comments + lists).flatten.reverse
+    # .sort_by(&:created_at)
   end
 
   def edit

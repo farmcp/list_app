@@ -12,8 +12,8 @@
         = render 'follow_form' if signed_in?
     %section
       = render 'layouts/stats'
-      %br/
-      %br/
+      %br
+      %br
     - # only can show when a user is logged in or has something in their lists
     - if current_user && @user.lists.any?
       %h3.big_title
@@ -33,4 +33,3 @@
         %li
           .well
             Nothing new happened yet :(
-    = will_paginate @feed, :page_links => false
