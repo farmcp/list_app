@@ -1,39 +1,40 @@
 - @feed.each do |f|
   %li{style:'height: 80px;'}
-    - if f.is_a? Comment
-      %span.content
-        - if f.user.image_url
-          = image_tag f.user.image_url, class: 'gravatar'
-        - else
-          = gravatar_for f.user
-        = link_to f.user.full_name.to_s, f.user, style: 'font-weight:bold;'
-        posted a new comment about
-        = link_to f.restaurant.name, f.restaurant
-        in
-        = f.restaurant.city.name.to_s + ":"
+    - case f
+      - when Comment
+        %span.content
+          - if f.user.image_url
+            = image_tag f.user.image_url, class: 'gravatar'
+          - else
+            = gravatar_for f.user
+          = link_to f.user.full_name.to_s, f.user, style: 'font-weight:bold;'
+          posted a new comment about
+          = link_to f.restaurant.name, f.restaurant
+          in
+          = f.restaurant.city.name.to_s + ":"
 
-        = f.body
-    - elsif f.is_a? ListItem
-      %span.content
-        - if f.list.user.image_url
-          = image_tag f.list.user.image_url, class: 'gravatar'
-        - else
-          = gravatar_for f.list.user
-        = link_to f.list.user.full_name, f.list.user, style: 'font-weight:bold;'
-        has added
-        = link_to f.restaurant.name, f.restaurant
-        to their
-        = link_to f.list.city.abbreviation + " Bitelist.", f.list
-    - elsif f.is_a? List
-      %span.content
-        - if f.user.image_url
-          = image_tag f.user.image_url, class: 'gravatar'
-        - else
-          = gravatar_for f.user
-        = link_to f.user.full_name, f.user, style: 'font-weight:bold'
-        has added
-        = link_to f.city.name.to_s, f
-        to their Bitelists
+          = f.body
+      - when ListItem
+        %span.content
+          - if f.list.user.image_url
+            = image_tag f.list.user.image_url, class: 'gravatar'
+          - else
+            = gravatar_for f.list.user
+          = link_to f.list.user.full_name, f.list.user, style: 'font-weight:bold;'
+          has added
+          = link_to f.restaurant.name, f.restaurant
+          to their
+          = link_to f.list.city.abbreviation + " Bitelist.", f.list
+      - when List
+        %span.content
+          - if f.user.image_url
+            = image_tag f.user.image_url, class: 'gravatar'
+          - else
+            = gravatar_for f.user
+          = link_to f.user.full_name, f.user, style: 'font-weight:bold'
+          has added
+          = link_to f.city.name.to_s, f
+          to their Bitelists
 
     %span.timestamp
       Posted
