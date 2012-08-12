@@ -1,28 +1,28 @@
-- @feed.each do |f|
+- @feed.each do |object|
   %li{style:'height: 80px;'}
     %span.content
-      = avatar_tag f.user
-      = link_to f.user.full_name, f.user, style: 'font-weight:bold'
-      - case f
+      = avatar_tag object.user
+      = link_to object.user.full_name, object.user, style: 'font-weight:bold'
+      - case object
         - when Comment
           posted a new comment about
-          = link_to f.restaurant.name, f.restaurant
+          = link_to object.restaurant.name, object.restaurant
           in
           = succeed(':') do
-            = f.restaurant.city.name.to_s
+            = object.restaurant.city.name.to_s
           .comment
-            = f.body
+            = object.body
         - when ListItem
           has added
-          = link_to f.restaurant.name, f.restaurant
+          = link_to object.restaurant.name, object.restaurant
           to their
-          = link_to f.list.city.abbreviation + " Bitelist.", f.list
+          = link_to object.city.abbreviation + " Bitelist.", object.list
         - when List
           has added
-          = link_to f.city.name.to_s, f
-          to their Bitelists
+          = link_to object.city.name.to_s, object
+          to their Bitelists.
 
     %span.timestamp
       Posted
-      = time_ago_in_words(f.created_at)
+      = time_ago_in_words(object.created_at)
       ago.
