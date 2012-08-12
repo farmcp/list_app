@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   #every user can have many lists
-  has_many :lists
+  has_many :lists, :dependent => :destroy
 
   #has many list_items
   has_many :list_items, :through => :lists
