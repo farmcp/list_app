@@ -103,6 +103,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.create_feed(users)
+    ids = users.map(&:id)
+    restaurants = ListItem.includes([:list, :restaurant, :user]).where(:lists => {:user_id => ids}).order('list_items.created_at')
+    comments = Comment.includes(:user).where(:user_id => ids).order('created_at')
+    lists = List.includes(:user).where(:user_id => ids).order('created_at')
+
+    # TODO need to get a list of activity for the user feed
+    # will include activity on whomever they decide to follow
+    (restaurants + comments + lists).flatten.sort_by(&:created_at).reverse
+  end
+
   def avatar_url(size = 50)
     return image_url unless image_url.blank?
     gravatar_id = Digest::MD5::hexdigest(email.downcase)
