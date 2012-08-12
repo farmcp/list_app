@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     @lists = @user.lists.paginate(page: params[:page])
 
     activity_users = @user.followed_users.clone
-    if User.find(params[:id]) == current_user
+    if @user == current_user
       activity_users << current_user
     end
     
