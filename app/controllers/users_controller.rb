@@ -33,7 +33,9 @@ class UsersController < ApplicationController
     @lists = @user.lists.paginate(page: params[:page])
 
     activity_users = @user.followed_users.clone
-    activity_users << current_user
+    if User.find(params[:id]) == current_user
+      activity_users << current_user
+    end
     
     restaurants = activity_users.collect(&:list_items).flatten
     comments = activity_users.collect(&:comments).flatten
