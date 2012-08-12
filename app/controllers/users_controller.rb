@@ -34,6 +34,12 @@ class UsersController < ApplicationController
     @feed = User.create_feed([@user])
   end
 
+  def me
+    users = [current_user.followed_users, current_user].flatten
+    @lists = current_user.lists.paginate(page: params[:page])
+    @feed = User.create_feed(users)
+  end
+
   def edit
   end
 

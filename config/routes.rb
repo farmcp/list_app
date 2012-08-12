@@ -15,6 +15,8 @@ ListApp::Application.routes.draw do
   match '/auth/facebook/callback', to: 'sessions#facebook'
   root :to => 'static_pages#home'
 
+  match :me, to: 'users#me'
+
   resources :users do
     member do
       get :following, :followers

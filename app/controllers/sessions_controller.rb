@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   def new
     #on initial visit, check if there is a current user and if so redirect to their profile
     if current_user
-      redirect_to current_user
+      redirect_to me_path
     end
   end
 
