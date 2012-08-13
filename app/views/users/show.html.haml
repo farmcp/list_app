@@ -14,9 +14,11 @@
       = render 'layouts/stats'
 
     - # only can show when a user is logged in or has something in their lists
-    - if current_user && @user.lists.any?
+    - if @user.lists.any?
       %h3.big_title
-        Your Bitelists
+        - if current_user? @user
+          Your
+        Bitelists
       %ol.lists
         %li
           = render "lists/list"
@@ -24,43 +26,32 @@
 
   .span6.tabbable
     %ul.nav.nav-tabs
-      -if current_user == @user
+      - if current_user? @user
         %li.active
           %a{"data-toggle" => "tab", :href => "#tab1", style:'font-weight:bold;'} Bite Feed
-        %li
-          %a{"data-toggle" => "tab", :href => "#tab2", style:'font-weight:bold;'} My Activity
-      -else
-        %li.active
-          %a{"data-toggle" => "tab", :href => "#tab2", style:'font-weight:bold;'} My Activity
-    
+      %li{ :class => active_unless_current_user }
+        %a{"data-toggle" => "tab", :href => "#tab2", style:'font-weight:bold;'}
+          - if current_user? @user
+            My
+          Activity
 
     .tab-content
-      -if current_user == @user
+      - if current_user? @user
         #tab1.tab-pane.active
           %ol.lists
-            -if @feed.any?
+            - if @feed.any?
               = render 'lists/feed'
-            -else
+            - else
               %li
                 .well
                   Nothing new has happened yet :(
           = will_paginate @lists, :page_links => false
-        #tab2.tab-pane
-          %ol.lists
-            -if @user_feed.any?
-              = render 'lists/user_feed'
-            -else
-              %li
-                .well
-                  Nothing new has happened yet :(
-          = will_paginate @user_lists, :page_links => false
-      -else
-        #tab2.tab-pane.active
-          %ol.lists
-            -if @user_feed.any?
-              = render 'lists/user_feed'
-            -else
-              %li
-                .well
-                  Nothing new has happened yet :(
-          = will_paginate @user_lists, :page_links => false
+      #tab2.tab-pane{ :class => current_user?(@user) ? '' : 'active' }
+        %ol.lists
+          - if @user_feed.any?
+            = render 'lists/user_feed'
+          - else
+            %li
+              .well
+                Nothing new has happened yet :(
+        = will_paginate @user_lists, :page_links => false
