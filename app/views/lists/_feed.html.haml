@@ -1,25 +1,26 @@
-- @feed.each do |object|
+- feed.each do |object|
   %li{style:'height: 80px;'}
     %span.content
       = avatar_tag object.user
       = link_to object.user.full_name, object.user, style: 'font-weight:bold'
       - case object
-        - when Comment
-          posted a new comment about
-          = link_to object.restaurant.name, object.restaurant
-          in
-          = succeed(':') do
-            = object.restaurant.city.name.to_s
-          = truncate(object.body, :length => 65)
-        - when ListItem
-          has added
-          = link_to object.restaurant.name, object.restaurant
-          to their
-          = link_to object.city.abbreviation + " Bitelist.", object.list
-        - when List
-          has added
-          = link_to object.city.name.to_s, object
-          to their Bitelists.
+      - when Comment
+        posted a new comment about
+        = link_to object.restaurant.name, object.restaurant
+        in
+        = succeed(':') do
+          = object.restaurant.city.name.to_s
+        .comment
+          = truncate(object.body, :length => 100)
+      - when ListItem
+        has added
+        = link_to object.restaurant.name, object.restaurant
+        to their
+        = link_to object.city.abbreviation + " Bitelist.", object.list
+      - when List
+        has added
+        = link_to object.city.name.to_s, object
+        to their Bitelists.
 
     %span.timestamp
       Posted

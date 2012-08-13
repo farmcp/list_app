@@ -37,18 +37,16 @@
     .tab-content
       - if current_user? @user
         #tab1.tab-pane.active
-          %ol.lists
-            - if @feed.any?
-              = render 'lists/feed'
-            - else
-              %li
-                .well
-                  Nothing new has happened yet :(
-      #tab2.tab-pane{ :class => current_user?(@user) ? '' : 'active' }
-        %ol.lists
-          - if @user_feed.any?
-            = render 'lists/user_feed'
+          - if @my_feed.any?
+            %ol.lists
+              = render 'lists/feed', feed: @my_feed
           - else
-            %li
-              .well
-                Nothing new has happened yet :(
+            .well
+              Nothing new has happened yet :(
+      #tab2.tab-pane{ :class => current_user?(@user) ? '' : 'active' }
+        - if @user_feed.any?
+          %ol.lists
+            = render 'lists/feed', feed: @user_feed
+        - else
+          .well
+            Nothing new has happened yet :(

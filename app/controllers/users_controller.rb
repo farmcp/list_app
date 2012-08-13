@@ -33,8 +33,10 @@ class UsersController < ApplicationController
     @lists = @user.lists
     @user_feed = User.create_feed([@user])
 
-    feed_users = [current_user.followed_users, current_user].flatten
-    @feed= User.create_feed(feed_users)
+    if current_user? @user
+      feed_users = [current_user.followed_users, current_user].flatten
+      @my_feed = User.create_feed(feed_users)
+    end
   end
 
   def edit
