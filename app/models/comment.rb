@@ -14,4 +14,10 @@ class Comment < ActiveRecord::Base
   attr_accessible :body, :restaurant_id, :user_id
   belongs_to :restaurant
   belongs_to :user
+
+  has_one :story, :as => :subject, :dependent => :destroy
+  after_create :storify!
+  def storify!
+    build_story(:user => user).save!
+  end
 end

@@ -15,14 +15,11 @@ class List < ActiveRecord::Base
   belongs_to :user
   belongs_to :city
   has_many :list_items, :dependent => :destroy
-  has_one :story, :as => :subject, :dependent => :destroy
 
   validates :user_id, :city_id, :presence => true
 
+  has_one :story, :as => :subject, :dependent => :destroy
   after_create :storify!
-
-  private
-
   def storify!
     build_story(:user => user).save!
   end
