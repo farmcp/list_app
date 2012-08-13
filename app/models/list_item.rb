@@ -14,6 +14,8 @@ class ListItem < ActiveRecord::Base
   attr_accessible :restaurant_id, :list_id
   belongs_to :list
   belongs_to :restaurant
+  has_one :user, :through => :list
+  has_one :city, :through => :list
 
   validates_uniqueness_of :restaurant_id, :scope => :list_id
 
