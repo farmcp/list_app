@@ -17,6 +17,7 @@ class Story < ActiveRecord::Base
     :restaurant => [:city],
     :list_item => [:list],
     :list => [:user, :city],
+    :relationship => [:follower, :followed],
     :comment => [],
   }
 end

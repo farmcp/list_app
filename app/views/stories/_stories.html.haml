@@ -24,6 +24,12 @@
         has added
         = link_to subject.city.name, subject
         to their Bitelists.
+      - when 'Relationship'
+        - subject = story.relationship
+        - followed = subject.followed
+        started following
+        = succeed '.' do
+          = link_to followed.full_name, followed
 
     %span.timestamp
       Posted
