@@ -1,26 +1,28 @@
 - stories.each do |story|
-  - subject = story.subject
+  - user = story.user
+  - restaurant = story.restaurant
   %li{style:'height: 80px;'}
     %span.content
-      = avatar_tag story.user
-      = link_to story.user.full_name, story.user, style: 'font-weight:bold'
+      = avatar_tag user
+      = link_to user.full_name, user, style: 'font-weight:bold'
       - case story.subject_type
       - when 'Comment'
+        - subject = story.comment
         posted a new comment about
-        = link_to subject.restaurant.name, subject.restaurant
-        in
-        = succeed(':') do
-          = subject.restaurant.city.name.to_s
+        = link_to restaurant.name, restaurant
+        in #{restaurant.city.name}:
         .comment
           = truncate(subject.body, :length => 100)
       - when 'ListItem'
+        - subject = story.list_item
         has added
-        = link_to subject.restaurant.name, subject.restaurant
+        = link_to restaurant.name, restaurant
         to their
         = link_to subject.city.abbreviation + " Bitelist.", subject.list
       - when 'List'
+        - subject = story.list
         has added
-        = link_to subject.city.name.to_s, subject
+        = link_to subject.city.name, subject
         to their Bitelists.
 
     %span.timestamp

@@ -11,7 +11,7 @@
 #
 
 class Comment < ActiveRecord::Base
-  acts_as_story
+  acts_as_story :story_fields => [:restaurant]
   attr_accessible :body, :restaurant_id, :user_id
 
   belongs_to :restaurant

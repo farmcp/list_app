@@ -7,6 +7,7 @@ class OneOffs
     end
   end
 
+  # OneOffs.create_stories
   def self.create_stories
     [ListItem, Comment, List].each do |clazz|
       clazz.all.each do |subject|

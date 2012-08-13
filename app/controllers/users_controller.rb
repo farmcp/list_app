@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @lists = @user.lists
     if @stories
-      @user_feed = Story.includes([:list, :list_item, :comment]).where(:user_id => @user.id).order('created_at desc')
+      @user_feed = Story.includes([:list, :list_item, :comment]).where(:user_id => @user.id).order('created_at desc').paginate(:page => params[:page])
     else
       @user_feed = User.create_feed([@user])
     end
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     if current_user? @user
       feed_users = [current_user.followed_users, current_user].flatten
       if @stories
-        @my_feed = Story.includes([:list, :list_item, :comment]).where(:user_id => feed_users.map(&:id)).order('created_at desc')
+        @my_feed = Story.includes_all.where(:user_id => feed_users.map(&:id)).order('created_at desc').paginate(:page => params[:page])
       else
         @my_feed = User.create_feed(feed_users)
       end

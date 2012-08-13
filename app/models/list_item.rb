@@ -10,7 +10,7 @@
 #
 
 class ListItem < ActiveRecord::Base
-  acts_as_story
+  acts_as_story :story_fields => [:restaurant]
   attr_accessible :restaurant_id, :list_id
 
   belongs_to :list
