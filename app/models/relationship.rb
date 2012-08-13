@@ -9,6 +9,7 @@
 #  updated_at  :datetime        not null
 #
 class Relationship < ActiveRecord::Base
+  acts_as_story
   attr_accessible :followed_id, :follower_id
 
   belongs_to :follower, class_name: "User"

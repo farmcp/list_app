@@ -7,6 +7,7 @@ class Story < ActiveRecord::Base
   belongs_to :list, :foreign_key => "subject_id"
   belongs_to :list_item, :foreign_key => "subject_id"
   belongs_to :comment, :foreign_key => "subject_id"
+  belongs_to :relationship, :foreign_key => "subject_id"
   belongs_to :restaurant
 
   self.per_page = 10
