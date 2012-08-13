@@ -1,4 +1,6 @@
 ListApp::Application.routes.draw do
+  resources :stories
+
   resources :password_resets
 
   match "signup/", to: 'users#new'

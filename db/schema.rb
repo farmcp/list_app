@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120809083222) do
+ActiveRecord::Schema.define(:version => 20120813025243) do
 
   create_table "cities", :force => true do |t|
     t.string   "name",         :limit => 64,                    :null => false
@@ -86,6 +86,17 @@ ActiveRecord::Schema.define(:version => 20120809083222) do
   end
 
   add_index "restaurants", ["yelp_url"], :name => "index_restaurants_on_yelp_url"
+
+  create_table "stories", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "subject_type"
+    t.integer  "subject_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "stories", ["subject_type", "subject_id"], :name => "index_stories_on_subject_type_and_subject_id"
+  add_index "stories", ["user_id"], :name => "index_stories_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"

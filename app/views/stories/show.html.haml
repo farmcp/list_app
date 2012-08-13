@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @story.user
+%p
+  %b Subject type:
+  = @story.subject_type
+%p
+  %b Subject:
+  = @story.subject_id
+
+= link_to 'Edit', edit_story_path(@story)
+\|
+= link_to 'Back', stories_path
