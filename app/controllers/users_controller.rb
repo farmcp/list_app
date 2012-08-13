@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(user_params)
       #if you can update a user then handle the update for the user
       flash[:success] = "Profile updated"
       sign_in @user
@@ -126,5 +126,9 @@ class UsersController < ApplicationController
       flash[:notice] = "You do not have access to this page."
       redirect_to new_session_path
     end
+  end
+
+  def user_params
+    params[:user].slice(:first_name, :last_name, :password, :password_confirmation)
   end
 end
