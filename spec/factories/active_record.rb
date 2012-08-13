@@ -30,4 +30,9 @@ FactoryGirl.define do
     follower { FactoryGirl.create(:user) }
     followed { FactoryGirl.create(:user) }
   end
+
+  factory :list do
+    user { FactoryGirl.create(:user) }
+    city { FactoryGirl.create(:city) }
+  end
 end

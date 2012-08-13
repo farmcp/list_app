@@ -10,7 +10,6 @@
 #
 
 class ListItem < ActiveRecord::Base
-  # attr_accessible :title, :body
   attr_accessible :restaurant_id, :list_id
   belongs_to :list
   belongs_to :restaurant
@@ -18,6 +17,4 @@ class ListItem < ActiveRecord::Base
   has_one :city, :through => :list
 
   validates_uniqueness_of :restaurant_id, :scope => :list_id
-
-  #TO DO: need to create methods so that you can only have one unique restaurant per list
 end
