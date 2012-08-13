@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
   private
 
   def create_remember_token
-    if self.provider.eql? 'facebook'
+    if self.provider == 'facebook'
     else
       self.remember_token = SecureRandom.urlsafe_base64
     end
