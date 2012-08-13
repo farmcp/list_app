@@ -22,7 +22,6 @@
       %ol.lists
         %li
           = render "lists/list"
-      = will_paginate @lists, :page_links => false
 
   .span6.tabbable
     %ul.nav.nav-tabs
@@ -45,7 +44,6 @@
               %li
                 .well
                   Nothing new has happened yet :(
-          = will_paginate @lists, :page_links => false
       #tab2.tab-pane{ :class => current_user?(@user) ? '' : 'active' }
         %ol.lists
           - if @user_feed.any?
@@ -54,4 +52,3 @@
             %li
               .well
                 Nothing new has happened yet :(
-        = will_paginate @user_lists, :page_links => false
