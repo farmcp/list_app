@@ -1,24 +1,52 @@
 = provide(:title, @user.full_name)
 
 .row
-  %aside.span4
+  %aside.span4.offset1
     %section
       %h1{:style => "padding-bottom: 5px;"}
-        = gravatar_for @user
+        = avatar_tag @user
         = @user.full_name
       - if current_user? @user
         = link_to 'Create Bitelist', new_list_path, :class => "btn btn-warning"
       - else
         = render 'follow_form' if signed_in?
-    %section
+    %section.pad_bottom
       = render 'layouts/stats'
 
-  .span8
     - # only can show when a user is logged in or has something in their lists
-    - if current_user && @user.lists.any?
+    - if @user.lists.any?
       %h3.big_title
-        Bitelists (#{@user.lists.count})
+        - if current_user? @user
+          Your
+        Bitelists
       %ol.lists
         %li
           = render "lists/list"
-      = will_paginate @lists, :page_links => false
+
+  .span6.tabbable
+    %ul.nav.nav-tabs
+      - if current_user? @user
+        %li.active
+          %a{"data-toggle" => "tab", :href => "#tab1", style:'font-weight:bold;'} Bite Feed
+      %li{ :class => active_unless_current_user }
+        %a{"data-toggle" => "tab", :href => "#tab2", style:'font-weight:bold;'}
+          - if current_user? @user
+            My
+          Activity
+
+    .tab-content
+      - if current_user? @user
+        #tab1.tab-pane.active
+          - if @my_feed.any?
+            %ol.lists
+              = render 'lists/feed', feed: @my_feed
+          - else
+            .well
+              Nothing new has happened yet :(
+      #tab2.tab-pane{ :class => current_user?(@user) ? '' : 'active' }
+        - if @user_feed.any?
+          %ol.lists
+            = render 'lists/feed', feed: @user_feed
+        - else
+          .well
+            Nothing new has happened yet :(
