@@ -10,6 +10,7 @@
 #
 
 class List < ActiveRecord::Base
+  acts_as_story
   attr_accessible :user_id, :city_id
 
   belongs_to :user
@@ -17,10 +18,4 @@ class List < ActiveRecord::Base
   has_many :list_items, :dependent => :destroy
 
   validates :user_id, :city_id, :presence => true
-
-  has_one :story, :as => :subject, :dependent => :destroy
-  after_create :storify!
-  def storify!
-    build_story(:user => user).save!
-  end
 end

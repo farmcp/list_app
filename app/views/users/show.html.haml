@@ -39,14 +39,20 @@
         #tab1.tab-pane.active
           - if @my_feed.any?
             %ol.lists
-              = render 'lists/feed', feed: @my_feed
+              - if @stories
+                = render 'stories/stories', stories: @my_feed
+              - else
+                = render 'lists/feed', feed: @my_feed
           - else
             .well
               Nothing new has happened yet :(
       #tab2.tab-pane{ :class => current_user?(@user) ? '' : 'active' }
         - if @user_feed.any?
           %ol.lists
-            = render 'lists/feed', feed: @user_feed
+            - if @stories
+              = render 'stories/stories', stories: @user_feed
+            - else
+              = render 'lists/feed', feed: @user_feed
         - else
           .well
             Nothing new has happened yet :(

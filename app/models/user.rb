@@ -111,7 +111,7 @@ class User < ActiveRecord::Base
 
     # TODO need to get a list of activity for the user feed
     # will include activity on whomever they decide to follow
-    []#(restaurants + comments + lists).flatten.sort_by(&:created_at).reverse
+    (restaurants + comments + lists).flatten.sort_by(&:created_at).reverse
   end
 
   def avatar_url(size = 50)

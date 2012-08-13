@@ -10,7 +10,9 @@
 #
 
 class ListItem < ActiveRecord::Base
+  acts_as_story
   attr_accessible :restaurant_id, :list_id
+
   belongs_to :list
   belongs_to :restaurant
   belongs_to :user
@@ -19,12 +21,6 @@ class ListItem < ActiveRecord::Base
   validates_uniqueness_of :restaurant_id, :scope => :list_id
 
   before_create :find_user
-
-  has_one :story, :as => :subject, :dependent => :destroy
-  after_create :storify!
-  def storify!
-    build_story(:user => user).save!
-  end
 
   private
 

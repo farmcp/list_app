@@ -29,13 +29,22 @@ class UsersController < ApplicationController
   end
 
   def show
+    @stories = !!params[:stories]
     @user = User.find(params[:id])
     @lists = @user.lists
-    @user_feed = User.create_feed([@user])
+    if @stories
+      @user_feed = Story.includes([:list, :list_item, :comment]).where(:user_id => @user.id).order('created_at desc')
+    else
+      @user_feed = User.create_feed([@user])
+    end
 
     if current_user? @user
       feed_users = [current_user.followed_users, current_user].flatten
-      @my_feed = User.create_feed(feed_users)
+      if @stories
+        @my_feed = Story.includes([:list, :list_item, :comment]).where(:user_id => feed_users.map(&:id)).order('created_at desc')
+      else
+        @my_feed = User.create_feed(feed_users)
+      end
     end
   end
 
