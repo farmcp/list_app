@@ -9,9 +9,9 @@
 #  updated_at  :datetime        not null
 #
 class Relationship < ActiveRecord::Base
+  acts_as_story
   attr_accessible :followed_id, :follower_id
 
-  #kind of like creating another model that inherits User model?
   belongs_to :follower, class_name: "User"
   belongs_to :followed, class_name: "User"
 

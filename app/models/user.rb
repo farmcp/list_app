@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   has_many :lists, :dependent => :destroy
 
   #has many list_items
-  has_many :list_items, :through => :lists
+  has_many :list_items
 
   #has many restaurants through list_items
   has_many :restaurants, :through => :list_items
