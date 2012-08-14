@@ -29,13 +29,22 @@ class UsersController < ApplicationController
   end
 
   def show
+    @stories = !!params[:stories]
     @user = User.find(params[:id])
     @lists = @user.lists
-    @user_feed = User.create_feed([@user])
+    if @stories
+      @user_feed = Story.includes([:list, :list_item, :comment]).where(:user_id => @user.id).order('created_at desc').paginate(:page => params[:page])
+    else
+      @user_feed = User.create_feed([@user])
+    end
 
     if current_user? @user
       feed_users = [current_user.followed_users, current_user].flatten
-      @my_feed = User.create_feed(feed_users)
+      if @stories
+        @my_feed = Story.includes_all.where(:user_id => feed_users.map(&:id)).order('created_at desc').paginate(:page => params[:page])
+      else
+        @my_feed = User.create_feed(feed_users)
+      end
     end
   end
 
@@ -43,7 +52,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(user_params)
       #if you can update a user then handle the update for the user
       flash[:success] = "Profile updated"
       sign_in @user
@@ -117,5 +126,9 @@ class UsersController < ApplicationController
       flash[:notice] = "You do not have access to this page."
       redirect_to new_session_path
     end
+  end
+
+  def user_params
+    params[:user].slice(:first_name, :last_name, :password, :password_confirmation)
   end
 end

@@ -10,14 +10,21 @@
 #
 
 class ListItem < ActiveRecord::Base
-  # attr_accessible :title, :body
+  acts_as_story :story_fields => [:restaurant]
   attr_accessible :restaurant_id, :list_id
+
   belongs_to :list
   belongs_to :restaurant
-  has_one :user, :through => :list
+  belongs_to :user
   has_one :city, :through => :list
 
   validates_uniqueness_of :restaurant_id, :scope => :list_id
 
-  #TO DO: need to create methods so that you can only have one unique restaurant per list
+  before_create :find_user
+
+  private
+
+  def find_user
+    self.user = list.user
+  end
 end

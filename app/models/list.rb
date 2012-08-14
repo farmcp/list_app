@@ -10,6 +10,7 @@
 #
 
 class List < ActiveRecord::Base
+  acts_as_story
   attr_accessible :user_id, :city_id
 
   belongs_to :user

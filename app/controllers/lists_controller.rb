@@ -33,7 +33,7 @@ class ListsController < ApplicationController
   #DELETE request for killing a list => located on the user/:id page for showing a user
   def destroy
     @list.destroy
-    redirect_back_or new_session_path
+    redirect_to :back
   end
 
   #GET request to show lists/:id

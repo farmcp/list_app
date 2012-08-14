@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120809083222) do
+ActiveRecord::Schema.define(:version => 20120813055053) do
 
   create_table "cities", :force => true do |t|
     t.string   "name",         :limit => 64,                    :null => false
@@ -43,9 +43,11 @@ ActiveRecord::Schema.define(:version => 20120809083222) do
     t.integer  "restaurant_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "user_id"
   end
 
   add_index "list_items", ["list_id", "restaurant_id"], :name => "index_list_items_on_list_id_and_restaurant_id", :unique => true
+  add_index "list_items", ["user_id"], :name => "index_list_items_on_user_id"
 
   create_table "lists", :force => true do |t|
     t.integer  "user_id"
@@ -86,6 +88,18 @@ ActiveRecord::Schema.define(:version => 20120809083222) do
   end
 
   add_index "restaurants", ["yelp_url"], :name => "index_restaurants_on_yelp_url"
+
+  create_table "stories", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "subject_type"
+    t.integer  "subject_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "restaurant_id"
+  end
+
+  add_index "stories", ["subject_type", "subject_id"], :name => "index_stories_on_subject_type_and_subject_id"
+  add_index "stories", ["user_id"], :name => "index_stories_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
