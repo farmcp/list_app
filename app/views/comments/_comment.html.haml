@@ -11,7 +11,7 @@
         %table
           %tr
             %td{style:'width:60px;'}
-              = avatar_tag User.find(comment.user_id), size: 40
+              = avatar_tag User.find(comment.user_id), size: 40, link: true
             %td
               %b
                 = link_to "#{comment.user.full_name}:", comment.user

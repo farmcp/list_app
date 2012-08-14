@@ -1,7 +1,7 @@
 - feed.each do |object|
   %li{style:'height: 80px;'}
     %span.content
-      = avatar_tag object.user
+      = avatar_tag object.user, link: true
       = link_to object.user.full_name, object.user, style: 'font-weight:bold'
       - case object
       - when Comment

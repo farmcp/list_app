@@ -3,7 +3,7 @@
   - restaurant = story.restaurant
   %li{style:'height: 80px;'}
     %span.content
-      = avatar_tag user
+      = avatar_tag user, link: true
       = link_to user.full_name, user, style: 'font-weight:bold'
       - case story.subject_type
       - when 'Comment'

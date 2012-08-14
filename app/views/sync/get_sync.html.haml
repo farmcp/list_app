@@ -7,7 +7,7 @@
 .row
   .span6.offset3
     - @users.each do |user|
-      = link_to avatar_tag(user, :size => 50), user
+      = avatar_tag(user, size: 50, link: true)
 %br
 
 .row
