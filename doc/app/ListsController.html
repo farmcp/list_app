@@ -70,6 +70,8 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-i-add_to">#add_to</a>
+    
     <li><a href="#method-i-create">#create</a>
     
     <li><a href="#method-i-destroy">#destroy</a>
@@ -184,6 +186,44 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="method-i-add_to" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_to</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>TODO: maybe this should be json?</p>
+          
+
+          
+          <div class="method-source-code" id="add_to-source">
+            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 65</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_to</span>
+  <span class="ruby-identifier">list</span> = <span class="ruby-constant">List</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:restaurant</span>][<span class="ruby-value">:list_id</span>])
+  <span class="ruby-identifier">rest_ids</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:restaurant</span>][<span class="ruby-value">:name</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">','</span>)
+  <span class="ruby-identifier">restaurants</span> = <span class="ruby-constant">Restaurant</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:city_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">list</span>.<span class="ruby-identifier">city_id</span>, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">rest_ids</span>)
+  <span class="ruby-identifier">restaurants</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">restaurant</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">list</span>.<span class="ruby-identifier">list_items</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:restaurant_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">restaurant</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">present?</span>
+    <span class="ruby-identifier">item</span> = <span class="ruby-identifier">list</span>.<span class="ruby-identifier">list_items</span>.<span class="ruby-identifier">build</span>(<span class="ruby-value">:restaurant_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">restaurant</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-identifier">item</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:back</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_to-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_to-method -->
+
+    
       <div id="method-i-create" class="method-detail ">
         
         <div class="method-heading">
@@ -200,7 +240,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 15</span>
+            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-comment">#create a list for the current user if (s)he doesn't have a list already for the specific name and is signed in</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">signed_in?</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">lists</span>.<span class="ruby-identifier">exclude?</span><span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">lists</span>.<span class="ruby-identifier">find_by_city_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:list</span>][<span class="ruby-value">:city_id</span>])
@@ -246,7 +286,7 @@ showing a user</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 35</span>
+            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@list</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">redirect_back_or</span> <span class="ruby-identifier">new_session_path</span>
@@ -309,7 +349,7 @@ showing a user</p>
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 41</span>
+            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-comment">#if the list exists then store a class variable for the list to catch on the view</span>
   <span class="ruby-keyword">if</span> <span class="ruby-constant">List</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]) <span class="ruby-keyword">and</span> <span class="ruby-identifier">current_user</span>

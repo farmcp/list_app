@@ -64,7 +64,9 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-i-gravatar_for">#gravatar_for</a>
+    <li><a href="#method-i-active_unless_current_user">#active_unless_current_user</a>
+    
+    <li><a href="#method-i-avatar_tag">#avatar_tag</a>
     
   </ul>
 </nav>
@@ -172,11 +174,11 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-gravatar_for" class="method-detail ">
+      <div id="method-i-active_unless_current_user" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">gravatar_for</span><span
-            class="method-args">(user, options = {size:''})</span>
+          <span class="method-name">active_unless_current_user</span><span
+            class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
@@ -187,22 +189,50 @@
           
 
           
-          <div class="method-source-code" id="gravatar_for-source">
-            <pre><span class="ruby-comment"># File app/helpers/users_helper.rb, line 2</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">gravatar_for</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">options</span> = {<span class="ruby-identifier">size</span><span class="ruby-value">:''</span>})
-  <span class="ruby-identifier">gravatar_class</span> = <span class="ruby-string">&quot;gravatar&quot;</span>
-  <span class="ruby-identifier">gravatar_id</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span><span class="ruby-operator">::</span><span class="ruby-identifier">hexdigest</span>(<span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>.<span class="ruby-identifier">downcase</span>)
-  <span class="ruby-identifier">gravatar_url</span> = <span class="ruby-node">&quot;http://gravatar.com/avatar/#{gravatar_id}.png?r=r&amp;size=#{options[:size]}&quot;</span>
-  <span class="ruby-identifier">image_tag</span>(<span class="ruby-identifier">gravatar_url</span>, <span class="ruby-identifier">alt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">full_name</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-keyword">class</span><span class="ruby-operator">:</span> <span class="ruby-identifier">gravatar_class</span>, <span class="ruby-value">:gravatar</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>)
+          <div class="method-source-code" id="active_unless_current_user-source">
+            <pre><span class="ruby-comment"># File app/helpers/users_helper.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">active_unless_current_user</span>
+  <span class="ruby-identifier">current_user?</span>(<span class="ruby-ivar">@user</span>) <span class="ruby-operator">?</span> <span class="ruby-string">''</span> <span class="ruby-operator">:</span> <span class="ruby-string">'active'</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- gravatar_for-source -->
+          </div><!-- active_unless_current_user-source -->
           
         </div>
 
         
 
         
-      </div><!-- gravatar_for-method -->
+      </div><!-- active_unless_current_user-method -->
+
+    
+      <div id="method-i-avatar_tag" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">avatar_tag</span><span
+            class="method-args">(user, options = {})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="avatar_tag-source">
+            <pre><span class="ruby-comment"># File app/helpers/users_helper.rb, line 2</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">avatar_tag</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">size</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:size</span>) { <span class="ruby-value">50</span> }
+  <span class="ruby-identifier">image_tag</span>(<span class="ruby-identifier">user</span>.<span class="ruby-identifier">avatar_url</span>, <span class="ruby-identifier">alt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">full_name</span>, <span class="ruby-keyword">class</span><span class="ruby-operator">:</span> <span class="ruby-string">'gravatar'</span>, <span class="ruby-identifier">size</span><span class="ruby-operator">:</span> <span class="ruby-identifier">size</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- avatar_tag-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- avatar_tag-method -->
 
     
     </section><!-- public-instance-method-details -->

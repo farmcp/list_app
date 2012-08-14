@@ -229,7 +229,7 @@
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">link_to_phone</span>(<span class="ruby-identifier">number_str</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">number_str</span>
     <span class="ruby-identifier">formatted_str</span> = <span class="ruby-identifier">number_str</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">%r(\d{3})(\d{3})(\d{4})/</span>, <span class="ruby-string">&quot;( \\1 ) \\2-\\3&quot;</span>)
-    <span class="ruby-identifier">link_to</span> <span class="ruby-identifier">formatted_str</span>, <span class="ruby-node">&quot;tel:#{number_str}&quot;</span>, <span class="ruby-identifier">style</span><span class="ruby-operator">:</span> <span class="ruby-string">'font-weight:normal; margin-top:10px;'</span>, <span class="ruby-keyword">class</span><span class="ruby-operator">:</span> <span class="ruby-string">'btn btn-warning pull-left'</span>
+    <span class="ruby-identifier">link_to</span> <span class="ruby-identifier">formatted_str</span>, <span class="ruby-node">&quot;tel:#{number_str}&quot;</span>, <span class="ruby-identifier">style</span><span class="ruby-operator">:</span> <span class="ruby-string">'font-weight:normal; margin-top:3px;'</span>, <span class="ruby-keyword">class</span><span class="ruby-operator">:</span> <span class="ruby-string">'btn btn-warning pull-left'</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- link_to_phone-source -->

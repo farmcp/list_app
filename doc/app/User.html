@@ -70,7 +70,11 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-c-create_feed">::create_feed</a>
+    
     <li><a href="#method-c-search">::search</a>
+    
+    <li><a href="#method-i-avatar_url">#avatar_url</a>
     
     <li><a href="#method-i-follow-21">#follow!</a>
     
@@ -217,6 +221,43 @@ password_reset_sent_at :datetime</pre>
       <h3 class="section-header">Public Class Methods</h3>
 
     
+      <div id="method-c-create_feed" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_feed</span><span
+            class="method-args">(users)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create_feed-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 106</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_feed</span>(<span class="ruby-identifier">users</span>)
+  <span class="ruby-identifier">ids</span> = <span class="ruby-identifier">users</span>.<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:id</span>)
+  <span class="ruby-identifier">restaurants</span> = <span class="ruby-constant">ListItem</span>.<span class="ruby-identifier">includes</span>([<span class="ruby-value">:list</span>, <span class="ruby-value">:restaurant</span>, <span class="ruby-value">:user</span>]).<span class="ruby-identifier">where</span>(<span class="ruby-value">:lists</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ids</span>}).<span class="ruby-identifier">order</span>(<span class="ruby-string">'list_items.created_at'</span>)
+  <span class="ruby-identifier">comments</span> = <span class="ruby-constant">Comment</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:user</span>).<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ids</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">'created_at'</span>)
+  <span class="ruby-identifier">lists</span> = <span class="ruby-constant">List</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:user</span>).<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ids</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">'created_at'</span>)
+
+  <span class="ruby-comment"># TODO need to get a list of activity for the user feed</span>
+  <span class="ruby-comment"># will include activity on whomever they decide to follow</span>
+  (<span class="ruby-identifier">restaurants</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">comments</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">lists</span>).<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">sort_by</span>(&amp;<span class="ruby-value">:created_at</span>).<span class="ruby-identifier">reverse</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create_feed-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create_feed-method -->
+
+    
       <div id="method-c-search" class="method-detail ">
         
         <div class="method-heading">
@@ -235,8 +276,13 @@ password_reset_sent_at :datetime</pre>
           <div class="method-source-code" id="search-source">
             <pre><span class="ruby-comment"># File app/models/user.rb, line 93</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>
-    <span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-identifier">conditions</span><span class="ruby-operator">:</span> [<span class="ruby-string">'lower(first_name) LIKE ? OR lower(last_name) LIKE ?'</span>, <span class="ruby-node">&quot;%#{query.downcase}%&quot;</span>, <span class="ruby-node">&quot;%#{query.downcase}%&quot;</span>])
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
+    <span class="ruby-identifier">results</span> = []
+    <span class="ruby-identifier">queries</span> = <span class="ruby-identifier">query</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">' '</span>)
+    <span class="ruby-identifier">queries</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">q</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">results</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-identifier">conditions</span><span class="ruby-operator">:</span> [<span class="ruby-string">'lower(first_name) LIKE ? OR lower(last_name) LIKE ?'</span>, <span class="ruby-node">&quot;%#{q.downcase}%&quot;</span>,<span class="ruby-node">&quot;%#{q.downcase}%&quot;</span> ])
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">results</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">flatten</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>)
   <span class="ruby-keyword">end</span>
@@ -255,6 +301,38 @@ password_reset_sent_at :datetime</pre>
   
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-avatar_url" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">avatar_url</span><span
+            class="method-args">(size = 50)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="avatar_url-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 117</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">avatar_url</span>(<span class="ruby-identifier">size</span> = <span class="ruby-value">50</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">image_url</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">image_url</span>.<span class="ruby-identifier">blank?</span>
+  <span class="ruby-identifier">gravatar_id</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span><span class="ruby-operator">::</span><span class="ruby-identifier">hexdigest</span>(<span class="ruby-identifier">email</span>.<span class="ruby-identifier">downcase</span>)
+  <span class="ruby-node">&quot;http://gravatar.com/avatar/#{gravatar_id}.png?r=r&amp;size=#{size}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- avatar_url-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- avatar_url-method -->
 
     
       <div id="method-i-follow-21" class="method-detail ">

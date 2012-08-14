@@ -74,6 +74,8 @@
     
     <li><a href="#method-i-destroy">#destroy</a>
     
+    <li><a href="#method-i-facebook">#facebook</a>
+    
     <li><a href="#method-i-new">#new</a>
     
   </ul>
@@ -249,6 +251,46 @@
 
         
       </div><!-- destroy-method -->
+
+    
+      <div id="method-i-facebook" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">facebook</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="facebook-source">
+            <pre><span class="ruby-comment"># File app/controllers/sessions_controller.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">facebook</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">auth</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">env</span>[<span class="ruby-string">'omniauth.auth'</span>]
+    <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_provider_and_fb_id</span>(<span class="ruby-identifier">auth</span>[<span class="ruby-string">'provider'</span>], <span class="ruby-identifier">auth</span>[<span class="ruby-string">'uid'</span>]) <span class="ruby-operator">||</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">create_with_omniauth</span>(<span class="ruby-identifier">auth</span>)
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:remember_token</span>, <span class="ruby-identifier">auth</span>[<span class="ruby-string">'credentials'</span>][<span class="ruby-string">'token'</span>])
+    <span class="ruby-identifier">sign_in</span> <span class="ruby-identifier">user</span>
+    <span class="ruby-identifier">redirect_back_or</span> <span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">rescue</span> 
+    <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;Something went wrong with the authentication.&quot;</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-string">'new'</span>
+  <span class="ruby-keyword">end</span>
+    
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- facebook-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- facebook-method -->
 
     
       <div id="method-i-new" class="method-detail ">

@@ -70,6 +70,10 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-c-in">::in</a>
+    
+    <li><a href="#method-c-search">::search</a>
+    
     <li><a href="#method-i-city_state_zip">#city_state_zip</a>
     
     <li><a href="#method-i-fix_phone_number">#fix_phone_number</a>
@@ -199,6 +203,75 @@ yelp_url     :string(255)</pre>
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-in" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">in</span><span
+            class="method-args">(city_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="in-source">
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-keyword">in</span>(<span class="ruby-identifier">city_id</span>)
+  <span class="ruby-identifier">where</span>(<span class="ruby-value">:city_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">city_id</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- in-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- in-method -->
+
+    
+      <div id="method-c-search" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">search</span><span
+            class="method-args">(query)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="search-source">
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-identifier">results</span> = [<span class="ruby-identifier">search_by_yelp</span>(<span class="ruby-identifier">query</span>)  ].<span class="ruby-identifier">flatten</span>
+  <span class="ruby-identifier">results</span> = [<span class="ruby-identifier">search_by_prefix</span>(<span class="ruby-identifier">query</span>)].<span class="ruby-identifier">flatten</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">results</span>.<span class="ruby-identifier">blank?</span>
+  <span class="ruby-identifier">results</span> = [<span class="ruby-identifier">search_rest</span>(<span class="ruby-identifier">query</span>)     ].<span class="ruby-identifier">flatten</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">results</span>.<span class="ruby-identifier">blank?</span>
+  <span class="ruby-identifier">results</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- search-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- search-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
 
@@ -219,7 +292,7 @@ yelp_url     :string(255)</pre>
 
           
           <div class="method-source-code" id="city_state_zip-source">
-            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 49</span>
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 50</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">city_state_zip</span>
   <span class="ruby-node">&quot;#{city.name}, #{city.state} #{postal_code}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -249,7 +322,7 @@ yelp_url     :string(255)</pre>
 
           
           <div class="method-source-code" id="fix_phone_number-source">
-            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 54</span>
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">fix_phone_number</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">phone_number</span> = <span class="ruby-identifier">phone_number</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r\D/</span>, <span class="ruby-string">''</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -279,7 +352,7 @@ yelp_url     :string(255)</pre>
 
           
           <div class="method-source-code" id="gmaps4rails_address-source">
-            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 45</span>
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">gmaps4rails_address</span>
   <span class="ruby-node">&quot;#{address}, #{city_state_zip}&quot;</span>
 <span class="ruby-keyword">end</span></pre>

@@ -48,6 +48,7 @@
   <h3 class="section-header">Defined In</h3>
   <ul>
     <li>app/controllers/sync_controller.rb
+    <li>lib/load_rest.rb
   </ul>
 </nav>
 
@@ -76,7 +77,17 @@
   </ul>
 </nav>
 
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
     
+    <li><a href="#method-i-create_from_div">#create_from_div</a>
+    
+  </ul>
+</nav>
+
   </div>
 
   <div id="project-metadata">
@@ -176,6 +187,69 @@
 
     <!-- Methods -->
     
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-create_from_div" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_from_div</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create_from_div-source">
+            <pre><span class="ruby-comment"># File lib/load_rest.rb, line 1</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_from_div</span>
+  <span class="ruby-identifier">sf</span> = <span class="ruby-constant">City</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-string">'San Francisco'</span>)
+  <span class="ruby-constant">Restaurant</span>.<span class="ruby-identifier">where</span>([<span class="ruby-string">'created_at &gt; ? and created_at &lt; ?'</span>, <span class="ruby-string">'2012-07-25'</span>, <span class="ruby-string">'2012-08-10'</span>]).<span class="ruby-identifier">destroy_all</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">'./data/seed.tsv'</span>).<span class="ruby-identifier">each_line</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">line</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\t&quot;</span>).<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:strip</span>)
+    <span class="ruby-identifier">r</span> = <span class="ruby-constant">Restaurant</span>.<span class="ruby-identifier">new</span>
+
+    <span class="ruby-identifier">r</span>.<span class="ruby-identifier">name</span> = <span class="ruby-identifier">line</span>[<span class="ruby-value">0</span>]
+    <span class="ruby-identifier">r</span>.<span class="ruby-identifier">phone_number</span> = <span class="ruby-identifier">line</span>[<span class="ruby-value">1</span>]
+    <span class="ruby-identifier">r</span>.<span class="ruby-identifier">category</span> = <span class="ruby-identifier">line</span>[<span class="ruby-value">2</span>]
+    <span class="ruby-identifier">r</span>.<span class="ruby-identifier">address</span> = <span class="ruby-identifier">line</span>[<span class="ruby-value">3</span>]
+    <span class="ruby-identifier">r</span>.<span class="ruby-identifier">postal_code</span> = <span class="ruby-identifier">line</span>[<span class="ruby-value">4</span>]
+    <span class="ruby-identifier">r</span>.<span class="ruby-identifier">yelp_url</span> = <span class="ruby-identifier">line</span>[<span class="ruby-value">5</span>]
+    <span class="ruby-identifier">r</span>.<span class="ruby-identifier">city_id</span> = <span class="ruby-identifier">sf</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">r</span>.<span class="ruby-identifier">active</span> = <span class="ruby-keyword">true</span>
+
+    <span class="ruby-identifier">tries</span> = <span class="ruby-value">0</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">tries</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+      <span class="ruby-identifier">sleep</span> <span class="ruby-value">0.2</span>
+      <span class="ruby-identifier">r</span>.<span class="ruby-identifier">save!</span>
+    <span class="ruby-keyword">rescue</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">tries</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">3</span>
+        <span class="ruby-keyword">retry</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;ERROR #{line}&quot;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create_from_div-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create_from_div-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
   </section><!-- 5Buntitled-5D -->
 
 </div><!-- documentation -->
