@@ -42,18 +42,8 @@ class Restaurant < ActiveRecord::Base
 
   before_validation :fix_phone_number
 
-  #pass in the location so that can set model lat/lng data
   def gmaps4rails_address
     "#{address}, #{city_state_zip}"
-  end
-
-  def gmaps4rails_infowindow
-    "<img src=\"#{self.picture_url}\" width='40' height='40' style='float:left; margin-right:15px;'>
-    <b>#{name}</b>
-    <br/>
-    #{address}
-    <br/>
-    #{city_state_zip}"
   end
 
   def city_state_zip
