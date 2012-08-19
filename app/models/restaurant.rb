@@ -47,6 +47,15 @@ class Restaurant < ActiveRecord::Base
     "#{address}, #{city_state_zip}"
   end
 
+  def gmaps4rails_infowindow
+    "<img src=\"#{self.picture_url}\" width='40' height='40' style='float:left; margin-right:15px;'>
+    <b>#{name}</b>
+    <br/>
+    #{address}
+    <br/>
+    #{city_state_zip}"
+  end
+
   def city_state_zip
     "#{city.name}, #{city.state} #{postal_code}"
   end
