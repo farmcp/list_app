@@ -21,16 +21,10 @@ class RestaurantsController < ApplicationController
 
   #POST action for creating a new restaurant
   def create
-
-    #TODO: Need to check if the Restaurant exists already.
-    @restaurant = Restaurant.new(params[:restaurant])
-    city_input = City.find(params[:city][:name])
-
-    #save the city_id for the restaurant
-    @restaurant.city_id = city_input.id
+    yelp_url = params[:restaurant][:yelp_url]
+    @restaurant = Restaurant.where(:yelp_url => yelp_url).first
+    @restaurant ||= Yelp.parse(yelp_url)
     if @restaurant.save
-
-      #saved the restaurant
       flash[:success] = "Thank you! You've successfully submitted a restaurant to Bite List!"
       redirect_to new_restaurant_path
     else
