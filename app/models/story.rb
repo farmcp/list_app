@@ -10,7 +10,7 @@ class Story < ActiveRecord::Base
   belongs_to :relationship, :foreign_key => "subject_id"
   belongs_to :restaurant
 
-  self.per_page = 10
+  self.per_page = 20
 
   scope :includes_all, :include => {
     :user => [],
