@@ -25,7 +25,7 @@ class Restaurant < ActiveRecord::Base
 
   # attr_accessible :title, :body
   #not sure we want to expose all fo these fields
-  attr_accessible :name, :phone_number, :category, :address, :postal_code, :city_id
+  attr_accessible :name, :phone_number, :category, :address, :postal_code, :city_id, :active, :yelp_url
 
   #a restaurant belongs to a single city (create new entry for each restaurant chain location)
   belongs_to :city
