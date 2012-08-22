@@ -66,10 +66,14 @@ class ListsController < ApplicationController
     list = List.find(params[:restaurant][:list_id])
     rest_ids = params[:restaurant][:name].split(',')
     restaurants = Restaurant.where(:city_id => list.city_id, :id => rest_ids)
-    restaurants.each do |restaurant|
-      next if list.list_items.where(:restaurant_id => restaurant.id).present?
-      item = list.list_items.build(:restaurant_id => restaurant.id)
-      item.save!
+    if list.list_items.count < 15
+      restaurants.each do |restaurant|
+        next if list.list_items.where(:restaurant_id => restaurant.id).present?
+        item = list.list_items.build(:restaurant_id => restaurant.id)
+        item.save!
+      end
+    else
+      flash[:error] = "You can only have 15 restaurants per list!"
     end
     redirect_to :back
   end
