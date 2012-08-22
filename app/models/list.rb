@@ -15,7 +15,10 @@ class List < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :city
-  has_many :list_items, :dependent => :destroy
+  has_many :list_items, dependent: :destroy
+  has_many :restaurants, through: :list_items
 
   validates :user_id, :city_id, :presence => true
+
+  MAX_ITEMS_PER_LIST = 15
 end
