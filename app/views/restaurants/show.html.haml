@@ -15,7 +15,7 @@
     .pull-left 
       - if @restaurant.category
         %b Category:
-        = @restaurant.category
+        = truncate(@restaurant.category, length: 30)
     %br/
     %br/
   
