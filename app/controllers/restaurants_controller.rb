@@ -25,7 +25,7 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.where(:yelp_url => yelp_url).first
     @restaurant ||= Yelp.parse(yelp_url)
     if @restaurant.save
-      flash[:success] = "Thank you! You've successfully submitted a restaurant to Bite List!"
+      flash[:success] = "Thank you! You've successfully submitted a restaurant to Bitelist!"
       redirect_to new_restaurant_path
     else
       render 'new'
