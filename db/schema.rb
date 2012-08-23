@@ -102,10 +102,8 @@ ActiveRecord::Schema.define(:version => 20120823035827) do
   add_index "stories", ["user_id"], :name => "index_stories_on_user_id"
 
   create_table "sub_cities", :id => false, :force => true do |t|
-    t.string   "name"
-    t.integer  "city_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string  "name"
+    t.integer "city_id"
   end
 
   add_index "sub_cities", ["city_id"], :name => "index_sub_cities_on_city_id"

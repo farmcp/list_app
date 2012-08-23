@@ -3,8 +3,6 @@ class CreateSubCities < ActiveRecord::Migration
     create_table :sub_cities, id: false do |t|
       t.string :name
       t.references :city
-
-      t.timestamps
     end
 
     add_index :sub_cities, :name
