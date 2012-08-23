@@ -4,6 +4,7 @@ describe Yelp do
   before :each do
     @cello_url = 'http://www.yelp.com/biz/cello-kebob-and-pizza-san-francisco'
   end
+
   context '.parse' do
     before :each do
       cello_file = "#{Rails.root}/spec/fixtures/cello-kebob-and-pizza-san-francisco"
@@ -25,6 +26,13 @@ describe Yelp do
       it 'returns nil' do
         Yelp.parse(@cello_url).should be_nil
       end
+    end
+  end
+
+  context '.clean_up' do
+    it 'fixes url' do
+      url = 'yelp.com/biz/leftys-chicago-pizzeria-san-diego-3?foo=bar#query:lefty%27s%20pizza'
+      Yelp.clean_up(url).should == 'http://www.yelp.com/biz/leftys-chicago-pizzeria-san-diego-3'
     end
   end
 end
