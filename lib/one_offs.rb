@@ -1,18 +1,21 @@
 class OneOffs
-  # OneOffs.add_user_to_list_items
-  def self.add_user_to_list_items
-    ListItem.all.each do |item|
-      item.user = item.list.user
-      item.save!
-    end
-  end
-
-  # OneOffs.create_stories
-  def self.create_stories
-    [ListItem, Comment, List].each do |clazz|
-      clazz.all.each do |subject|
-        subject.send :storify!
-      end
+  # OneOffs.add_sub_cities
+  def self.add_sub_cities
+    # SF
+    sf = City.find_by_name('San Francisco')
+    sf_cities = [
+      'oakland',
+      'pleasanton',
+      'palo alto',
+      'daly city',
+      'mountain view',
+      'san jose',
+      'berkeley',
+      'fremont',
+      'emeryville',
+    ]
+    sf_cities.each do |sub_city|
+      sf.sub_cities.create!(name: sub_city.downcase)
     end
   end
 end

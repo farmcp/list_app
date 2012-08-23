@@ -16,6 +16,7 @@ class City < ActiveRecord::Base
 
   #each restaurant is unique and each city can have many of the restaurants
   has_many :restaurants
+  has_many :sub_cities
   has_one :list
 
   def self.select_options
