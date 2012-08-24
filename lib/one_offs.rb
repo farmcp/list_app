@@ -30,7 +30,7 @@ class OneOffs
       'nashua',
       'framingham',
       'waltham',
-      'worcester'
+      'worcester',
     ]
     sf_cities.each do |sub_city|
       sf.sub_cities.create!(name: sub_city.downcase)
