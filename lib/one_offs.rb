@@ -1,6 +1,6 @@
 class OneOffs
   # OneOffs.add_sub_cities
-  def self.add_sub_cities
+  def self.add_sf_sub_cities
     # SF
     sf = City.find_by_name('San Francisco')   
     sf_cities = [
