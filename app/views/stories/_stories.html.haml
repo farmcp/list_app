@@ -11,8 +11,7 @@
         posted a new comment about
         = link_to restaurant.name, restaurant
         in #{restaurant.city.name}:
-        .comment
-          = truncate(subject.body, :length => 80)
+        = truncate(subject.body, :length => 70)
       - when 'ListItem'
         - subject = story.list_item
         has added
