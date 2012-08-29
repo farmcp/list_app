@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: sub_cities
+#
+#  name    :string(255)
+#  city_id :integer
+#
+
 class SubCity < ActiveRecord::Base
   belongs_to :city
   attr_accessible :name

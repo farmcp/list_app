@@ -13,6 +13,9 @@
 #  admin                  :boolean         default(FALSE)
 #  password_reset_token   :string(255)
 #  password_reset_sent_at :datetime
+#  fb_id                  :string(255)
+#  provider               :string(255)
+#  image_url              :string(255)
 #
 
 class User < ActiveRecord::Base
