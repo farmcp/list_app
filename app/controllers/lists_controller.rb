@@ -71,13 +71,9 @@ class ListsController < ApplicationController
         next if list.list_items.where(:restaurant_id => restaurant.id).present?
         item = list.list_items.build(:restaurant_id => restaurant.id)
         item.save!
-        begin 
-          if current_user.fb_id && current_user.provider == 'facebook'
-            me = FbGraph::User.me(current_user.remember_token)
-            me.feed!(message: current_user.full_name + ' has added a new restaurant to Bitelist!')
-          end
-        rescue 
-          #handle failed user post - do nothing for now
+        
+        if current_user && current_user.provider == 'facebook'
+          current_user.fb_post(current_user.full_name + ' has added a new restaurant to Bitelist!')
         end
 
       end

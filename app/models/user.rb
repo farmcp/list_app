@@ -111,7 +111,15 @@ class User < ActiveRecord::Base
     gravatar_id = Digest::MD5::hexdigest(email.downcase)
     "http://gravatar.com/avatar/#{gravatar_id}.png?r=r&size=#{size}"
   end
-
+  
+  def fb_post(message)
+    begin 
+        me = FbGraph::User.me(self.remember_token)
+        me.feed!(message: message)
+    rescue 
+        #handle failed user post - do nothing for now
+    end
+  end
   private
 
   def create_remember_token
@@ -140,4 +148,6 @@ class User < ActiveRecord::Base
       UserMailer.welcome_email(user).deliver
     end
   end
+
+
 end
