@@ -113,11 +113,13 @@ class User < ActiveRecord::Base
   end
   
   def fb_post(message)
-    begin 
-        me = FbGraph::User.me(self.remember_token)
-        me.feed!(message: message)
-    rescue 
-        #handle failed user post - do nothing for now
+    if self.provider == 'facebook'
+      begin 
+          me = FbGraph::User.me(self.remember_token)
+          me.feed!(message: message)
+      rescue 
+          #handle failed user post - do nothing for now
+      end
     end
   end
   private

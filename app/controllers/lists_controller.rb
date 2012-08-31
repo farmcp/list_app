@@ -71,11 +71,8 @@ class ListsController < ApplicationController
         next if list.list_items.where(:restaurant_id => restaurant.id).present?
         item = list.list_items.build(:restaurant_id => restaurant.id)
         item.save!
-        
-        if current_user && current_user.provider == 'facebook'
-          current_user.fb_post(current_user.full_name + ' has added a new restaurant to Bitelist!')
-        end
 
+        current_user.fb_post(current_user.full_name + ' has added a new restaurant to Bitelist!')
       end
     else
       flash[:error] = "You can only have 15 restaurants per list!"
