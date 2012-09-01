@@ -13,6 +13,9 @@
 #  admin                  :boolean         default(FALSE)
 #  password_reset_token   :string(255)
 #  password_reset_sent_at :datetime
+#  fb_id                  :string(255)
+#  provider               :string(255)
+#  image_url              :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -109,6 +112,16 @@ class User < ActiveRecord::Base
     "http://gravatar.com/avatar/#{gravatar_id}.png?r=r&size=#{size}"
   end
 
+  def fb_post(message)
+    if self.provider == 'facebook'
+      begin
+        me = FbGraph::User.me(self.remember_token)
+        me.feed!(message: message)
+      rescue
+        # handle failed user post - do nothing for now
+      end
+    end
+  end
   private
 
   def create_remember_token
@@ -137,4 +150,6 @@ class User < ActiveRecord::Base
       UserMailer.welcome_email(user).deliver
     end
   end
+
+
 end

@@ -44,10 +44,7 @@ class ListsController < ApplicationController
       @list = List.find_by_id(params[:id])
 
       #go through the list and create array of restaurants
-      @restaurants = Array.new
-      @list.list_items.each do |item|
-        @restaurants << item.restaurant
-      end
+      @restaurants = @list.list_items.map(&:restaurant)
 
       #get the json for the maps
       @maps_json = @restaurants.to_gmaps4rails
@@ -55,7 +52,7 @@ class ListsController < ApplicationController
       #pass in a variable to create a new List Item if the user enters a name into the text_field
       @list_item = ListItem.new
     else
-    #else if there is no list, then redirect to root
+      # else if there is no list, then redirect to root
       flash[:error] = "There was a problem finding your list."
       redirect_to new_session_path
     end
