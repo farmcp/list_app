@@ -109,6 +109,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def fb_friends
+    #TODO - get friends from facebook and display them
+    @friends = []
+  end
+
   private
 
   def correct_user
