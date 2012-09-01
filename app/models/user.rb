@@ -111,14 +111,14 @@ class User < ActiveRecord::Base
     gravatar_id = Digest::MD5::hexdigest(email.downcase)
     "http://gravatar.com/avatar/#{gravatar_id}.png?r=r&size=#{size}"
   end
-  
+
   def fb_post(message)
     if self.provider == 'facebook'
-      begin 
-          me = FbGraph::User.me(self.remember_token)
-          me.feed!(message: message)
-      rescue 
-          #handle failed user post - do nothing for now
+      begin
+        me = FbGraph::User.me(self.remember_token)
+        me.feed!(message: message)
+      rescue
+        # handle failed user post - do nothing for now
       end
     end
   end
