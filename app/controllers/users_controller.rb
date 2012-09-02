@@ -112,6 +112,10 @@ class UsersController < ApplicationController
   def fb_friends
     #TODO - get friends from facebook and display them
     @friends = []
+    if current_user.provider == 'facebook'
+      me = FbGraph::User.me(current_user.remember_token)
+      @friends = me.friends.paginate
+    end
   end
 
   private
