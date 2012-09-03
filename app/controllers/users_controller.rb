@@ -114,8 +114,16 @@ class UsersController < ApplicationController
     @friends = []
     if current_user.provider == 'facebook'
       me = FbGraph::User.me(current_user.remember_token)
-      @friends = me.friends.paginate
+      @friends = me.friends
     end
+  end
+
+  #POST method to invite by email
+  def invite_by_email
+    new_user_email = params[:email]
+    current_user.send_invite_to_new_user(new_user_email)
+    flash[:success] = 'You have invited your friend!'
+    redirect_to fb_friends_user_path
   end
 
   private

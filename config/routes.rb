@@ -19,6 +19,7 @@ ListApp::Application.routes.draw do
     member do
       get :following, :followers
       get :fb_friends
+      post :invite_by_email
     end
     collection do
       get :syncable_users

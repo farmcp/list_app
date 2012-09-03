@@ -21,4 +21,9 @@ class UserMailer < ActionMailer::Base
     @other_user = other_user
     mail(to: other_user.email, subject: "You have a new follower on Bitelist!")
   end
+
+  def invite_user(user, new_user_email)
+    @user = user
+    mail(to: new_user_email, subject: user.full_name + " has invited you to Bitelist!")
+  end
 end
