@@ -24,6 +24,6 @@ class UserMailer < ActionMailer::Base
 
   def invite_user(user, new_user_email)
     @user = user
-    mail(to: new_user_email, subject: user.full_name + " has invited you to Bitelist!")
+    mail(to: new_user_email, subject: user.full_name + " invited you to Bitelist!")
   end
 end

@@ -1,4 +1,5 @@
 module UsersHelper
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   def avatar_tag(user, options = {})
     size = options.delete(:size) { 50 }
     link = options.delete(:link) { false }
@@ -9,5 +10,13 @@ module UsersHelper
 
   def active_unless_current_user
     current_user?(@user) ? '' : 'active'
+  end
+
+  def validate_email(email_address)
+    if email_address =~ VALID_EMAIL_REGEX
+      return true
+    else 
+      return false
+    end
   end
 end
