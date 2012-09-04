@@ -5,26 +5,23 @@
     %span.content
       = avatar_tag user, link: true
       = link_to user.full_name, user, style: 'font-weight:bold'
+      - subject = story.item
       - case story.subject_type
       - when 'Comment'
-        - subject = story.comment
         posted a new comment about
         = link_to restaurant.name, restaurant
         in #{restaurant.city.name}:
         = truncate(subject.body, :length => 70)
       - when 'ListItem'
-        - subject = story.list_item
         has added
-        = link_to restaurant.name, restaurant
+        = link_to restaurant.try(:name), restaurant
         to their
         = link_to subject.city.abbreviation + " Bitelist.", subject.list
       - when 'List'
-        - subject = story.list
         has added
         = link_to subject.city.name, subject
         to their Bitelists.
       - when 'Relationship'
-        - subject = story.relationship
         - followed = subject.followed
         started following
         = succeed '.' do
