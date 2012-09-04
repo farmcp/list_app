@@ -1,7 +1,4 @@
-require 'will_paginate/array'
-
 class UsersController < ApplicationController
-
   #calls this before any of the other defined actions (here just :edit and :update) in this controller
   before_filter :signed_in_user, only: [:edit, :update, :show, :index, :destroy, :syncable_users]
 
@@ -107,6 +104,29 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.json { render :json => json }
     end
+  end
+
+  def fb_friends
+    if current_user.provider == 'facebook'
+      me = FbGraph::User.me(current_user.remember_token)
+      @friends = me.friends
+    else
+      @friends = []
+    end
+  end
+
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  # POST method to invite by email
+  def invite_by_email
+    if params[:email] =~ VALID_EMAIL_REGEX
+      new_user_email = params[:email]
+      current_user.send_invite_to_new_user(new_user_email)
+      flash[:success] = 'You have invited your friend!'
+    else
+      flash[:error] = 'You have entered an invalid email address'
+    end
+
+    redirect_to fb_friends_user_path
   end
 
   private

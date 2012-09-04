@@ -92,6 +92,11 @@ class User < ActiveRecord::Base
     UserMailer.password_reset(self).deliver
   end
 
+  # send an invite to a new user email address
+  def send_invite_to_new_user(new_user_email)
+    UserMailer.invite_user(self, new_user_email).deliver
+  end
+
   #create a static method search on a query
   def self.search(query)
     if query.present?

@@ -1,0 +1,18 @@
+= provide(:title, 'Invite Friends')
+
+%h1.big_title
+  Invite Friends
+
+- # invite friends through email
+.row
+  .span6.offset3
+    = form_tag invite_by_email_user_path, :method => :post do
+      = label_tag "Please enter your friend's email below:"
+      = text_field_tag :email, params[:email]
+      = submit_tag "Send Invite!", class: 'btn btn-primary'
+-#
+  %ul.users
+    - @friends.each do |fb_friend|
+      %li
+        = image_tag fb_friend.picture
+        = fb_friend.name
