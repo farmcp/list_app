@@ -9,7 +9,7 @@
       %h2
         Facebook
       %p.center
-        =link_to image_tag("fb_connect.png"), "/auth/facebook"
+        = link_to image_tag("fb_connect.png"), "/auth/facebook"
       %br/
       %h1.center
         %b
@@ -28,9 +28,9 @@
       = f.submit "Login", class: "btn btn-large btn-primary"
 
     %p
-      Don't have an account? 
+      Don't have an account?
       = link_to "Sign up now!", new_user_path
 
     %p
-      Forgot your password? 
-      = link_to "Recover it here!", new_password_reset_path    
+      Forgot your password?
+      = link_to "Recover it here!", new_password_reset_path
