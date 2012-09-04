@@ -1,6 +1,4 @@
-require 'will_paginate/array'
 class UsersController < ApplicationController
-  include UsersHelper
   #calls this before any of the other defined actions (here just :edit and :update) in this controller
   before_filter :signed_in_user, only: [:edit, :update, :show, :index, :destroy, :syncable_users]
 
@@ -109,17 +107,18 @@ class UsersController < ApplicationController
   end
 
   def fb_friends
-    #TODO - get friends from facebook and display them
-    @friends = []
     if current_user.provider == 'facebook'
       me = FbGraph::User.me(current_user.remember_token)
       @friends = me.friends
+    else
+      @friends = []
     end
   end
 
-  #POST method to invite by email
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  # POST method to invite by email
   def invite_by_email
-    if validate_email(params[:email])
+    if params[:email] =~ VALID_EMAIL_REGEX
       new_user_email = params[:email]
       current_user.send_invite_to_new_user(new_user_email)
       flash[:success] = 'You have invited your friend!'

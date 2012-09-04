@@ -3,8 +3,8 @@
 %h1.big_title
   Invite Friends
 
--#invite friends through email
-.row 
+- # invite friends through email
+.row
   .span6.offset3
     = form_tag invite_by_email_user_path, :method => :post do
       = label_tag "Please enter your friend's email below:"
