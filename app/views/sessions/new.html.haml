@@ -5,6 +5,11 @@
 
 .row
   .span6.offset3.center
+    %br/
+    %p
+      =link_to image_tag("fb_connect.png"), "/auth/facebook"
+    %h3 OR
+    %br/
     = form_for(:session, url: sessions_path) do |f|
       .pull-left
         = f.label :email
@@ -12,7 +17,7 @@
       .pull-left
         = f.label :password
       = f.password_field :password
-      = f.submit "Login", class: "btn btn-large btn-primary", style:'width:200px;'
+      = f.submit "Login", class: "btn btn-large btn-primary"
 
     %p
       Don't have an account? 
@@ -21,8 +26,3 @@
     %p
       Forgot your password? 
       = link_to "Recover it here!", new_password_reset_path
-
-    %h3 OR
-    %br/
-    %p
-      =link_to image_tag("fb_connect.png"), "/auth/facebook"
