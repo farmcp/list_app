@@ -4,7 +4,7 @@ class UserMailer < ActionMailer::Base
   # send the user a welcome email
   def welcome_email(user)
     @user = user
-    @url = 'http://www.bitelist.com/signin'
+    @url = 'http://bitelist.com/signin'
 
     mail(to: user.email, subject: "Welcome to Bitelist!")
   end
