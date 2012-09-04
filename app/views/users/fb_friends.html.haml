@@ -5,7 +5,7 @@
 
 - # invite friends through email
 .row
-  .span6.offset3
+  .span4.offset4.center
     = form_tag invite_by_email_user_path, :method => :post do
       = label_tag "Please enter your friend's email below:"
       = text_field_tag :email, params[:email]

@@ -2,7 +2,7 @@
   Reset Password
 
 .row
-  .span6.offset3
+  .span4.offset4.center
     = form_tag password_resets_path, :method => :post do
       = label_tag "Please Enter your email below:"
       = text_field_tag :email, params[:email]
