@@ -1,3 +1,4 @@
+require 'will_paginate/array'
 class UsersController < ApplicationController
   #calls this before any of the other defined actions (here just :edit and :update) in this controller
   before_filter :signed_in_user, only: [:edit, :update, :show, :index, :destroy, :syncable_users]
