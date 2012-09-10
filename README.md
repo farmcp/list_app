@@ -49,6 +49,7 @@ To Dos:
 3. Facebook friends import and invite
 3. ~~Activity feed (in pull request)~~
 2. Validation for places to eat - know when someone enters a valid restaurant and populating the database. Finish autocomplete for adding restaurants to your bitelist
+2. Need to add Hawaii, New York, LA, Chicago to list of available cities - see list_controller (new)
 4. Create a better algorithm for restaurant recommendations
 2. Add directions to restaurants (button on the restaurant show)
 2. http://www.opentable.com/info/affiliates.aspx - add open table reservations
