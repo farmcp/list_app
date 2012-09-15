@@ -47,7 +47,7 @@ To Dos:
 4. ~~Add a Friends tab and allows you to view all your followers and people you follow - this will replace current `users_path`~~
 4. ~~Adding user's comments to each list item~~
 3. Facebook friends import and invite
-3. ~~Activity feed (in pull request)~~
+3. ~~Activity feed~~
 2. Validation for places to eat - know when someone enters a valid restaurant and populating the database. Finish autocomplete for adding restaurants to your bitelist
 2. Need to add Hawaii, New York, LA, Chicago to list of available cities - see list_controller (new)
 4. Create a better algorithm for restaurant recommendations
