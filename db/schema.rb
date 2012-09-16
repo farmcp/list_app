@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(:version => 20120915223036) do
 
   add_index "cities", ["abbreviation"], :name => "index_cities_on_abbreviation"
   add_index "cities", ["active"], :name => "index_cities_on_active"
+  add_index "cities", ["latitude"], :name => "index_cities_on_latitude"
+  add_index "cities", ["longitude"], :name => "index_cities_on_longitude"
   add_index "cities", ["name"], :name => "index_cities_on_name"
   add_index "cities", ["state"], :name => "index_cities_on_state"
 
