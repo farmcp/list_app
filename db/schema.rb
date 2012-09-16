@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823035827) do
+ActiveRecord::Schema.define(:version => 20120915223036) do
 
   create_table "cities", :force => true do |t|
     t.string   "name",         :limit => 64,                    :null => false
@@ -20,10 +20,14 @@ ActiveRecord::Schema.define(:version => 20120823035827) do
     t.boolean  "active",                     :default => false, :null => false
     t.datetime "created_at",                                    :null => false
     t.datetime "updated_at",                                    :null => false
+    t.float    "longitude"
+    t.float    "latitude"
   end
 
   add_index "cities", ["abbreviation"], :name => "index_cities_on_abbreviation"
   add_index "cities", ["active"], :name => "index_cities_on_active"
+  add_index "cities", ["latitude"], :name => "index_cities_on_latitude"
+  add_index "cities", ["longitude"], :name => "index_cities_on_longitude"
   add_index "cities", ["name"], :name => "index_cities_on_name"
   add_index "cities", ["state"], :name => "index_cities_on_state"
 
