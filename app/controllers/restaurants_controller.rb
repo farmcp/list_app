@@ -35,7 +35,12 @@ class RestaurantsController < ApplicationController
   def search
     if params[:q]
       query = params[:q].to_s.strip
+
+      #search bitelist database for restaurant
       json = Restaurant.in(params[:city_id]).search(query).to_json(:only => [:id, :name])
+
+      #if it doesn't exist in database then search facebook for the restaurant then add some of the information to database
+
     else
       json = '[]'
     end
