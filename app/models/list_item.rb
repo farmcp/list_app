@@ -20,6 +20,7 @@ class ListItem < ActiveRecord::Base
   has_one :city, :through => :list
 
   validates_uniqueness_of :restaurant_id, :scope => :list_id
+  validates :restaurant_id, :presence => true
 
   before_create :find_user
 
