@@ -2,7 +2,6 @@ class ListsController < ApplicationController
   before_filter :signed_in_user, :only => [:new, :create, :destroy]
   before_filter :correct_user, :only => :destroy
 
-
   #GET request for displaying how to create a new List
   def new
     @list = List.new
@@ -23,7 +22,7 @@ class ListsController < ApplicationController
         redirect_to current_user
       else
         render 'new'
-    end
+      end
 
     else
       #need to get flash to show why you can't upload a new list => mainly because you already have a list with the city
@@ -40,18 +39,16 @@ class ListsController < ApplicationController
 
   #GET request to show lists/:id
   def show
-    #if the list exists then store a class variable for the list to catch on the view
-    if List.find_by_id(params[:id]) and current_user
-      #get the list from the id that's passed in
-      @list = List.find_by_id(params[:id])
+    # if the list exists then store a class variable for the list to catch on the view
 
-      #go through the list and create array of restaurants
-      @restaurants = @list.list_items.map(&:restaurant)
+    @list = List.find_by_id(params[:id])
+    if @list
+      @restaurants = @list.restaurants
 
-      #get the json for the maps
+      # get the json for the maps
       @maps_json = @restaurants.to_gmaps4rails
 
-      #pass in a variable to create a new List Item if the user enters a name into the text_field
+      # pass in a variable to create a new List Item if the user enters a name into the text_field
       @list_item = ListItem.new
     else
       # else if there is no list, then redirect to root
@@ -62,18 +59,21 @@ class ListsController < ApplicationController
 
   # TODO: maybe this should be json?
   def add_to
-    list = List.find(params[:restaurant][:list_id])
+    list = current_user.lists.find(params[:restaurant][:list_id])
+    count = list.list_items.count
     rest_ids = params[:restaurant][:name].split(',')
     restaurants = Restaurant.where(:city_id => list.city_id, :id => rest_ids)
-    if list.list_items.count < 15
-      restaurants.each do |restaurant|
-        next if list.list_items.where(:restaurant_id => restaurant.id).present?
-        item = list.list_items.build(:restaurant_id => restaurant.id)
-        item.save!
+
+    restaurants.each do |restaurant|
+      next if list.list_items.where(:restaurant_id => restaurant.id).present?
+      if count >= MAX_ITEMS_PER_LIST
+        flash[:error] = "You can only have #{MAX_ITEMS_PER_LIST} restaurants per list!"
+        break
       end
-    else
-      flash[:error] = "You can only have 15 restaurants per list!"
+      list.list_items.create!(:restaurant_id => restaurant.id)
+      count += 1
     end
+
     redirect_to :back
   end
 
