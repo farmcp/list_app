@@ -40,6 +40,14 @@ class RestaurantsController < ApplicationController
       json = Restaurant.in(params[:city_id]).search(query).to_json(:only => [:id, :name])
 
       #if it doesn't exist in database then search facebook for the restaurant then add some of the information to database
+      if !json.any?
+        current_city = City.find(params[:city_id])
+        json = FbGraph::Place.search(
+          query.to_s,
+          :center => current_city.longitude.to_s + ', ' + current_city.latitude.to_s,
+          :access_token => current_user.remember_token
+          )
+      end
 
     else
       json = '[]'
