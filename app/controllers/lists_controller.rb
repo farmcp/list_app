@@ -66,8 +66,8 @@ class ListsController < ApplicationController
 
     restaurants.each do |restaurant|
       next if list.list_items.where(:restaurant_id => restaurant.id).present?
-      if count >= MAX_ITEMS_PER_LIST
-        flash[:error] = "You can only have #{MAX_ITEMS_PER_LIST} restaurants per list!"
+      if count >= List::MAX_ITEMS_PER_LIST
+        flash[:error] = "You can only have #{List::MAX_ITEMS_PER_LIST} restaurants per list!"
         break
       end
       list.list_items.create!(:restaurant_id => restaurant.id)
