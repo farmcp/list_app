@@ -69,14 +69,16 @@ class RestaurantsController < ApplicationController
             :postal_code => fetched_result.location.zip,
             :city_id => current_city.id,
             :active => true,
-            :fb_place_id => fetched_result.identifier.to_s
+            :fb_place_id => fetched_result.identifier.to_s,
+            :latitude => fetched_result.location.latitude,
+            :longitude => fetched_result.location.longitude
           )
           restaurant.save!
         end
       end
 
       #convert to json for json response - return the facebook ID 
-      json = results.to_json(:only => [:identifier, :name])
+      json = Restaurant.in(params[:city_id]).search(query).to_json(:only => [:id, :name])
 
     else
       json = '[]'
