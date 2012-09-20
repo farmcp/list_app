@@ -18,6 +18,7 @@
 #  longitude    :float
 #  gmaps        :boolean
 #  yelp_url     :string(255)
+#  fb_place_id  :string(255)
 #
 
 class Restaurant < ActiveRecord::Base
@@ -25,7 +26,7 @@ class Restaurant < ActiveRecord::Base
 
   # attr_accessible :title, :body
   #not sure we want to expose all fo these fields
-  attr_accessible :name, :phone_number, :category, :address, :postal_code, :city_id, :active, :yelp_url
+  attr_accessible :name, :phone_number, :category, :address, :postal_code, :city_id, :active, :yelp_url, :picture_url, :fb_place_id
 
   #a restaurant belongs to a single city (create new entry for each restaurant chain location)
   belongs_to :city
@@ -38,7 +39,6 @@ class Restaurant < ActiveRecord::Base
   validates :phone_number, allow_blank: true, :format => {with: /\d{10}/, message: "(Only 10 digit numbers are allowed)"}, numericality: {only_integer: true}
   validates :address, :presence => true
   validates :postal_code, :presence => true
-  validates :yelp_url, :presence => true, :uniqueness => true
 
   before_validation :fix_phone_number
 

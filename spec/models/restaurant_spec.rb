@@ -18,6 +18,7 @@
 #  longitude    :float
 #  gmaps        :boolean
 #  yelp_url     :string(255)
+#  fb_place_id  :string(255)
 #
 
 require './spec/spec_helper'

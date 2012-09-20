@@ -37,17 +37,46 @@ class RestaurantsController < ApplicationController
       query = params[:q].to_s.strip
 
       #search bitelist database for restaurant
-      json = Restaurant.in(params[:city_id]).search(query).to_json(:only => [:id, :name])
+#      results = Restaurant.in(params[:city_id]).search(query)
 
-      #if it doesn't exist in database then search facebook for the restaurant then add some of the information to database
-      if !json.any?
-        current_city = City.find(params[:city_id])
-        json = FbGraph::Place.search(
-          query.to_s,
-          :center => current_city.longitude.to_s + ', ' + current_city.latitude.to_s,
-          :access_token => current_user.remember_token
-          )
+      #if it doesn't exist in database then search facebook for the restaurant then add some of the information to database - what about the overlaps 
+      #if you search for 'Lonuge' there are some in bitelist database and some that are not
+      current_city = City.find(params[:city_id])
+      center = current_city.latitude.to_s + ', ' + current_city.longitude.to_s
+      token = current_user.remember_token
+
+      places = FbGraph::Place.search(
+        query.to_s,
+        :center => center,
+        :access_token => token
+      )
+      results = Array.new
+      places.each do |place|
+        if place.category.downcase.include?'restaurant' or place.category.include?'cafe' or place.category.include?'breakfast' or place.category.include?'lunch' or place.category.include?'dinner'
+          results << place
+        end
       end
+
+      results.each do |result|
+        unless Restaurant.find_by_fb_place_id(result.identifier)
+          fetched_result = result.fetch
+          restaurant = Restaurant.new(
+            :name => fetched_result.name, 
+            :picture_url => fetched_result.picture,
+            :phone_number => fetched_result.phone,
+            :category => fetched_result.category,
+            :address => fetched_result.location.street,
+            :postal_code => fetched_result.location.zip,
+            :city_id => current_city.id,
+            :active => true,
+            :fb_place_id => fetched_result.identifier.to_s
+          )
+          restaurant.save!
+        end
+      end
+
+      #convert to json for json response - return the facebook ID 
+      json = results.to_json(:only => [:identifier, :name])
 
     else
       json = '[]'

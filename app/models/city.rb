@@ -9,6 +9,8 @@
 #  active       :boolean         default(FALSE), not null
 #  created_at   :datetime        not null
 #  updated_at   :datetime        not null
+#  longitude    :float
+#  latitude     :float
 #
 
 class City < ActiveRecord::Base

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120915223036) do
+ActiveRecord::Schema.define(:version => 20120918052224) do
 
   create_table "cities", :force => true do |t|
     t.string   "name",         :limit => 64,                    :null => false
@@ -89,8 +89,10 @@ ActiveRecord::Schema.define(:version => 20120915223036) do
     t.float    "longitude"
     t.boolean  "gmaps"
     t.string   "yelp_url"
+    t.string   "fb_place_id"
   end
 
+  add_index "restaurants", ["fb_place_id"], :name => "index_restaurants_on_fb_place_id"
   add_index "restaurants", ["yelp_url"], :name => "index_restaurants_on_yelp_url"
 
   create_table "stories", :force => true do |t|
