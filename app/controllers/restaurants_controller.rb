@@ -36,11 +36,6 @@ class RestaurantsController < ApplicationController
     if params[:q]
       query = params[:q].to_s.strip
 
-      #search bitelist database for restaurant
-#      results = Restaurant.in(params[:city_id]).search(query)
-
-      #if it doesn't exist in database then search facebook for the restaurant then add some of the information to database - what about the overlaps 
-      #if you search for 'Lonuge' there are some in bitelist database and some that are not
       current_city = City.find(params[:city_id])
       center = current_city.latitude.to_s + ', ' + current_city.longitude.to_s
       token = current_user.remember_token
