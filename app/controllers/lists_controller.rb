@@ -62,8 +62,6 @@ class ListsController < ApplicationController
     list = current_user.lists.find(params[:restaurant][:list_id])
     count = list.list_items.count
     rest_ids = params[:restaurant][:name].split(',')
-    p "this is rest ids"
-    pp rest_ids
     restaurants = Restaurant.where(:city_id => list.city_id, :id => rest_ids)
 
     restaurants.each do |restaurant|
