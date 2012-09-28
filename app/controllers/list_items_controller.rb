@@ -17,11 +17,11 @@ class ListItemsController < ApplicationController
       restaurant_ids = user_items.map(&:restaurant_id)
 
       if restaurant_ids.include? input_restaurant.id
-        flash[:error] = "The restaurant already exists in your Bite List."
+        flash[:error] = "The restaurant already exists in your Bitelist."
       else
         #used a hidden field to pass in the list_id that this POST request was sent from
         user_items.create(:restaurant_id => input_restaurant.id)
-        flash[:success] = "Added #{input_restaurant.name} to your Bite List!"
+        flash[:success] = "Added #{input_restaurant.name} to your Bitelist!"
       end
     else
       #create a new Restaurant with the name that was entered
@@ -35,7 +35,7 @@ class ListItemsController < ApplicationController
 
   def destroy
     #flash the user it's been deleted
-    flash[:success] = "You've removed #{ListItem.find(params[:id]).restaurant.name} from your Bite List!"
+    flash[:success] = "You've removed #{ListItem.find(params[:id]).restaurant.name} from your Bitelist!"
 
     #delete the item that's passed in
     ListItem.find(params[:id]).destroy
