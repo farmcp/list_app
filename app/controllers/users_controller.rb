@@ -116,6 +116,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def github
+  end
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   # POST method to invite by email
   def invite_by_email
@@ -128,6 +131,17 @@ class UsersController < ApplicationController
     end
 
     redirect_to fb_friends_user_path
+  end
+
+  #POST method to request github access
+  def request_github_access
+    if params[:git_handle]
+      current_user.request_github_access(params[:git_handle])
+      flash[:success] = 'You have just requested github access!'
+    else
+      flash[:error] = 'You require a proper git handle.'
+    end
+    redirect_to github_user_path
   end
 
   private

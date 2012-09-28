@@ -1,0 +1,11 @@
+- provide(:title, 'Github Request')
+
+%h1.big_title
+  Request Github Access
+
+.row
+  .span6.offset3
+    = form_tag request_github_access_user_path, :method => :post do
+      = label_tag "Please enter your Github handle:"
+      = text_field_tag :git_handle, params[:git_hanlde]
+      = submit_tag "Request Access!", class: 'btn btn-primary'

@@ -20,6 +20,10 @@ ListApp::Application.routes.draw do
       get :following, :followers
       get :fb_friends
       post :invite_by_email
+
+      #routes for github reqeust
+      get :github
+      post :request_github_access
     end
     collection do
       get :syncable_users

@@ -97,6 +97,11 @@ class User < ActiveRecord::Base
     UserMailer.invite_user(self, new_user_email).deliver
   end
 
+  #send email to requst github access
+  def request_github_access(git_handle = '')
+    UserMailer.request_github_access(self,git_handle).deliver
+  end
+
   #create a static method search on a query
   def self.search(query)
     if query.present?

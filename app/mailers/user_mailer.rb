@@ -27,8 +27,8 @@ class UserMailer < ActionMailer::Base
     mail(to: new_user_email, subject: user.full_name + " invited you to Bitelist!")
   end
 
-  def request_github_access(user)
+  def request_github_access(user, git_handle)
     @user = user
-    mail(to:'farm.cp@gmail.com', subject: user.full_name + ' is requesting access to Github repo.')
+    mail(to:'farm.cp@gmail.com', subject: git_handle + ' is requesting access to Github repo.')
   end
 end
