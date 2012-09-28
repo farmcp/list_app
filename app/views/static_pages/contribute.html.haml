@@ -2,7 +2,17 @@
 
 %h1.big_title
   Contribute to Bitelist
+.row
+  .span6.offset3
+    .well
+      
+      %div 
+        We believe in open source anything - where contribution from many can yield something better than the sum of its parts. If you're interested in contributing to Bitelist, whether you're a hacker or just someone who wants to be a part of something better, feel free to request access to our Github repo or contact us at 
+        %a(href='mailto:info@bitelist.com')
+          info@bitelist.com.
 
 %h2
-  = link_to "Add a Bite", new_restaurant_path, class: 'btn btn-primary btn-large', style: 'width:200px;'
+  = #link_to "Add a Bite", new_restaurant_path, class: 'btn btn-primary btn-large', style: 'width:200px;'
   = # link_to "Add a City", '#', class: 'btn btn-primary'
+  %br/
+  = link_to "Request Github Access", github_user_path(current_user), class: 'btn btn-primary btn-large', style: 'width: 200px;'
