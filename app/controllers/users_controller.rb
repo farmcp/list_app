@@ -135,11 +135,11 @@ class UsersController < ApplicationController
 
   #POST method to request github access
   def request_github_access
-    if params[:git_handle]
+    if params[:git_handle] == ''
+      flash[:error] = 'You require a proper git handle.'
+    else
       current_user.request_github_access(params[:git_handle])
       flash[:success] = 'You have just requested github access!'
-    else
-      flash[:error] = 'You require a proper git handle.'
     end
     redirect_to github_user_path
   end

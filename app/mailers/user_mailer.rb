@@ -29,6 +29,6 @@ class UserMailer < ActionMailer::Base
 
   def request_github_access(user, git_handle)
     @user = user
-    mail(to:'farm.cp@gmail.com', subject: git_handle + ' is requesting access to Github repo.')
+    mail(to:'farm.cp@gmail.com', subject: @user.full_name + '('+ git_handle + ') is requesting access to Github repo.')
   end
 end
