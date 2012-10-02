@@ -33,48 +33,14 @@ class RestaurantsController < ApplicationController
   end
 
   def search
-    if params[:q]
-      query = params[:q].to_s.strip
-
+    query = params[:q].to_s.strip
+    if query.present?
       current_city = City.find(params[:city_id])
-      center = current_city.latitude.to_s + ', ' + current_city.longitude.to_s
-      token = current_user.remember_token
-
-      places = FbGraph::Place.search(
-        query.to_s,
-        :center => center,
-        :access_token => token
-      )
-      results = Array.new
-      places.each do |place|
-        if place.category.downcase.include?'restaurant' or place.category.include?'cafe' or place.category.include?'breakfast' or place.category.include?'lunch' or place.category.include?'dinner'
-          results << place
-        end
-      end
-
-      results.each do |result|
-        unless Restaurant.find_by_fb_place_id(result.identifier)
-          fetched_result = result.fetch
-          restaurant = Restaurant.new(
-            :name => fetched_result.name, 
-            :picture_url => fetched_result.picture,
-            :phone_number => fetched_result.phone,
-            :category => fetched_result.category,
-            :address => fetched_result.location.street,
-            :postal_code => fetched_result.location.zip,
-            :city_id => current_city.id,
-            :active => true,
-            :fb_place_id => fetched_result.identifier.to_s,
-            :latitude => fetched_result.location.latitude,
-            :longitude => fetched_result.location.longitude
-          )
-          restaurant.save!
-        end
-      end
-
-      #convert to json for json response - return the facebook ID 
-      json = Restaurant.in(params[:city_id]).search(query).to_json(:only => [:id, :name])
-
+      results = FbGraph::Place.search(
+        query,
+        :center => current_city.fb_center,
+        :access_token => current_user.remember_token
+      ).select{|place| Restaurant.acceptable_fb_place?(place)}
     else
       json = '[]'
     end

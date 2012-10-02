@@ -28,4 +28,8 @@ class City < ActiveRecord::Base
   def name_with_state
     state.present? ? "#{name}, #{state}" : name
   end
+
+  def fb_center
+    [latitude, longitude].join(',')
+  end
 end

@@ -28,5 +28,19 @@ describe Restaurant do
     @restaurant = FactoryGirl.create(:restaurant)
   end
 
-  it { should validate_uniqueness_of(:yelp_url) }
+  describe '.acceptable_fb_place' do
+    before :each do
+      @fb_place = mock()
+    end
+
+    it 'should take restaurants' do
+      @fb_place.stub(:category).and_return('library, restaurant, lunch')
+      Restaurant.acceptable_fb_place?(@fb_place).should be_true
+    end
+
+    it 'shouldn\'t accept non-restaurants' do
+      @fb_place.stub(:category).and_return('liberry')
+      Restaurant.acceptable_fb_place?(@fb_place).should be_false
+    end
+  end
 end

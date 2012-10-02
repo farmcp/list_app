@@ -48,7 +48,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def gmaps4rails_infowindow
-    "<img src=\"#{self.picture_url}\" width='40' height='40' style='float:left; margin-right:15px;'>
+    "<img src=\"#{picture_url}\" width='40' height='40' style='float:left; margin-right:15px;'>
     <b>#{name}</b>
     <br/>
     #{address}
@@ -88,5 +88,11 @@ class Restaurant < ActiveRecord::Base
 
   def self.search_rest(query)
     where(['name ilike ?', "%#{query}%"])
+  end
+
+  ACCEPTABLE_FB_CATEGORIES = %w(restaurant breakfast lunch dinner)
+  def self.acceptable_fb_place?(fb_place)
+    categories = fb_place.category.downcase.split(',').map(&:strip)
+    (ACCEPTABLE_FB_CATEGORIES & categories).present?
   end
 end
