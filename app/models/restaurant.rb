@@ -76,6 +76,28 @@ class Restaurant < ActiveRecord::Base
     results
   end
 
+  def self.create_from_facebook(fb_id, city_id)
+    fetched_result = FbGraph::Place.fetch(fb_id)
+    create!(
+      :name => fetched_result.name,
+      :picture_url => fetched_result.picture,
+      :phone_number => fetched_result.phone,
+      :category => fetched_result.category,
+      :address => fetched_result.location.street,
+      :postal_code => fetched_result.location.zip,
+      :city_id => city_id,
+      :active => true,
+      :fb_place_id => fetched_result.identifier.to_s,
+      :latitude => fetched_result.location.latitude,
+      :longitude => fetched_result.location.longitude
+    )
+  end
+
+  ACCEPTABLE_FB_CATEGORIES_REGEX = /restaurant|breakfast|lunch|dinner/
+  def self.acceptable_fb_place?(fb_place)
+    fb_place.category.downcase =~ ACCEPTABLE_FB_CATEGORIES_REGEX
+  end
+
   private
 
   def self.search_by_yelp(query)
@@ -88,10 +110,5 @@ class Restaurant < ActiveRecord::Base
 
   def self.search_rest(query)
     where(['name ilike ?', "%#{query}%"])
-  end
-
-  ACCEPTABLE_FB_CATEGORIES_REGEX = /restaurant|breakfast|lunch|dinner/
-  def self.acceptable_fb_place?(fb_place)
-    fb_place.category.downcase =~ ACCEPTABLE_FB_CATEGORIES_REGEX
   end
 end
