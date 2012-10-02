@@ -41,7 +41,7 @@ class RestaurantsController < ApplicationController
         :center => current_city.fb_center,
         :access_token => current_user.remember_token
       ).select{|place| Restaurant.acceptable_fb_place?(place)}
-      results.to_json(:only => [:identifier, :name])
+      json = results.map{|place| {id: place.identifier, name: place.name}}.to_json
     else
       json = '[]'
     end

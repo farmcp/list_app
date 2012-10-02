@@ -90,9 +90,8 @@ class Restaurant < ActiveRecord::Base
     where(['name ilike ?', "%#{query}%"])
   end
 
-  ACCEPTABLE_FB_CATEGORIES = %w(restaurant breakfast lunch dinner)
+  ACCEPTABLE_FB_CATEGORIES_REGEX = /restaurant|breakfast|lunch|dinner/
   def self.acceptable_fb_place?(fb_place)
-    categories = fb_place.category.downcase.split(',').map(&:strip)
-    (ACCEPTABLE_FB_CATEGORIES & categories).present?
+    fb_place.category.downcase =~ ACCEPTABLE_FB_CATEGORIES_REGEX
   end
 end
