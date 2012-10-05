@@ -9,6 +9,8 @@
 #  active       :boolean         default(FALSE), not null
 #  created_at   :datetime        not null
 #  updated_at   :datetime        not null
+#  longitude    :float
+#  latitude     :float
 #
 
 class City < ActiveRecord::Base
@@ -25,5 +27,9 @@ class City < ActiveRecord::Base
 
   def name_with_state
     state.present? ? "#{name}, #{state}" : name
+  end
+
+  def fb_center
+    [latitude, longitude].join(',')
   end
 end

@@ -18,6 +18,7 @@
 #  longitude    :float
 #  gmaps        :boolean
 #  yelp_url     :string(255)
+#  fb_place_id  :string(255)
 #
 
 class Restaurant < ActiveRecord::Base
@@ -25,7 +26,7 @@ class Restaurant < ActiveRecord::Base
 
   # attr_accessible :title, :body
   #not sure we want to expose all fo these fields
-  attr_accessible :name, :phone_number, :category, :address, :postal_code, :city_id, :active, :yelp_url
+  attr_accessible :name, :phone_number, :category, :address, :postal_code, :city_id, :active, :yelp_url, :picture_url, :fb_place_id, :latitude, :longitude
 
   #a restaurant belongs to a single city (create new entry for each restaurant chain location)
   belongs_to :city
@@ -38,7 +39,6 @@ class Restaurant < ActiveRecord::Base
   validates :phone_number, allow_blank: true, :format => {with: /\d{10}/, message: "(Only 10 digit numbers are allowed)"}, numericality: {only_integer: true}
   validates :address, :presence => true
   validates :postal_code, :presence => true
-  validates :yelp_url, :presence => true, :uniqueness => true
 
   before_validation :fix_phone_number
 
@@ -48,7 +48,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def gmaps4rails_infowindow
-    "<img src=\"#{self.picture_url}\" width='40' height='40' style='float:left; margin-right:15px;'>
+    "<img src=\"#{picture_url}\" width='40' height='40' style='float:left; margin-right:15px;'>
     <b>#{name}</b>
     <br/>
     #{address}
@@ -74,6 +74,28 @@ class Restaurant < ActiveRecord::Base
     results = [search_by_prefix(query)].flatten if results.blank?
     results = [search_rest(query)     ].flatten if results.blank?
     results
+  end
+
+  def self.create_from_facebook(fb_id, city_id)
+    fetched_result = FbGraph::Place.fetch(fb_id)
+    create!(
+      :name => fetched_result.name,
+      :picture_url => fetched_result.picture,
+      :phone_number => fetched_result.phone,
+      :category => fetched_result.category,
+      :address => fetched_result.location.street,
+      :postal_code => fetched_result.location.zip,
+      :city_id => city_id,
+      :active => true,
+      :fb_place_id => fetched_result.identifier.to_s,
+      :latitude => fetched_result.location.latitude,
+      :longitude => fetched_result.location.longitude
+    )
+  end
+
+  ACCEPTABLE_FB_CATEGORIES_REGEX = /restaurant|breakfast|lunch|dinner/
+  def self.acceptable_fb_place?(fb_place)
+    fb_place.category.downcase =~ ACCEPTABLE_FB_CATEGORIES_REGEX
   end
 
   private
