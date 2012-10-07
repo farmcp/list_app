@@ -33,9 +33,15 @@ class RestaurantsController < ApplicationController
   end
 
   def search
-    if params[:q]
-      query = params[:q].to_s.strip
-      json = Restaurant.in(params[:city_id]).search(query).to_json(:only => [:id, :name])
+    query = params[:q].to_s.strip
+    if query.present?
+      current_city = City.find(params[:city_id])
+      results = FbGraph::Place.search(
+        query,
+        :center => current_city.fb_center,
+        :access_token => current_user.remember_token
+      ).select{|place| Restaurant.acceptable_fb_place?(place)}
+      json = results.map{|place| {id: place.identifier, name: place.name}}.to_json
     else
       json = '[]'
     end

@@ -61,11 +61,25 @@ class ListsController < ApplicationController
   def add_to
     list = current_user.lists.find(params[:restaurant][:list_id])
     count = list.list_items.count
-    rest_ids = params[:restaurant][:name].split(',')
-    restaurants = Restaurant.where(:city_id => list.city_id, :id => rest_ids)
+    fb_ids = params[:restaurant][:name].split(',')
+    restaurants = Hash[fb_ids.zip([])]
+    list_restaurants = {}
 
-    restaurants.each do |restaurant|
-      next if list.list_items.where(:restaurant_id => restaurant.id).present?
+    list.city.restaurants.where(:fb_place_id => fb_ids).each do |restaurant|
+      restaurants[restaurant.fb_place_id] = restaurant
+    end
+
+    list.restaurants.each do |restaurant|
+      list_restaurants[restaurant.id] = restaurant
+    end
+
+    restaurants.each do |fb_id, restaurant|
+      if restaurant.nil?
+        restaurant = Restaurant.create_from_facebook(fb_id, list.city_id)
+      elsif list_restaurants[restaurant.id].present?
+        next
+      end
+
       if count >= List::MAX_ITEMS_PER_LIST
         flash[:error] = "You can only have #{List::MAX_ITEMS_PER_LIST} restaurants per list!"
         break
