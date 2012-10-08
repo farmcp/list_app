@@ -21,8 +21,6 @@ class City < ActiveRecord::Base
   has_many :sub_cities
   has_one :list
 
-  delegate :map, to: :sub_cities, prefix: true
-
   def self.select_options
     where(:active => true).map{|city| [city.name, city.id]}
   end

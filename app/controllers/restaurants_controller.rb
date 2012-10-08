@@ -36,13 +36,11 @@ class RestaurantsController < ApplicationController
     query = params[:q].to_s.strip
     if query.present?
       current_city = City.includes(:sub_cities).find(params[:city_id])
-
       results = FbGraph::Place.search(
         query,
         :center => current_city.fb_center,
         :access_token => current_user.remember_token
       ).select{|place| current_city.acceptable_fb_place?(place)}
-
       json = results.map{|place| {id: place.identifier, name: place.name}}.to_json
     else
       json = '[]'
