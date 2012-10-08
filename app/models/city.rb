@@ -32,4 +32,13 @@ class City < ActiveRecord::Base
   def fb_center
     [latitude, longitude].join(',')
   end
+
+  def get_sub_cities_names
+    names = []
+    self.sub_cities.each do |sub_city|
+      names << sub_city.name.downcase
+    end
+
+    return names
+  end
 end
