@@ -21,6 +21,8 @@ class City < ActiveRecord::Base
   has_many :sub_cities
   has_one :list
 
+  delegate :map, to: :sub_cities, prefix: true
+
   def self.select_options
     where(:active => true).map{|city| [city.name, city.id]}
   end
@@ -33,12 +35,12 @@ class City < ActiveRecord::Base
     [latitude, longitude].join(',')
   end
 
-  def get_sub_cities_names
-    names = []
-    self.sub_cities.each do |sub_city|
-      names << sub_city.name.downcase
-    end
+  def sub_cities_names
+    [name.downcase] + sub_cities.map(&:name_downcased)
+  end
 
-    return names
+  def acceptable_fb_place?(fb_place)
+    fb_place.category.downcase =~ Restaurant::ACCEPTABLE_FB_CATEGORIES_REGEX &&
+      sub_cities_names.include?(fb_place.location.city.downcase)
   end
 end
