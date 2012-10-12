@@ -42,7 +42,7 @@ class Restaurant < ActiveRecord::Base
 
   before_validation :fix_phone_number
 
-  ACCEPTABLE_FB_CATEGORIES_REGEX = /restaurant|breakfast|lunch|dinner/
+  ACCEPTABLE_FB_CATEGORIES_REGEX = /restaurant|breakfast|lunch|dinner|cafe/
 
   #pass in the location so that can set model lat/lng data
   def gmaps4rails_address
