@@ -38,7 +38,6 @@ class City < ActiveRecord::Base
   end
 
   def acceptable_fb_place?(fb_place)
-    fb_place.category.downcase =~ Restaurant::ACCEPTABLE_FB_CATEGORIES_REGEX &&
-      sub_cities_names.include?(fb_place.location.city.downcase)
+    sub_cities_names.include?(fb_place.location.city.try(:downcase))
   end
 end
