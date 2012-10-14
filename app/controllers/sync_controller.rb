@@ -7,6 +7,7 @@ class SyncController < ApplicationController
   #get recommendations for the useres that are returned from the input
   def get_sync
     #TODO: run algorithms with the params passed in
+    #need to find the city that we want to run this against
     @passed_ids = params[:ids].split(',')
     @users = @passed_ids.collect{|id| User.find(id)}
 

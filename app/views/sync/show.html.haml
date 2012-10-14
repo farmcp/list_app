@@ -13,8 +13,11 @@
       //create the array of ids that are returned on the submit
       var syncIds = $(this).siblings("input[type=text]").val();
 
+      //get the current city_id
+      var city_id = $('#city_id').find(':selected').val();
+
       //pass in a list of ids to the controller
-      var url = '/get_sync?ids='.concat(syncIds);
+      var url = '/get_sync?city_id='.concat(city_id).concat('&ids='.concat(syncIds));
 
       document.location.href = url;
       return false;
@@ -32,6 +35,11 @@
   .span4.offset4
     - # only allow to post when it's the current user's account
     - if current_user
+      Current City
+      = select_tag(:city_id, options_from_collection_for_select(City.all, :id, :name))
+      %br/
       = text_field_tag 'search-box'
+     
       %br/
       = submit_tag "Run Bitelist Sync", class: 'btn btn-primary', :style => 'height:40px;'
+
