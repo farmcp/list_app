@@ -35,7 +35,6 @@
   .span4.offset4
     - # only allow to post when it's the current user's account
     - if current_user
-      Current City
       = select_tag(:city_id, options_from_collection_for_select(City.all, :id, :name))
       %br/
       = text_field_tag 'search-box'
