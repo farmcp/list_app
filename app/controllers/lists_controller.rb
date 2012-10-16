@@ -14,7 +14,7 @@ class ListsController < ApplicationController
   #POST request for creating a new List
   def create
     #create a list for the current user if (s)he doesn't have a list already for the specific name and is signed in
-    if signed_in? and current_user.lists.exclude?current_user.lists.find_by_city_id(params[:list][:city_id])
+    if signed_in? && current_user.lists.exclude?(current_user.lists.find_by_city_id(params[:list][:city_id]))
       @list = current_user.lists.create(params[:list])
       if @list.save
         #if you can save the list then you say success and redirect back to the user
@@ -40,6 +40,9 @@ class ListsController < ApplicationController
   #GET request to show lists/:id
   def show
     # if the list exists then store a class variable for the list to catch on the view
+    if List.find_by_id(params[:id]) && current_user
+      #get the list from the id that's passed in
+      @list = List.find_by_id(params[:id])
 
     @list = List.find_by_id(params[:id])
     if @list
