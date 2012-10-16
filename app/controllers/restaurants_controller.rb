@@ -21,9 +21,9 @@ class RestaurantsController < ApplicationController
 
   #POST action for creating a new restaurant
   def create
-    yelp_url = params[:restaurant][:yelp_url]
-    @restaurant = Restaurant.where(:yelp_url => yelp_url).first
-    @restaurant ||= Yelp.parse(yelp_url)
+    @restaurant = Restaurant.new(params[:restaurant])
+    city_input = City.find(params[:city][:name])
+    @restaurant.city_id = city_input.id
     if @restaurant.save
       flash[:success] = "Thank you! You've successfully submitted a restaurant to Bitelist!"
       redirect_to new_restaurant_path
@@ -41,6 +41,7 @@ class RestaurantsController < ApplicationController
         :center => current_city.fb_center,
         :access_token => current_user.remember_token
       ).select{|place| current_city.acceptable_fb_place?(place)}
+
       json = results.map{|place| {id: place.identifier, name: place.name}}.to_json
     else
       json = '[]'
