@@ -13,17 +13,17 @@ class ListsController < ApplicationController
 
   #POST request for creating a new List
   def create
-    #create a list for the current user if (s)he doesn't have a list already for the specific name and is signed in
-    if signed_in? and current_user.lists.exclude?current_user.lists.find_by_city_id(params[:list][:city_id])
+    # create a list for the current user if (s)he doesn't have a list already for the specific name and is signed in
+    city = City.find(params[:list][:city_id])
+    if signed_in? && current_user.lists.map(&:city).include?(city)
       @list = current_user.lists.create(params[:list])
       if @list.save
         #if you can save the list then you say success and redirect back to the user
-        flash[:success] = "Bitelist created for " + current_user.lists.find_by_city_id(params[:list][:city_id]).city.name.to_s + "!"
-        redirect_to current_user
+        flash[:success] = "Bitelist created for " + city.name.to_s + "! Start adding restaurants!"
+        redirect_to @list
       else
         render 'new'
       end
-
     else
       #need to get flash to show why you can't upload a new list => mainly because you already have a list with the city
       flash[:error] = "Can't create more than one Bitelist for each city."
@@ -39,8 +39,7 @@ class ListsController < ApplicationController
 
   #GET request to show lists/:id
   def show
-    # if the list exists then store a class variable for the list to catch on the view
-
+    # get the list from the id that's passed in
     @list = List.find_by_id(params[:id])
     if @list
       @restaurants = @list.restaurants
