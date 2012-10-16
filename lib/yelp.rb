@@ -4,7 +4,7 @@ require 'open-uri'
 class Yelp
   def self.parse(url)
     resto = Restaurant.new
-    data = fetch(url)
+    data = fetch(clean_up(url))
     city_name = (data/'span[itemprop=addressLocality]').inner_text
     city = City.where(:name => city_name).first
     return nil unless city
@@ -25,5 +25,10 @@ class Yelp
   def self.fetch(url)
     options = { "User-Agent" => "Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405" }
     Nokogiri::HTML(open(url, options))
+  end
+
+  def self.clean_up(url)
+    fixed = url.split('?').first.split('#').first.split('//').last
+    "http://www.#{fixed}"
   end
 end
