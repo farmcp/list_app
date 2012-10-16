@@ -12,12 +12,12 @@
 #
 
 class City < ActiveRecord::Base
-  attr_accessible :abbreviation, :active, :name, :state
+  attr_accessible :abbreviation, :active, :name, :state, :latitude, :longitude
 
   #each restaurant is unique and each city can have many of the restaurants
   has_many :restaurants
   has_many :sub_cities
-  has_one :list
+  has_many :lists
 
   def self.select_options
     where(:active => true).map{|city| [city.name, city.id]}
