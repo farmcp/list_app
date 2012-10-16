@@ -39,11 +39,7 @@ class ListsController < ApplicationController
 
   #GET request to show lists/:id
   def show
-    # if the list exists then store a class variable for the list to catch on the view
-    if List.find_by_id(params[:id]) && current_user
-      #get the list from the id that's passed in
-      @list = List.find_by_id(params[:id])
-
+    # get the list from the id that's passed in
     @list = List.find_by_id(params[:id])
     if @list
       @restaurants = @list.restaurants
