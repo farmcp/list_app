@@ -37,8 +37,6 @@ class Restaurant < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :phone_number, allow_blank: true, :format => {with: /\d{10}/, message: "(Only 10 digit numbers are allowed)"}, numericality: {only_integer: true}
-  validates :address, :presence => true
-  validates :postal_code, :presence => true
 
   before_validation :fix_phone_number
 
@@ -91,11 +89,6 @@ class Restaurant < ActiveRecord::Base
       :latitude => fetched_result.location.latitude,
       :longitude => fetched_result.location.longitude
     )
-  end
-
-  ACCEPTABLE_FB_CATEGORIES_REGEX = /restaurant|breakfast|lunch|dinner/
-  def self.acceptable_fb_place?(fb_place)
-    fb_place.category.downcase =~ ACCEPTABLE_FB_CATEGORIES_REGEX
   end
 
   private

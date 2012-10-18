@@ -5,7 +5,18 @@
   .span6.offset3
     = render 'shared/error_messages', :record => @restaurant
     = form_for @restaurant do |f|
-      = f.label :name, "Yelp URL"
-      = f.text_field :yelp_url
+      = f.label :name
+      = f.text_field :name
+      = f.label :address
+      = f.text_field :address
+      = f.label :phone_number
+      = f.text_field :phone_number
+      = f.label :picture_url
+      = f.text_field :picture_url
+      = f.label :postal_code
+      = f.text_field :postal_code
+      = fields_for :city, @city do |u|
+        = u.label "City"
+        = u.select :name, options_for_select(City.select_options)
 
       = f.submit "Request Restaurant", class: "btn btn-primary"

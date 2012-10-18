@@ -35,7 +35,7 @@ class ListItemsController < ApplicationController
 
   def destroy
     #flash the user it's been deleted
-    flash[:success] = "You've removed #{ListItem.find(params[:id]).restaurant.name} from your Bitelist!"
+    flash[:error] = "You've removed #{ListItem.find(params[:id]).restaurant.name} from your Bitelist!"
 
     #delete the item that's passed in
     ListItem.find(params[:id]).destroy

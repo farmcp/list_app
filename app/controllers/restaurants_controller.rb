@@ -21,9 +21,9 @@ class RestaurantsController < ApplicationController
 
   #POST action for creating a new restaurant
   def create
-    yelp_url = params[:restaurant][:yelp_url]
-    @restaurant = Restaurant.where(:yelp_url => yelp_url).first
-    @restaurant ||= Yelp.parse(yelp_url)
+    @restaurant = Restaurant.new(params[:restaurant])
+    city_input = City.find(params[:city][:name])
+    @restaurant.city_id = city_input.id
     if @restaurant.save
       flash[:success] = "Thank you! You've successfully submitted a restaurant to Bitelist!"
       redirect_to new_restaurant_path
@@ -32,16 +32,19 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  #loopj hits this controller automatically and tacks on a param "q"
+  #TO DO: need to add ability to search current database from places that are added internally
   def search
     query = params[:q].to_s.strip
     if query.present?
-      current_city = City.find(params[:city_id])
-      results = FbGraph::Place.search(
+      current_city = City.includes(:sub_cities).find(params[:city_id])
+      fb_results = FbGraph::Place.search(
         query,
         :center => current_city.fb_center,
         :access_token => current_user.remember_token
-      ).select{|place| Restaurant.acceptable_fb_place?(place)}
-      json = results.map{|place| {id: place.identifier, name: place.name}}.to_json
+      ).select{|place| current_city.acceptable_fb_place?(place)}
+
+      json = fb_results.map{|place| {id: place.identifier, name: place.name}}.to_json
     else
       json = '[]'
     end
