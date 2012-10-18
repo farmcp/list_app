@@ -57,7 +57,7 @@ class ListsController < ApplicationController
     end
   end
 
-  # TODO: maybe this should be json?
+  # handle the post from list
   def add_to
     list = current_user.lists.find(params[:restaurant][:list_id])
     count = list.list_items.count
