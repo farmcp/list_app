@@ -33,4 +33,18 @@ class Story < ActiveRecord::Base
     :relationship => [:follower, :followed],
     :comment => [],
   }
+
+
+  def item
+    case subject_type
+    when 'Comment'
+      subject = comment
+    when 'ListItem'
+      subject = list_item
+    when 'List'
+      subject = list
+    when 'Relationship'
+      subject = relationship
+    end
+  end
 end
