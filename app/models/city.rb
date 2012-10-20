@@ -32,4 +32,12 @@ class City < ActiveRecord::Base
   def fb_center
     [latitude, longitude].join(',')
   end
+
+  def sub_cities_names
+    [name.downcase] + sub_cities.map(&:name_downcased)
+  end
+
+  def acceptable_fb_place?(fb_place)
+    sub_cities_names.include?(fb_place.location.city.try(:downcase))
+  end
 end

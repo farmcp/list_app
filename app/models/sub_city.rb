@@ -11,4 +11,6 @@ class SubCity < ActiveRecord::Base
   attr_accessible :name
   validate :city, :name, :presence => true
   validate :name, :uniqueness => true
+
+  def name_downcased; name.downcase; end
 end
