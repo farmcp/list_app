@@ -1,8 +1,10 @@
-= provide(:title, "Contribute to Bitelist")
+= provide(:title, "Contribute")
 
 %h1.big_title
-  Contribute to Bitelist
+  Add a Bite
+.row
+  .span6.offset3
+    .well
+      = link_to "Are you a restaurant owner?", new_restaurant_path
+      Do you want to distribute rewards to your most loyal fanbase? Bitelist is only for your food fans who care enough about you because they list your as your favorite. Use Bitelist to reach out to them with rewards and loyalty incentives to establish an even larger presense in the fan food community!
 
-%h2
-  = link_to "Add a Bite", new_restaurant_path, class: 'btn btn-primary btn-large', style: 'width:200px;'
-  = # link_to "Add a City", '#', class: 'btn btn-primary'
