@@ -1,7 +1,7 @@
 = provide(:title, 'Edit Profile')
 
 %h1.big_title
-  Update your profile
+  Settings
 .row
   .span6.offset3
     = form_for @user do |f|
@@ -19,5 +19,7 @@
 
       = f.submit "Save changes", class: "btn btn-large btn-primary"
 
-    = avatar_tag @user
-    = link_to 'change', 'http://gravatar.com/emails'
+    
+    -if !@user.fb_id
+      = avatar_tag @user
+      = link_to 'change', 'http://gravatar.com/emails'
