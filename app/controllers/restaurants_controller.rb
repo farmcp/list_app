@@ -38,11 +38,22 @@ class RestaurantsController < ApplicationController
     query = params[:q].to_s.strip
     if query.present?
       current_city = City.includes(:sub_cities).find(params[:city_id])
-      fb_results = FbGraph::Place.search(
-        query,
-        :center => current_city.fb_center,
-        :access_token => current_user.remember_token
-      ).select{|place| current_city.acceptable_fb_place?(place)}
+      
+      #THIS IS A HACK RIGHT NOW - NEED TO FIX THIS LATER.
+      #CURRENTLY USING FARM'S ACCESS TOKEN TO GET FB STUFF
+      if current_user.fb_id
+        fb_results = FbGraph::Place.search(
+          query,
+          :center => current_city.fb_center,
+          :access_token => current_user.remember_token
+        ).select{|place| current_city.acceptable_fb_place?(place)}
+      else
+        fb_results = FbGraph::Place.search(
+          query,
+          :center => current_city.fb_center,
+          :access_token => User.find_by_email('farm.cp@gmail.com').remember_token
+        ).select{|place| current_city.acceptable_fb_place?(place)}
+      end
 
       json = fb_results.map{|place| {id: place.identifier, name: place.name}}.to_json
     else
