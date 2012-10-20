@@ -48,7 +48,10 @@ To Dos:
 4. ~~Adding user's comments to each list item~~
 3. Facebook friends import and invite
 3. ~~Activity feed~~
-2. Validation for places to eat - know when someone enters a valid restaurant and populating the database. Finish autocomplete for adding restaurants to your bitelist
+2. ~~Validation for places to eat - know when someone enters a valid restaurant and populating the database. Finish autocomplete for adding restaurants to your bitelist~~
+2. Need to sesarch internal list and not just facebook (since we allow users to upload to our db)
+2. Need to make sure we update our database when facebook is updated
+2. Phone numbers don't support 1 in front of digits
 2. Need to add Hawaii, New York, LA, Chicago to list of available cities - see list_controller (new)
 4. Create a better algorithm for restaurant recommendations
 2. Add directions to restaurants (button on the restaurant show)
