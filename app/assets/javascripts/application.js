@@ -146,3 +146,9 @@ MODETECT.device = (function() {
   return device;
 
 }());
+
+$(document).ready(function(){
+  if(MODETECT.device.phone == true){
+    $('#map').removeClass('gmaps4rails_map').addClass('gmaps4rails_map_phone');
+  }
+});
