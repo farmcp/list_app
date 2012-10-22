@@ -76,7 +76,7 @@ class Restaurant < ActiveRecord::Base
 
   def self.create_from_facebook(fb_id, city_id)
     fetched_result = FbGraph::Place.fetch(fb_id)
-    if fetched_result.website_url
+    if fetched_result.website
       create!(
         :name => fetched_result.name,
         :picture_url => fetched_result.picture,
