@@ -7,10 +7,23 @@ class @Gmaps4RailsGoogle extends Gmaps4Rails
   constructor: ->
     super
     #Map settings
-    @map_options =
-      disableDefaultUI:       false
-      disableDoubleClickZoom: false
-      type:                   "ROADMAP" # HYBRID, ROADMAP, SATELLITE, TERRAIN
+    if MODETECT.device.phone
+      @map_options =
+        disableDefaultUI:       true #false has the street view capability
+        disableDoubleClickZoom: false
+        type:                   "ROADMAP" # HYBRID, ROADMAP, SATELLITE, TERRAIN
+        draggable:              false # don't allow to drag map
+        scrollwheel:            true
+        zoomControl:            true
+
+    else
+      @map_options =
+        disableDefaultUI:       true #false has the street view capability
+        disableDoubleClickZoom: false
+        type:                   "ROADMAP" # HYBRID, ROADMAP, SATELLITE, TERRAIN
+        draggable:              true # don't allow to drag map
+        scrollwheel:            false #can't use the scroll whell to zoom
+        zoomControl:            true #widget that allows control zoom without pinch
 
     #markers + info styling
     @markers_conf =
@@ -92,6 +105,8 @@ class @Gmaps4RailsGoogle extends Gmaps4Rails
       disableDefaultUI:       @map_options.disableDefaultUI
       disableDoubleClickZoom: @map_options.disableDoubleClickZoom
       draggable:              @map_options.draggable
+      scrollwheel:            @map_options.scrollwheel
+      zoomControl:            @map_options.zoomControl
 
     mergedOptions = @mergeObjectWithDefault @map_options.raw, defaultOptions
 
