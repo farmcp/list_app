@@ -19,7 +19,7 @@
       - if @restaurant.website_url
         %br/
         %b Website:
-        = link_to truncate(@restaurant.name, length: 30), @restaurant.website_url
+        = link_to truncate(@restaurant.name, length: 30), @restaurant.website_url, :target => '_blank'
     - if @restaurant.website_url 
       %br/
     %br/
