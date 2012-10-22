@@ -26,7 +26,7 @@ class Restaurant < ActiveRecord::Base
 
   # attr_accessible :title, :body
   #not sure we want to expose all fo these fields
-  attr_accessible :name, :phone_number, :category, :address, :postal_code, :city_id, :active, :yelp_url, :picture_url, :fb_place_id, :latitude, :longitude
+  attr_accessible :name, :phone_number, :category, :address, :postal_code, :city_id, :active, :yelp_url, :picture_url, :fb_place_id, :latitude, :longitude, :website_url
 
   #a restaurant belongs to a single city (create new entry for each restaurant chain location)
   belongs_to :city
@@ -76,19 +76,36 @@ class Restaurant < ActiveRecord::Base
 
   def self.create_from_facebook(fb_id, city_id)
     fetched_result = FbGraph::Place.fetch(fb_id)
-    create!(
-      :name => fetched_result.name,
-      :picture_url => fetched_result.picture,
-      :phone_number => fetched_result.phone,
-      :category => fetched_result.category,
-      :address => fetched_result.location.street,
-      :postal_code => fetched_result.location.zip,
-      :city_id => city_id,
-      :active => true,
-      :fb_place_id => fetched_result.identifier.to_s,
-      :latitude => fetched_result.location.latitude,
-      :longitude => fetched_result.location.longitude
-    )
+    if fetched_result.website_url
+      create!(
+        :name => fetched_result.name,
+        :picture_url => fetched_result.picture,
+        :phone_number => fetched_result.phone,
+        :category => fetched_result.category,
+        :address => fetched_result.location.street,
+        :postal_code => fetched_result.location.zip,
+        :city_id => city_id,
+        :active => true,
+        :fb_place_id => fetched_result.identifier.to_s,
+        :latitude => fetched_result.location.latitude,
+        :longitude => fetched_result.location.longitude,
+        :website_url => fetched_result.website
+      )
+    else
+      create!(
+        :name => fetched_result.name,
+        :picture_url => fetched_result.picture,
+        :phone_number => fetched_result.phone,
+        :category => fetched_result.category,
+        :address => fetched_result.location.street,
+        :postal_code => fetched_result.location.zip,
+        :city_id => city_id,
+        :active => true,
+        :fb_place_id => fetched_result.identifier.to_s,
+        :latitude => fetched_result.location.latitude,
+        :longitude => fetched_result.location.longitude
+      )
+    end
   end
 
   private

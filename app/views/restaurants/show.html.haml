@@ -16,9 +16,14 @@
       - if @restaurant.category
         %b Category:
         = truncate(@restaurant.category, length: 30)
+      - if @restaurant.website_url
+        %br/
+        %b Website:
+        = link_to truncate(@restaurant.name, length: 30), @restaurant.website_url
+    - if @restaurant.website_url 
+      %br/
     %br/
     %br/
-  
     .pull-left
       = @restaurant.address
 
