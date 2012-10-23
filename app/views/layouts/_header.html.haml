@@ -16,17 +16,36 @@
                 = text_field_tag :search, params[:search], class: 'search-query', placeholder:'Search users...', style: 'background-color:white; margin: 3px 0px -5px 0px; border-style:none;'
           %ul.nav.pull-right
             - if signed_in?
-              %li= link_to "Profile", current_user
-              %li= link_to "Sync", sync_path
+              %li
+                = link_to current_user do 
+                  %i.icon-user
+                  Profile
+
+              %li
+                = link_to sync_path do 
+                  %i.icon-refresh
+                  Sync
               %li#fat-menu.dropdown
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  %i.icon-folder-open
                   Account
                   %b.caret
                 %ul.dropdown-menu
-                  %li= link_to "Invite Friends", fb_friends_user_path(current_user)
-                  %li= link_to "Settings", edit_user_path(current_user)
+                  %li
+                    = link_to fb_friends_user_path(current_user) do
+                      %i.icon-envelope
+                      Invite Friends
+                  %li
+                    = link_to edit_user_path(current_user) do
+                      %i.icon-cog
+                      Settings
                   %li.divider
                   %li
-                    = link_to "Sign out", signout_path, method: "delete"
+                    = link_to signout_path, method: "delete" do
+                      %i.icon-off
+                      Signout
             - else
-              %li= link_to "Sign In", signin_path
+              %li
+                = link_to signin_path do
+                  %i.icon-lock
+                  Signin
