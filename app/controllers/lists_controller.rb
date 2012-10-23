@@ -18,8 +18,8 @@ class ListsController < ApplicationController
       @list = current_user.lists.create(params[:list])
       if @list.save
         #if you can save the list then you say success and redirect back to the user
-        flash[:success] = "Bitelist created for " + current_user.lists.find_by_city_id(params[:list][:city_id]).city.name.to_s + "!"
-        redirect_to current_user
+        flash[:success] = "Bitelist created for " + current_user.lists.find_by_city_id(params[:list][:city_id]).city.name.to_s + "! Start adding some restaurants below :)"
+        redirect_to @list
       else
         render 'new'
       end
