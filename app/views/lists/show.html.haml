@@ -1,7 +1,7 @@
 - provide(:title, 'Bitelist')
 
 %h1.big_title
-  #{@list.city.abbreviation} Bitelist
+  #{@list.user.first_name}'s #{@list.city.abbreviation} Bitelist
 
 - # create a form to post to list_item_path (create method in list_items_controller)
 .row{style: 'text-align:center;'}
