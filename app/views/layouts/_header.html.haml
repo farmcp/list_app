@@ -18,16 +18,16 @@
             - if signed_in?
               %li
                 = link_to current_user do 
-                  %i.icon-user
+                  %i.icon-user.icon-white
                   Profile
 
               %li
                 = link_to sync_path do 
-                  %i.icon-refresh
+                  %i.icon-refresh.icon-white
                   Sync
               %li#fat-menu.dropdown
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                  %i.icon-folder-open
+                  %i.icon-folder-open.icon-white
                   Account
                   %b.caret
                 %ul.dropdown-menu
@@ -47,5 +47,5 @@
             - else
               %li
                 = link_to signin_path do
-                  %i.icon-lock
+                  %i.icon-lock.icon-white
                   Signin
