@@ -16,3 +16,7 @@
 //= require bootstrap
 //= require bootstrap-dropdown
 window.hideAddressBar(this);
+
+$(document).ready(function(){
+  $('.ticket-inner').corner("bite 10px").parent().css('padding','7px').corner("bite 10px");
+});
