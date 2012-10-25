@@ -1,44 +1,50 @@
 - provide(:title, 'Bitelist')
 
 %h1.big_title
-  #{@list.city.abbreviation} Bitelist
+  #{@list.user.first_name}'s #{@list.city.abbreviation} Bitelist
 
 - # create a form to post to list_item_path (create method in list_items_controller)
 .row{style: 'text-align:center;'}
-  .span4.offset4
+  .span6.offset3
     - # only allow to post when it's the current user's account
     - if current_user? @list.user
       = form_for :restaurant, as: :post, :url => add_to_list_path(@list) do |f|
         = f.text_field :name, :id => 'search-restaurant'
         = f.hidden_field :list_id, value: params[:id]
-        %br
-        = f.submit "Add restaurant", class: 'btn btn-primary', :style => 'height:40px;'
+        = f.submit "Add to List", class: 'btn btn-primary', :style => 'margin-top:-2px; margin-bottom:0px;'
+        -#= link_to "Share List" ,'http://www.facebook.com/sharer.php?u='+ @current_link +'&t=Bitelist', :target => '_blank', class: 'btn btn-primary', :style => 'margin-left:10px; margin-top:10px; margin-bottom:0px;'
+        = link_to 'http://www.facebook.com/sharer.php?u='+ @current_link +'&t=Bitelist', :target => '_blank', class: 'btn btn-info', :style => 'margin-left:10px; margin-top:10px; margin-bottom:0px;' do 
+          %i.icon-share.icon-white
+          Share
 
 .row
   .span6.offset3
     - if @list.list_items.count > 1
-      .well= gmaps4rails(@maps_json)
+      = gmaps4rails(@maps_json)
     - elsif @list.list_items.count == 1
-      .well= gmaps("map_options" => { "zoom" => 15, "auto_zoom" => false }, "markers" => { "data" => @maps_json })
+      = gmaps("map_options" => { "zoom" => 15, "auto_zoom" => false }, "markers" => { "data" => @maps_json })
     - else
-      .well{style:'text-align:center;'}
-        Nothing currently in #{@list.user.full_name}'s #{@list.city.abbreviation} Bitelist :(
+      .ticket-outer
+        .ticket-inner{style:'text-align:center;'}
+          Nothing currently in #{@list.user.full_name}'s #{@list.city.abbreviation} Bitelist :(
 
 - # list all the items in the list
 .row
   .span6.offset3
     %ol.lists
       - @list.list_items.each do |item|
-        .well
-          .pull-left.list-image
-            = image_tag item.restaurant.picture_url, size: '40x40'
+        .ticket-outer
+          .ticket-inner
+            .pull-left.list-image
+              = image_tag item.restaurant.picture_url, size: '40x40'
 
-          - if item.restaurant.name.length < 20
-            = link_to item.restaurant.name, item.restaurant, class: 'pull-left list-item-text'
-          - else
-            = link_to truncate(item.restaurant.name.to_s, length: 20), item.restaurant, class: 'pull-left list-item-text'
-          - if current_user? @list.user
-            = link_to 'x', item, method: :delete, confirm: "Are you sure you want to delete this restaurant?", style: "font-size: 20px; font-style:bold; margin-top:-3px;", class: 'close'
+            - if item.restaurant.name.length < 20
+              = link_to item.restaurant.name, item.restaurant, class: 'pull-left list-item-text'
+            - else
+              = link_to truncate(item.restaurant.name.to_s, length: 20), item.restaurant, class: 'pull-left list-item-text'
+            - if current_user? @list.user
+              = link_to 'x', item, method: :delete, confirm: "Are you sure you want to delete this restaurant?", style: "font-size: 20px; font-style:bold; margin-top:-3px;", class: 'close'
+        %br/
 
 :javascript
   var options = {

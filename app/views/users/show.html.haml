@@ -3,11 +3,13 @@
 .row
   %aside.span4.offset1
     %section
-      %h1{:style => "padding-bottom: 5px;"}
+      %h3{style: 'margin-bottom:5px;'}
         = avatar_tag @user
         = @user.full_name
       - if current_user? @user
-        = link_to 'Create Bitelist', new_list_path, :class => "btn btn-warning"
+        = link_to new_list_path, :class => "btn btn-warning" do
+          %i.icon-plus.icon-white
+          Add Bitelist
       - else
         = render 'follow_form' if signed_in?
     %section.pad_bottom
