@@ -76,9 +76,10 @@ class Restaurant < ActiveRecord::Base
 
   def self.create_from_facebook(fb_id, city_id)
     fetched_result = FbGraph::Place.fetch(fb_id)
-    website = fetched_result.website.split(' ')[0]
-    website = "http://#{website}" unless website.match(/^https?:\/\//)
     if fetched_result.website
+      website = fetched_result.website.split(' ')[0]
+      website = "http://#{website}" unless website.match(/^https?:\/\//)
+
       create!(
         :name => fetched_result.name,
         :picture_url => fetched_result.picture,
