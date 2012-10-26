@@ -16,4 +16,8 @@
     = form_for @list do |f|
       = image_submit_tag 'boston.jpg', :class => 'full_width'
       = f.hidden_field :city_id, :value => @bos.id
-     
+  
+  .span4.offset2
+    = form_for @list do |f|
+      = image_submit_tag 'hawaii.jpg', :class => 'full_width'
+      = f.hidden_field :city_id, :value => @hon.id
