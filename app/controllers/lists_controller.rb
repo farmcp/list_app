@@ -59,6 +59,17 @@ class ListsController < ApplicationController
     end
   end
 
+  def add_direct_restaurant
+    city = City.find(params[:city_id])
+    current_user.lists.each do |list|
+      if list.city == city
+        list.list_items.create!(:restaurant_id => params[:id])
+      end
+    end
+
+    redirect_to current_user.lists.find_by_city_id(city.id)
+  end
+
   # handle the post from list
   def add_to
     list = current_user.lists.find(params[:restaurant][:list_id])
