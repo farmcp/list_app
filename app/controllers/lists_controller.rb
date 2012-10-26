@@ -59,6 +59,7 @@ class ListsController < ApplicationController
     end
   end
 
+  #handle post directly from restaurant to add to list
   def add_direct_restaurant
     city = City.find(params[:city_id])
     current_user.lists.each do |list|

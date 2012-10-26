@@ -24,7 +24,7 @@
         %br/
       - else
         %i.icon-plus
-        = link_to "Create a #{@restaurant.city.name} Bitelist!", "#"
+        = link_to "Create a #{@restaurant.city.name} Bitelist!", new_list_path
         %br/
       - if @restaurant.category
         %b Category:
