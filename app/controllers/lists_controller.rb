@@ -8,6 +8,7 @@ class ListsController < ApplicationController
     @sfo = City.find_by_name 'San Francisco'
     @bos = City.find_by_name 'Boston'
     @hon = City.find_by_name 'Honolulu'
+    @nyc = City.find_by_name 'New York'
 
     #TO DO: Need to add other cities => New York, Chicago, Hawaii, Los Angeles
   end
@@ -57,6 +58,18 @@ class ListsController < ApplicationController
       flash[:error] = "There was a problem finding your list."
       redirect_to new_session_path
     end
+  end
+
+  #handle post directly from restaurant to add to list
+  def add_direct_restaurant
+    city = City.find(params[:city_id])
+    current_user.lists.each do |list|
+      if list.city == city
+        list.list_items.create!(:restaurant_id => params[:id])
+      end
+    end
+
+    redirect_to current_user.lists.find_by_city_id(city.id)
   end
 
   # handle the post from list

@@ -13,6 +13,19 @@
         .pull-left
           = link_to_phone(@restaurant.phone_number)
     .pull-left 
+      -# if current_user has a list in the current restaurant's city then allow them to add the current resto to that city
+      - if current_user.cities.include?@restaurant.city
+        - if current_user.restaurants.include?@restaurant
+          %i.icon-ok
+          This is in your Bitelist!
+        - else
+          %i.icon-plus
+          = link_to "Add to your list", add_direct_restaurant_list_path(@restaurant, :city_id => @restaurant.city.id), method: 'post'
+        %br/
+      - else
+        %i.icon-plus
+        = link_to "Create a #{@restaurant.city.name} Bitelist!", new_list_path
+        %br/
       - if @restaurant.category
         %b Category:
         = truncate(@restaurant.category, length: 30)
@@ -22,6 +35,8 @@
         = link_to truncate(@restaurant.name, length: 30), @restaurant.website_url, :target => '_blank'
     - if @restaurant.website_url 
       %br/
+    %br/
+    %br/
     %br/
     %br/
     .pull-left
