@@ -8,6 +8,7 @@ class ListsController < ApplicationController
     @sfo = City.find_by_name 'San Francisco'
     @bos = City.find_by_name 'Boston'
     @hon = City.find_by_name 'Honolulu'
+    @nyc = City.find_by_name 'New York'
 
     #TO DO: Need to add other cities => New York, Chicago, Hawaii, Los Angeles
   end
