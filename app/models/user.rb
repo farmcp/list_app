@@ -33,6 +33,9 @@ class User < ActiveRecord::Base
   #has many restaurants through list_items
   has_many :restaurants, :through => :list_items
 
+  #has many cities through lists
+  has_many :cities, :through => :lists
+
   #every user has many relationships - also should destroy the relationship if the user is destroyed
   has_many :relationships, :foreign_key => "follower_id", :dependent => :destroy
 
