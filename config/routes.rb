@@ -31,12 +31,12 @@ ListApp::Application.routes.draw do
   resources :lists, :only => [:create, :destroy, :new, :show] do
     member do
       post :add_to
-      post :add_direct_restaurant
     end
   end
   resources :list_items, :only => [:create, :destroy]
   resources :restaurants, :only => [:new, :create, :show] do
     member do
+      post :add_to_list
       resources :comments, :only => [:create, :destroy]
     end
     collection do

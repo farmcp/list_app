@@ -130,6 +130,11 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def list_for(restaurant)
+    lists.find_or_create_by_city_id(restaurant.city_id)
+  end
+
   private
 
   def create_remember_token
@@ -158,6 +163,4 @@ class User < ActiveRecord::Base
       UserMailer.welcome_email(user).deliver
     end
   end
-
-
 end

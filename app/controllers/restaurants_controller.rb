@@ -1,4 +1,6 @@
 class RestaurantsController < ApplicationController
+  before_filter :signed_in_user, :only => [:add_to_list]
+  before_filter :require_restaurant, only: [:show, :add_to_list]
 
   #GET page for creating a new restaurant
   def new
@@ -7,7 +9,6 @@ class RestaurantsController < ApplicationController
 
   #need to show the restaurant details and comments
   def show
-    @restaurant = Restaurant.find(params[:id])
     @maps_json = @restaurant.to_gmaps4rails
 
     #get comments for the current restaurant - only show the followers' and followed users' comments
@@ -38,9 +39,8 @@ class RestaurantsController < ApplicationController
     query = params[:q].to_s.strip
     if query.present?
       current_city = City.includes(:sub_cities).find(params[:city_id])
-      
-      #THIS IS A HACK RIGHT NOW - NEED TO FIX THIS LATER.
-      #CURRENTLY USING FARM'S ACCESS TOKEN TO GET FB STUFF
+      # THIS IS A HACK RIGHT NOW - NEED TO FIX THIS LATER.
+      # CURRENTLY USING FARM'S ACCESS TOKEN TO GET FB STUFF
       if current_user.fb_id
         fb_results = FbGraph::Place.search(
           query,
@@ -63,5 +63,19 @@ class RestaurantsController < ApplicationController
     respond_to do |format|
       format.json { render :json => json }
     end
+  end
+
+  # handle post directly from restaurant to add to list
+  def add_to_list
+    list = current_user.list_for(@restaurant)
+    list.list_item_for(@restaurant)
+
+    redirect_to list
+  end
+
+  private
+
+  def require_restaurant
+    @restaurant = Restaurant.find(params[:id]) or render status: 404
   end
 end
