@@ -78,39 +78,25 @@ class Restaurant < ActiveRecord::Base
 
   def self.create_from_facebook(fb_id, city_id)
     fetched_result = FbGraph::Place.fetch(fb_id)
+    restaurant_options = {
+      :name => fetched_result.name,
+      :picture_url => fetched_result.picture,
+      :phone_number => fetched_result.phone,
+      :category => fetched_result.category,
+      :address => fetched_result.location.street,
+      :postal_code => fetched_result.location.zip,
+      :city_id => city_id,
+      :active => true,
+      :fb_place_id => fetched_result.identifier.to_s,
+      :latitude => fetched_result.location.latitude,
+      :longitude => fetched_result.location.longitude,
+    }
     if fetched_result.website
       website = fetched_result.website.split(' ')[0]
       website = "http://#{website}" unless website.match(/^https?:\/\//)
-
-      create!(
-        :name => fetched_result.name,
-        :picture_url => fetched_result.picture,
-        :phone_number => fetched_result.phone,
-        :category => fetched_result.category,
-        :address => fetched_result.location.street,
-        :postal_code => fetched_result.location.zip,
-        :city_id => city_id,
-        :active => true,
-        :fb_place_id => fetched_result.identifier.to_s,
-        :latitude => fetched_result.location.latitude,
-        :longitude => fetched_result.location.longitude,
-        :website_url => website
-      )
-    else
-      create!(
-        :name => fetched_result.name,
-        :picture_url => fetched_result.picture,
-        :phone_number => fetched_result.phone,
-        :category => fetched_result.category,
-        :address => fetched_result.location.street,
-        :postal_code => fetched_result.location.zip,
-        :city_id => city_id,
-        :active => true,
-        :fb_place_id => fetched_result.identifier.to_s,
-        :latitude => fetched_result.location.latitude,
-        :longitude => fetched_result.location.longitude
-      )
+      restaurant_options[:website_url] = website
     end
+    create!(restaurant_options)
   end
 
   private
