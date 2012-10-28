@@ -4,14 +4,14 @@
       = form_for :comment, as: :post, :url => comments_path do |f|
         = f.text_area :body, :placeholder => 'Add your thoughts...', style:'height: 70px; margin-bottom:15px;'
         %br/
-        = f.submit "Post".html_safe, class: 'btn btn-primary pull-right', style: 'height:30px; width: 100px; margin-bottom: 0px;'
+        = f.submit "Post", class: 'btn btn-primary pull-right', style: 'height:30px; width: 100px; margin-bottom: 0px;'
   - if @comments.any?
     - @comments.each do |comment|
       .well
         %table
           %tr
             %td{style:'width:60px;'}
-              = avatar_tag User.find(comment.user_id), size: 40, link: true
+              = avatar_tag comment.user, size: 40, link: true
             %td
               %b
                 = link_to "#{comment.user.full_name}:", comment.user

@@ -1,21 +1,21 @@
-= provide(:title, @restaurant.name.html_safe)
+= provide(:title, @restaurant.name)
 
 .row
   %aside.span4
     %section
-      %h1{:style => "padding-bottom: 5px;float:left;"}
+      %h1{:style => "padding-bottom: 5px; float: left;"}
         = image_tag(@restaurant.picture_url, size: '50x50', title: @restaurant.name, alt: @restaurant.name)
 
-      %div{style: 'margin-left: 7px; float:left;'}
+      %div{style: 'margin-left: 7px; float: left;'}
         %h1
-          = truncate(@restaurant.name, length:20)
+          = truncate(@restaurant.name, length: 20)
           %br/
         .pull-left
           = link_to_phone(@restaurant.phone_number)
     .pull-left
-      -# if current_user has a list in the current restaurant's city then allow them to add the current resto to that city
-      - if current_user.cities.include?@restaurant.city
-        - if current_user.restaurants.include?@restaurant
+      - # if current_user has a list in the current restaurant's city then allow them to add the current resto to that city
+      - if current_user.cities.include?(@restaurant.city)
+        - if current_user.restaurants.include?(@restaurant)
           %i.icon-ok
           This is in your Bitelist!
         - else
@@ -49,7 +49,6 @@
     %br/
     %section
 
-
   .span8
     - # put the restaurant's website, pictures, address, comments here
     %h3.big_title Location
@@ -63,7 +62,7 @@
         Comments
       %div
         = render 'comments/comment'
-    -else
+    - else
       .well
         %h2{style:'margin-bottom: 0px;'}
-          =link_to "Sign in to get exclusive content!", signin_path
+          = link_to "Sign in to get exclusive content!", signin_path
