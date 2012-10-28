@@ -17,15 +17,14 @@ class ListsController < ApplicationController
   def create
     #create a list for the current user if (s)he doesn't have a list already for the specific name and is signed in
     if signed_in? and current_user.lists.exclude?current_user.lists.find_by_city_id(params[:list][:city_id])
-      @list = current_user.lists.create(params[:list])
-      if @list.save
+      list = current_user.lists.create(params[:list])
+      if list.save
         #if you can save the list then you say success and redirect back to the user
-        flash[:success] = "Bitelist created for " + current_user.lists.find_by_city_id(params[:list][:city_id]).city.name.to_s + "! Start adding some restaurants below :)"
-        redirect_to @list
+        flash[:success] = "Bitelist created for #{list.city.name}! Start adding some restaurants below :)"
+        redirect_to list
       else
         render 'new'
       end
-
     else
       #need to get flash to show why you can't upload a new list => mainly because you already have a list with the city
       flash[:error] = "Can't create more than one Bitelist for each city."
