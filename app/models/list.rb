@@ -19,6 +19,7 @@ class List < ActiveRecord::Base
   has_many :restaurants, through: :list_items
 
   validates :user_id, :city_id, :presence => true
+  validates_uniqueness_of :city_id, scope: :user_id
 
   MAX_ITEMS_PER_LIST = 15
 end

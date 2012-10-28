@@ -15,20 +15,15 @@ class ListsController < ApplicationController
 
   #POST request for creating a new List
   def create
-    #create a list for the current user if (s)he doesn't have a list already for the specific name and is signed in
-    if signed_in? and current_user.lists.exclude?current_user.lists.find_by_city_id(params[:list][:city_id])
-      list = current_user.lists.create(params[:list])
-      if list.save
-        #if you can save the list then you say success and redirect back to the user
-        flash[:success] = "Bitelist created for #{list.city.name}! Start adding some restaurants below :)"
-        redirect_to list
-      else
-        render 'new'
-      end
+    @list = current_user.lists.create(list_params)
+    if @list.save
+      flash[:success] = "Bitelist created for #{@list.city.name}! Start adding some restaurants below :)"
+      # on success, redirect to newly created list
+      redirect_to @list
     else
-      #need to get flash to show why you can't upload a new list => mainly because you already have a list with the city
       flash[:error] = "Can't create more than one Bitelist for each city."
-      redirect_to current_user
+      # on failure, likely due to having a similar list; render new again
+      render 'new'
     end
   end
 
@@ -116,5 +111,9 @@ class ListsController < ApplicationController
   def correct_user
     @list = current_user.lists.find_by_id(params[:id])
     redirect_to new_session_path if @list.nil?
+  end
+
+  def list_params
+    params[:list].slice(:city_id)
   end
 end
