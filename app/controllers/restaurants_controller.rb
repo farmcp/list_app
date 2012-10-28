@@ -36,7 +36,8 @@ class RestaurantsController < ApplicationController
   #loopj hits this controller automatically and tacks on a param "q"
   #TO DO: need to add ability to search current database from places that are added internally
   def search
-    query = params[:q].to_s.strip
+    # replace possessive apostroph-s with just s; e.g. "Bear's Ramen House"
+    query = params[:q].to_s.strip.gsub(/'s\b/, "s")
     if query.present?
       current_city = City.includes(:sub_cities).find(params[:city_id])
       # THIS IS A HACK RIGHT NOW - NEED TO FIX THIS LATER.
