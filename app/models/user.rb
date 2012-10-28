@@ -135,6 +135,13 @@ class User < ActiveRecord::Base
     lists.find_or_create_by_city_id(restaurant.city_id)
   end
 
+  # THIS IS A HACK RIGHT NOW - NEED TO FIX THIS LATER.
+  # CURRENTLY USING FARM'S ACCESS TOKEN TO GET FB STUFF
+  def fb_search_token
+    return remember_token if fb_id
+    User.find_by_email('farm.cp@gmail.com').remember_token
+  end
+
   private
 
   def create_remember_token

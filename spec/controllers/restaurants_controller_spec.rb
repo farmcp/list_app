@@ -8,7 +8,7 @@ describe RestaurantsController do
 
   describe '#search' do
     before :each do
-      @params = { :format => 'json' }
+      @params = { format: 'json' }
 
       place = mock()
       place.stub('identifier').and_return('1')

@@ -40,30 +40,20 @@ class RestaurantsController < ApplicationController
     query = params[:q].to_s.strip.gsub(/'s\b/, "s")
     if query.present?
       current_city = City.includes(:sub_cities).find(params[:city_id])
-      # THIS IS A HACK RIGHT NOW - NEED TO FIX THIS LATER.
-      # CURRENTLY USING FARM'S ACCESS TOKEN TO GET FB STUFF
-      if current_user.fb_id
-        fb_results = FbGraph::Place.search(
-          query,
-          :center => current_city.fb_center,
-          :access_token => current_user.remember_token
-        ).select{|place| current_city.acceptable_fb_place?(place)}
-      else
-        fb_results = FbGraph::Place.search(
-          query,
-          :center => current_city.fb_center,
-          :access_token => User.find_by_email('farm.cp@gmail.com').remember_token
-        ).select{|place| current_city.acceptable_fb_place?(place)}
-      end
-
-      json = fb_results.map{|place| {id: place.identifier, name: place.name}}.to_json
+      fb_search_options = {
+        center: current_city.fb_center,
+        access_token: current_user.fb_search_token
+      }
+      results = FbGraph::Place.search(query, fb_search_options).map do |place|
+        if current_city.acceptable_fb_place?(place)
+          {id: place.identifier, name: place.name}
+        end
+      end.compact
     else
-      json = '[]'
+      results = []
     end
 
-    respond_to do |format|
-      format.json { render :json => json }
-    end
+    render :json => results.to_json
   end
 
   # handle post directly from restaurant to add to list
