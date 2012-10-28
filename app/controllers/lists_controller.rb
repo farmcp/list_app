@@ -15,6 +15,9 @@ class ListsController < ApplicationController
 
   #POST request for creating a new List
   def create
+    @list = current_user.lists.find_by_city_id(list_params[:city_id])
+    redirect_to @list and return if @list
+
     @list = current_user.lists.create(list_params)
     if @list.save
       flash[:success] = "Bitelist created for #{@list.city.name}! Start adding some restaurants below :)"
@@ -102,6 +105,6 @@ class ListsController < ApplicationController
   end
 
   def list_params
-    params[:list].slice(:city_id)
+    @list_params ||= params[:list].slice(:city_id)
   end
 end
