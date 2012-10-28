@@ -8,7 +8,7 @@
 
 class SubCity < ActiveRecord::Base
   belongs_to :city
-  attr_accessible :name
+  attr_accessible :name, :city_id
   validate :city, :name, :presence => true
   validate :name, :uniqueness => true
 
