@@ -60,7 +60,9 @@ class Restaurant < ActiveRecord::Base
 
   #get rid of all non digits then validate
   def fix_phone_number
-    self.phone_number = phone_number.to_s.gsub(/\D/, '')
+    number = phone_number.to_s.gsub(/\D/, '')
+    number = number[1..-1] if number.starts_with?('1')
+    self.phone_number = number
   end
 
   def self.in(city_id)
