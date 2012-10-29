@@ -12,7 +12,6 @@
         = f.text_field :name, :id => 'search-restaurant'
         = f.hidden_field :list_id, value: params[:id]
         = f.submit "Add to List", class: 'btn btn-primary', :style => 'margin-top:-2px; margin-bottom:0px;'
-        -#= link_to "Share List" ,'http://www.facebook.com/sharer.php?u='+ @current_link +'&t=Bitelist', :target => '_blank', class: 'btn btn-primary', :style => 'margin-left:10px; margin-top:10px; margin-bottom:0px;'
         = link_to 'https://www.facebook.com/dialog/feed?app_id=' + ENV['FB_KEY'] + '&link='+ @current_link +'&name=Bitelist&caption=Places%20you%20love%20to%20eat&redirect_uri=http://' + @current_link, class: 'btn btn-info', :style => 'margin-left:10px; margin-top:10px; margin-bottom:0px;' do 
           %i.icon-share.icon-white
           Share
