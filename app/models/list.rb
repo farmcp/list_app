@@ -26,4 +26,13 @@ class List < ActiveRecord::Base
   def list_item_for(restaurant)
     list_items.find_or_create_by_restaurant_id(restaurant.id)
   end
+
+
+  def fb_share_title
+    "#{user.full_name}'s Bitelist"
+  end
+
+  def fb_share_caption
+    "Places you love to eat at."
+  end
 end

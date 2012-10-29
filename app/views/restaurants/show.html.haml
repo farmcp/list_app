@@ -11,7 +11,7 @@
           = truncate(@restaurant.name, length: 20)
           %br/
         .pull-left
-          = link_to_phone(@restaurant.phone_number)
+          = link_to_phone(@restaurant.phone_number) if @restaurant.phone_number.present?
     .pull-left
       - # if current_user has a list in the current restaurant's city then allow them to add the current resto to that city
       - if current_user.cities.include?(@restaurant.city)

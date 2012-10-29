@@ -10,9 +10,9 @@
     - if current_user? @list.user
       = form_for :restaurant, as: :post, :url => add_to_list_path(@list) do |f|
         = f.text_field :name, :id => 'search-restaurant'
-        = f.hidden_field :list_id, value: params[:id]
+        = f.hidden_field :list_id, value: @list.id
         = f.submit "Add to List", class: 'btn btn-primary', :style => 'margin-top:-2px; margin-bottom:0px;'
-        = link_to 'https://www.facebook.com/dialog/feed?app_id=' + ENV['FB_KEY'] + '&link='+ @current_link +'&name=' + @list.user.full_name + "'s" +' Bitelist&caption=Places%20you%20love%20to%20eat&redirect_uri=http://' + @current_link, class: 'btn btn-info', :style => 'margin-left:10px; margin-top:10px; margin-bottom:0px;' do 
+        = link_to fb_share_link, class: 'btn btn-info', :style => 'margin-left:10px; margin-top:10px; margin-bottom:0px;' do
           %i.icon-share.icon-white
           Share
 

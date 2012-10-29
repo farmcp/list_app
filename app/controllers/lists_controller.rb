@@ -42,7 +42,6 @@ class ListsController < ApplicationController
 
     @list = List.find_by_id(params[:id])
     if @list
-      @current_link = request.host_with_port + request.fullpath
       @restaurants = @list.restaurants
 
       # get the json for the maps
