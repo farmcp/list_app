@@ -3,7 +3,7 @@ module UsersHelper
     size = options.delete(:size) { 50 }
     link = options.delete(:link) { false }
     link_to user do
-      image_tag(user.avatar_url, alt: user.full_name, class: 'gravatar', size: size)
+      image_tag(user.avatar_url, alt: user.full_name, class: 'gravatar', size: size, "data-title" => user.full_name)
     end
   end
 
