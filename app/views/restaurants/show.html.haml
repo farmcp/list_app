@@ -48,6 +48,9 @@
     %br/
     %br/
     %section
+    - if @followed_users
+      - @followed_users.each do |user|
+        = avatar_tag(user, size:50, link:true)
 
   .span8
     - # put the restaurant's website, pictures, address, comments here
