@@ -51,7 +51,7 @@
     - if @followed_users.any?
       .row
         %aside.span4
-          %h3.big_title Bite Lovers
+          %h3.big_title Followed Biters
           - @followed_users.each do |user|
             = avatar_tag(user, size:50, link:true)
           = image_tag 'divider_big_transparent.jpg', style:'margin-top:30px;'
