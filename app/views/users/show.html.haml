@@ -1,7 +1,7 @@
 = provide(:title, @user.full_name)
 
 .row
-  %aside.span4.offset1
+  %aside.span4
     %section
       %h3{style: 'margin-bottom:5px;'}
         = avatar_tag @user
@@ -27,7 +27,7 @@
       = image_tag 'divider_big_transparent.jpg'
       %br/
 
-  .span6.tabbable
+  .span8.tabbable
     %ul.nav.nav-tabs
       - if current_user? @user
         %li.active
