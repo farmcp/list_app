@@ -22,10 +22,15 @@
           %i.icon-plus
           = link_to "Add to your list", add_to_list_restaurant_path(@restaurant), method: 'post'
         %br/
-      - else
-        %i.icon-plus
-        = link_to "Create a #{@restaurant.city.name} Bitelist!", new_list_path
-        %br/
+      - else 
+        - if current_user
+          %i.icon-plus
+          = link_to "Create a #{@restaurant.city.name} Bitelist!", new_list_path
+          %br/
+        - else
+          %i.icon-plus 
+          = link_to "Sign in to create a Bitelist!", signin_path
+          %br/
       - if @restaurant.category
         %b Category:
         = truncate(@restaurant.category, length: 30)
