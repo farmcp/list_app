@@ -14,7 +14,7 @@
           = link_to_phone(@restaurant.phone_number) if @restaurant.phone_number.present?
     .pull-left
       - # if current_user has a list in the current restaurant's city then allow them to add the current resto to that city
-      - if current_user.cities.include?(@restaurant.city)
+      - if current_user and current_user.cities.include?(@restaurant.city)
         - if current_user.restaurants.include?(@restaurant)
           %i.icon-ok
           This is in your Bitelist!
