@@ -45,10 +45,13 @@
     %br/
     %br/
     .pull-left
-      = link_to '#', onclick: "get_maps('#{@location_string}');" do 
-        #{@restaurant.address}
-        %br/
-        #{@restaurant.city_state_zip}
+      #{@restaurant.address}
+      %br/
+      #{@restaurant.city_state_zip}
+      %br/
+      = link_to "(Get Directions)",'#', onclick: "get_maps('#{@location_string}');"
+    %br/
+    %br/
     %br/
     %br/
 
@@ -92,20 +95,20 @@
     if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) { 
       if(/OS [2-5]_\d(_\d)? like Mac OS X/i.test(navigator.userAgent)) {  
           // iOS 2-5 go to google maps   
-          window.location = 'http://maps.google.com/maps?q=' + location;
+          window.location = 'http://maps.google.com/maps?saddr=Current+Location&daddr=' + location;
       } 
       else if(/CPU like Mac OS X/i.test(navigator.userAgent)) {
           // iOS 1 go to google maps
-          window.location = 'http://maps.google.com/maps?q=' + location;
+          window.location = 'http://maps.google.com/maps?saddr=Current+Location&daddr=' + location;
       } 
       else {
           // iOS 6 or Newer go to apple maps
-          window.location = 'http://maps.apple.com/maps?q=' + location;
+          window.location = 'http://maps.apple.com/maps?daddr=' + location;
       }
     }
 
     else {
       //default is to go to google maps
-      window.location = 'http://maps.google.com/maps?q=' + location;
+      window.location = 'http://maps.google.com/maps?saddr=Current+Location&daddr=' + location;
     }
   }
