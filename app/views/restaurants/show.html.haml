@@ -45,11 +45,11 @@
     %br/
     %br/
     .pull-left
-      = @restaurant.address
+      = link_to '#', onclick: "get_maps('#{@location_string}');" do 
+        #{@restaurant.address}
+        %br/
+        #{@restaurant.city_state_zip}
 
-    %br/
-    .pull-left
-      = @restaurant.city_state_zip
     %br/
     %br/
 
@@ -87,4 +87,26 @@
 :javascript 
   $(document).ready(function(){
     $('.gravatar').tooltip();
+
   });
+
+  function get_maps(location){
+    if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) { 
+      if(/OS [2-5]_\d(_\d)? like Mac OS X/i.test(navigator.userAgent)) {  
+          // iOS 2-5 so Do Something   
+          window.location = 'http://maps.google.com/maps?q=' + location;
+      } 
+      else if(/CPU like Mac OS X/i.test(navigator.userAgent)) {
+          // iOS 1 so Do Something 
+          window.location = 'http://maps.google.com/maps?q=' + location;
+      } 
+      else {
+          // iOS 6 or Newer so Do Nothing
+          window.location = 'http://maps.apple.com/maps?q=' + location;
+      }
+    }
+
+    else {
+      window.location = 'http://maps.google.com/maps?q=' + location;
+    }
+  }

@@ -10,7 +10,7 @@ class RestaurantsController < ApplicationController
   #need to show the restaurant details and comments
   def show
     @maps_json = @restaurant.to_gmaps4rails
-
+    @location_string = @restaurant.address + ' ' + @restaurant.city_state_zip
     #get comments for the current restaurant - only show the followers' and followed users' comments
     if current_user
       friends_ids = current_user.followers.map(&:id) | current_user.followed_users.map(&:id) | [current_user.id]
