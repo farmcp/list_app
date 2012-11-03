@@ -15,6 +15,9 @@ class RestaurantsController < ApplicationController
     if current_user
       friends_ids = current_user.followers.map(&:id) | current_user.followed_users.map(&:id) | [current_user.id]
       @comments = Comment.where(:restaurant_id => params[:id], :user_id => friends_ids.uniq).flatten
+
+      #get followed users that have this restaurant
+      @followed_users = current_user.followed_users.select{|user| user.restaurants.include?Restaurant.find(params[:id])}
     else
       @comments = []
     end
