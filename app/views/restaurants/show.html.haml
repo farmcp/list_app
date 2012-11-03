@@ -45,15 +45,17 @@
     %br/
     %br/
     .pull-left
-      = @restaurant.address
+      #{@restaurant.address}
+      %br/
+      #{@restaurant.city_state_zip}
+      %br/
+      = link_to "(Get Directions)",'#', onclick: "get_maps('#{@location_string}');"
+    %br/
+    %br/
+    %br/
+    %br/
 
-    %br/
-    .pull-left
-      = @restaurant.city_state_zip
-    %br/
-    %br/
-
-    - if @followed_users.any?
+    - if current_user && @followed_users.any?
       %ol.lists
         .row
           %aside.span4
@@ -88,3 +90,25 @@
   $(document).ready(function(){
     $('.gravatar').tooltip();
   });
+
+  function get_maps(location){
+    if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) { 
+      if(/OS [2-5]_\d(_\d)? like Mac OS X/i.test(navigator.userAgent)) {  
+          // iOS 2-5 go to google maps   
+          window.location = 'http://maps.google.com/maps?saddr=Current+Location&daddr=' + location;
+      } 
+      else if(/CPU like Mac OS X/i.test(navigator.userAgent)) {
+          // iOS 1 go to google maps
+          window.location = 'http://maps.google.com/maps?saddr=Current+Location&daddr=' + location;
+      } 
+      else {
+          // iOS 6 or Newer go to apple maps
+          window.location = 'http://maps.apple.com/maps?daddr=' + location;
+      }
+    }
+
+    else {
+      //default is to go to google maps
+      window.location = 'http://maps.google.com/maps?saddr=Current+Location&daddr=' + location;
+    }
+  }
