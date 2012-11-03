@@ -40,7 +40,7 @@
         = link_to truncate(@restaurant.name, length: 30), @restaurant.website_url, :target => '_blank'
     - if @restaurant.website_url
       %br/
-    %br/
+
     %br/
     %br/
     %br/
@@ -52,7 +52,20 @@
       = @restaurant.city_state_zip
     %br/
     %br/
-    %section
+
+    - if @followed_users.any?
+      %ol.lists
+        .row
+          %aside.span4
+            %h3.big_title Fellow Biters
+            %br/
+            %li
+              - @followed_users.each do |user|
+                = avatar_tag(user, size:50, link:true)
+      %br/
+      %br/
+      %section
+
 
   .span8
     - # put the restaurant's website, pictures, address, comments here
@@ -71,3 +84,7 @@
       .well
         %h2{style:'margin-bottom: 0px;'}
           = link_to "Sign in to get exclusive content!", signin_path
+:javascript 
+  $(document).ready(function(){
+    $('.gravatar').tooltip();
+  });
