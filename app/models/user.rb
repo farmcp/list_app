@@ -63,6 +63,8 @@ class User < ActiveRecord::Base
   validates :last_name, length: {maximum: 50}
   validates :email, presence: true, format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
 
+  RESTAURANTS_REQUIRED_TO_EDIT = 25
+
   def full_name
     "#{first_name} #{last_name}"
   end
@@ -143,7 +145,7 @@ class User < ActiveRecord::Base
   end
 
   def can_edit
-    self.restaurants.count >= 15
+    self.restaurants.count >= RESTAURANTS_REQUIRED_TO_EDIT
   end
 
   private
