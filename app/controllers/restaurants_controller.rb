@@ -14,6 +14,14 @@ class RestaurantsController < ApplicationController
 
   #PUT for updating the restaurant
   def update
+    @restaurant = Restaurant.find(params[:id])
+    if current_user && @restaurant.update_attributes(params[:restaurant])
+      flash[:success] = 'Restaurant updates submitted!'
+      redirect_to @restaurant
+    else 
+      render 'edit'
+    end
+
   end
 
   #need to show the restaurant details and comments
