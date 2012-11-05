@@ -142,6 +142,10 @@ class User < ActiveRecord::Base
     User.find_by_email('farm.cp@gmail.com').remember_token
   end
 
+  def can_edit
+    self.restaurants.count >= 15
+  end
+
   private
 
   def create_remember_token

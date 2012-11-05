@@ -7,6 +7,15 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new
   end
 
+  #GET page to edit restaurants
+  def edit
+    @restaurant = Restaurant.find(params[:id])
+  end
+
+  #PUT for updating the restaurant
+  def update
+  end
+
   #need to show the restaurant details and comments
   def show
     @maps_json = @restaurant.to_gmaps4rails
