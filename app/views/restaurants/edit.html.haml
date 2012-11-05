@@ -1,0 +1,38 @@
+= provide(:title, ["Edit", @restaurant.name].join(' '))
+
+- if current_user && current_user.can_edit
+  %h1.big_title
+    Edit #{@restaurant.name}
+  .row
+    .span6.offset3
+      = form_for @restaurant do |f|
+        = f.label :name
+        = f.text_field :name, value: @restaurant.name
+        = f.label :phone_number
+        = f.text_field :phone_number, value: @restaurant.phone_number
+        = f.label :category
+        = f.text_field :category, value: @restaurant.category
+        = f.label :address
+        = f.text_field :address, value: @restaurant.address
+        = f.label :postal_code
+        = f.text_field :postal_code, value: @restaurant.postal_code
+        = f.label :website_url
+        = f.text_field :website_url, value: @restaurant.website_url
+
+        = f.submit "Save changes", class: "btn btn-large btn-primary"
+
+- elsif current_user && !current_user.can_edit
+  %h1.big_title
+    Sorry
+  .row 
+    .span6.offset3
+      .well
+        You don't have enough bites to access this page! Add more of your favorites to gain privilaged access!
+
+- else
+  %h1.big_title
+    Sorry
+  .row 
+    .span6.offset3
+      .well
+        Please login to gain access!
