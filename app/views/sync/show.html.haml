@@ -23,22 +23,22 @@
       return false;
     });
   });
+- if current_user
+  %h1.big_title{style: 'text-align:center;'}
+    Bite Sync
 
-%h1.big_title{style: 'text-align:center;'}
-  Bite Sync
+  %h2
+    Add your friends to get some group recommendations!
 
-%h2
-  Add your friends to get some group recommendations!
-
-- # create a form to post to list_item_path (create method in list_items_controller)
-.row{style: 'text-align:center;'}
-  .span4.offset4
-    - # only allow to post when it's the current user's account
-    - if current_user
+  - # create a form to post to list_item_path (create method in list_items_controller)
+  .row{style: 'text-align:center;'}
+    .span4.offset4
       = select_tag(:city_id, options_from_collection_for_select(City.all, :id, :name))
       %br/
       = text_field_tag 'search-box'
      
       %br/
       = submit_tag "Run Bitelist Sync", class: 'btn btn-primary', :style => 'height:40px;'
+- else
+  %h2 You must be logged to to use this feature!
 
