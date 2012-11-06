@@ -24,7 +24,7 @@ class SyncController < ApplicationController
     #different formats to return json
     respond_to do |format|
       format.html {render 'get_sync'}
-      format.json {render :json => @recommendations.to_json}
+      format.json {render :json => @recommendations.to_json(:only => [:id, :name, :latitude, :longitude, :phone_number])}
     end
   end
 end
