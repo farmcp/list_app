@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
   before_filter :signed_in_user, :only => [:add_to_list]
-  before_filter :require_restaurant, only: [:show, :add_to_list]
+  before_filter :require_restaurant, only: [:show, :edit, :add_to_list]
 
   #GET page for creating a new restaurant
   def new
@@ -21,6 +21,10 @@ class RestaurantsController < ApplicationController
     else
       @comments = []
     end
+  end
+
+  def edit
+    @edit_request = EditRequest.new
   end
 
   #POST action for creating a new restaurant

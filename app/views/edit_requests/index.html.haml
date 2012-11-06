@@ -1,0 +1,25 @@
+%h1 Listing edit_requests
+
+%table
+  %tr
+    %th Restaurant
+    %th User
+    %th Approved
+    %th Params
+    %th
+    %th
+    %th
+
+  - @edit_requests.each do |edit_request|
+    %tr
+      %td= edit_request.restaurant
+      %td= edit_request.user
+      %td= edit_request.approved
+      %td= edit_request.params
+      %td= link_to 'Show', edit_request
+      %td= link_to 'Edit', edit_edit_request_path(edit_request)
+      %td= link_to 'Destroy', edit_request, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Edit request', new_edit_request_path

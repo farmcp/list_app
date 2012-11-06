@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
 
   #every user can have many lists
   has_many :lists, :dependent => :destroy
+  has_many :edit_requests
 
   #has many list_items
   has_many :list_items

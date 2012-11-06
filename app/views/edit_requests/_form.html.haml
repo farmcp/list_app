@@ -1,0 +1,22 @@
+= form_for @edit_request do |f|
+  -if @edit_request.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@edit_request.errors.count, "error")} prohibited this edit_request from being saved:"
+      %ul
+        - @edit_request.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :restaurant
+    = f.text_field :restaurant
+  .field
+    = f.label :user
+    = f.text_field :user
+  .field
+    = f.label :approved
+    = f.check_box :approved
+  .field
+    = f.label :params
+    = f.text_area :params
+  .actions
+    = f.submit 'Save'

@@ -1,0 +1,20 @@
+%p#notice= notice
+
+%p
+  %b Restaurant:
+  = @edit_request.restaurant
+%p
+  %b User:
+  = @edit_request.user.email
+  = surround('(', ')') do
+    = @edit_request.user.full_name
+%p
+  %b Approved:
+  = !!@edit_request.approved
+%p
+  %b Params:
+  = @edit_request.params
+
+= link_to 'Edit', edit_edit_request_path(@edit_request)
+\|
+= link_to 'Back', edit_requests_path

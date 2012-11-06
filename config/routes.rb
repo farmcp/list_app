@@ -1,4 +1,6 @@
 ListApp::Application.routes.draw do
+  resources :edit_requests
+
   resources :password_resets
 
   match "signup/", to: 'users#new'
@@ -34,7 +36,7 @@ ListApp::Application.routes.draw do
     end
   end
   resources :list_items, :only => [:create, :destroy]
-  resources :restaurants, :only => [:new, :create, :show] do
+  resources :restaurants, :only => [:new, :create, :show, :edit] do
     member do
       post :add_to_list
       resources :comments, :only => [:create, :destroy]

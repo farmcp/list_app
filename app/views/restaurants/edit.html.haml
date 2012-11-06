@@ -1,0 +1,36 @@
+= provide(:title, @restaurant.name)
+
+= form_for @edit_request, html: {class: 'form-horizontal'} do |f|
+  = f.hidden_field :restaurant_id, value: @restaurant.id
+  .control-group
+    = label_tag :name, 'Restaurant name', class: 'control-label'
+    .controls
+      = text_field_tag :name, @restaurant.name
+  .control-group
+    = label_tag :picture_url, 'Picture URL', class: 'control-label'
+    .controls
+      = text_field_tag :picture_url, @restaurant.picture_url
+  .control-group
+    = label_tag :phone_number, 'Phone number', class: 'control-label'
+    .controls
+      = text_field_tag :phone_number, @restaurant.phone_number
+  .control-group
+    = label_tag :category, 'Category', class: 'control-label'
+    .controls
+      = text_field_tag :category, @restaurant.category
+  .control-group
+    = label_tag :address, 'Address', class: 'control-label'
+    .controls
+      = text_field_tag :address, @restaurant.address
+  .control-group
+    = label_tag :postal_code, 'ZIP code', class: 'control-label'
+    .controls
+      = text_field_tag :postal_code, @restaurant.postal_code
+  .control-group
+    = label_tag :website_url, 'Website URL', class: 'control-label'
+    .controls
+      = text_field_tag :website_url, @restaurant.website_url
+
+  .control-group
+    .controls
+      = f.submit 'Submit edit request', class: 'btn btn-primary'
