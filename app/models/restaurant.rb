@@ -34,6 +34,7 @@ class Restaurant < ActiveRecord::Base
 
   #a restaurant has many comments and the comments are dependent that the restaurant exists
   has_many :comments, :dependent => :destroy
+  has_many :edit_requests, dependent: :destroy
 
   validates :name, :presence => true
   validates :phone_number, allow_blank: true, :format => {with: /\d{10}/, message: "(Only 10 digit numbers are allowed)"}, numericality: {only_integer: true}
@@ -99,7 +100,9 @@ class Restaurant < ActiveRecord::Base
     create!(restaurant_options)
   end
 
-  private
+  def to_s
+    name
+  end
 
   def self.search_by_yelp(query)
     where(:yelp_url => query)

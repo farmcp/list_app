@@ -3,7 +3,7 @@ class EditRequestsController < ApplicationController
   before_filter :admin_only, except: [:create]
 
   def index
-    @edit_requests = EditRequest.all
+    @edit_requests = EditRequest.where(rejected: false)
   end
 
   def show
@@ -11,11 +11,14 @@ class EditRequestsController < ApplicationController
   end
 
   def create
-    request_params = params[:edit_request]
-    restaurant_id = request_params.delete(:restaurant_id)
-    @edit_request = current_user.edit_requests.build(restaurant_id: restaurant_id, params: request_params)
+    request_params = params[:restaurant]
+    restaurant = Restaurant.find(params[:edit_request].delete(:restaurant_id))
+    request_params.each do |key, value|
+      request_params.delete key if restaurant.attributes[key.to_s].to_s == value
+    end
+    @edit_request = current_user.edit_requests.build(restaurant: restaurant, params: request_params.to_json)
     @edit_request.save!
-    redirect_to restaurant_path(restaurant_id), notice: 'Edit request submitted! Thank you.'
+    redirect_to restaurant_path(restaurant), notice: 'Edit request submitted! Thank you.'
   end
 
   def update

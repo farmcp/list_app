@@ -45,13 +45,13 @@ ActiveRecord::Schema.define(:version => 20121106185935) do
   create_table "edit_requests", :force => true do |t|
     t.integer  "restaurant_id"
     t.integer  "user_id"
-    t.boolean  "approved"
+    t.boolean  "rejected",      :default => false
     t.text     "params"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
-  add_index "edit_requests", ["approved"], :name => "index_edit_requests_on_approved"
+  add_index "edit_requests", ["rejected"], :name => "index_edit_requests_on_rejected"
   add_index "edit_requests", ["restaurant_id"], :name => "index_edit_requests_on_restaurant_id"
   add_index "edit_requests", ["user_id"], :name => "index_edit_requests_on_user_id"
 

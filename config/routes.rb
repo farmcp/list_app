@@ -1,6 +1,5 @@
 ListApp::Application.routes.draw do
-  resources :edit_requests
-
+  resources :edit_requests, only: [:index, :create, :show, :update]
   resources :password_resets
 
   match "signup/", to: 'users#new'

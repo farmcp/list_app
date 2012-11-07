@@ -1,20 +1,13 @@
-%p#notice= notice
-
 %p
   %b Restaurant:
   = @edit_request.restaurant
 %p
   %b User:
-  = @edit_request.user.email
-  = surround('(', ')') do
-    = @edit_request.user.full_name
+  = @edit_request.user
 %p
-  %b Approved:
-  = !!@edit_request.approved
-%p
-  %b Params:
-  = @edit_request.params
-
-= link_to 'Edit', edit_edit_request_path(@edit_request)
-\|
-= link_to 'Back', edit_requests_path
+  %b Status
+  = @edit_request.rejected? ? 'rejected' : 'not reviewed'
+- @edit_request.parsed_params.each do |key, val|
+  %p
+    %b #{key.titleize}:
+    = @edit_request.diff(key).format_as(:html).html_safe

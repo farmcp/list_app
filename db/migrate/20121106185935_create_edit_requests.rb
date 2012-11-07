@@ -3,13 +3,13 @@ class CreateEditRequests < ActiveRecord::Migration
     create_table :edit_requests do |t|
       t.references :restaurant
       t.references :user
-      t.boolean :approved
+      t.boolean :rejected, default: false
       t.text :params
 
       t.timestamps
     end
     add_index :edit_requests, :restaurant_id
     add_index :edit_requests, :user_id
-    add_index :edit_requests, :approved
+    add_index :edit_requests, :rejected
   end
 end
