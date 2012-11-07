@@ -1,5 +1,4 @@
 ListApp::Application.routes.draw do
-  resources :edit_requests, only: [:index, :create, :show, :update]
   resources :password_resets
 
   match "signup/", to: 'users#new'
@@ -44,6 +43,14 @@ ListApp::Application.routes.draw do
       get :search
     end
   end
+
+  resources :edit_requests, only: [:index, :create, :show] do
+    member do
+      put :accept
+      put :reject
+    end
+  end
+
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy', :via => :delete #this means it will be invoked using the DELETE request
 

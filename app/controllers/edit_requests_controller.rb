@@ -21,13 +21,14 @@ class EditRequestsController < ApplicationController
     redirect_to restaurant_path(restaurant), notice: 'Edit request submitted! Thank you.'
   end
 
-  def update
+  def accept
     @edit_request = EditRequest.find(params[:id])
+    @edit_request.accept!
+  end
 
-    if @edit_request.update_attributes(params[:edit_request])
-      format.html { redirect_to @edit_request, notice: 'Edit request was successfully updated.' }
-      format.html { render action: "edit" }
-    end
+  def reject
+    @edit_request = EditRequest.find(params[:id])
+    @edit_request.reject!
   end
 
   private

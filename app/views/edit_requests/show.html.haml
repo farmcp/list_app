@@ -6,8 +6,11 @@
   = @edit_request.user
 %p
   %b Status
-  = @edit_request.rejected? ? 'rejected' : 'not reviewed'
-- @edit_request.parsed_params.each do |key, val|
-  %p
-    %b #{key.titleize}:
-    = @edit_request.diff(key).format_as(:html).html_safe
+  = @edit_request.status
+- if @edit_request.has_diff?
+  - @edit_request.parsed_params.each do |key, val|
+    %p
+      %b #{key.titleize}:
+      = @edit_request.diff(key, val).html_safe
+- else
+  %i This edit request is empty
