@@ -46,8 +46,8 @@ ListApp::Application.routes.draw do
 
   resources :edit_requests, only: [:index, :create, :show] do
     member do
-      put :accept
-      put :reject
+      post :accept
+      post :reject
     end
   end
 

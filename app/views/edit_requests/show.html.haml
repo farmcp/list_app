@@ -12,5 +12,10 @@
     %p
       %b #{key.titleize}:
       = @edit_request.diff(key, val).html_safe
+  = form_tag accept_edit_request_path do
+    %button.btn accept
 - else
   %i This edit request is empty
+
+= form_tag reject_edit_request_path do
+  %button.btn reject

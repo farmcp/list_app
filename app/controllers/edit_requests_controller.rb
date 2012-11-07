@@ -24,11 +24,13 @@ class EditRequestsController < ApplicationController
   def accept
     @edit_request = EditRequest.find(params[:id])
     @edit_request.accept!
+    redirect_to restaurant_path(@edit_request.restaurant, notice: 'accepted!')
   end
 
   def reject
     @edit_request = EditRequest.find(params[:id])
     @edit_request.reject!
+    redirect_to edit_requests_path(notice: 'rejected!')
   end
 
   private
