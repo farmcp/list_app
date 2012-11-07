@@ -24,6 +24,14 @@
       %ol.lists
         %li
           = render "lists/list"
+    - if @non_followed_fb_users.any? and current_user == @user
+      %h3.big_title
+        Facebook Friends
+      %ol.lists
+        %li
+      - @non_followed_fb_users.each do |user|
+        = avatar_tag(user, size:50, link:true)
+    .pad_bottom
       = image_tag 'divider_big_transparent.jpg'
       %br/
 
@@ -54,3 +62,7 @@
         - else
           .well
             Nothing new has happened yet :(
+:javascript 
+  $(document).ready(function(){
+    $('.gravatar').tooltip();
+  });
