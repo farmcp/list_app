@@ -24,14 +24,17 @@
       %ol.lists
         %li
           = render "lists/list"
-    - if @non_followed_fb_users.any? and current_user == @user
+    - if  current_user? @user and @non_followed_fb_users.any? 
       %h3.big_title
-        Facebook Friends
+        Follow other Biters
       %ol.lists
         %li
       - @non_followed_fb_users.each do |user|
         = avatar_tag(user, size:50, link:true)
-    .pad_bottom
+        = link_to user.full_name, user
+        = form_for(current_user.relationships.build(followed_id: user.id), remote:true, id:'follow_form') do |f|
+          %div= f.hidden_field :followed_id
+          = f.submit "Follow", class: "btn btn-primary"
       = image_tag 'divider_big_transparent.jpg'
       %br/
 
