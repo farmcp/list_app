@@ -36,7 +36,7 @@ class UsersController < ApplicationController
       fb_user = FbGraph::User.me(@user.remember_token)
       #friends that are on bitelist minus the users that you follow
       fb_user_friends = fb_user.friends.map{|u| u.raw_attributes['id']} & User.all.map{|u| u.fb_id}
-      fb_followed_users = @user.followed_users.map{|u| u.fb_id}.compact!.to_a
+      fb_followed_users = @user.followed_users.map{|u| u.fb_id}.compact.to_a
       #randomly select 3 users that are your friends from facebook that you haven't followed on bitelist
       @non_followed_fb_users = (fb_user_friends - fb_followed_users).collect!{|id| User.find_by_fb_id(id)}.sort_by{rand}[0..2]
 
