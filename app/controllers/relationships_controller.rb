@@ -4,9 +4,11 @@ class RelationshipsController < ApplicationController
   def create
     @user = User.find(params[:relationship][:followed_id])
     current_user.follow!(@user)
-# take this out because of ajax    flash[:success] = "You're following #{@user.full_name}!"
     respond_to do |format|
-      format.html {redirect_to @user}
+      format.html {
+        flash[:success] = "You're following #{@user.full_name}!"
+        redirect_to current_user
+      }
       format.js
     end
   end
@@ -16,7 +18,7 @@ class RelationshipsController < ApplicationController
     current_user.unfollow!(@user)
 # take thish out because of ajax    flash[:error] = "You've stopped following #{@user.full_name}."
     respond_to do |format|
-      format.html {redirect_to @user}
+      format.html {redirect_to current_user}
       format.js
     end
   end

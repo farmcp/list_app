@@ -1,4 +1,5 @@
-$("#follow_form").html("<%= escape_javascript(render('users/unfollow')) %>")
-$("#followers").html('<%= @user.followers.count %>')
-
-$("#new_relationship").hide()
+$(document).ready(function(){
+  //if you're on user page then change the button to a unfollow button
+  $("#follow_form").html("<%= escape_javascript(render('users/unfollow')) %>");
+  $("#followers").html('<%= @user.followers.count %>');
+});
