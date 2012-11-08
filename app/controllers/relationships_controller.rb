@@ -16,9 +16,11 @@ class RelationshipsController < ApplicationController
   def destroy
     @user = Relationship.find(params[:id]).followed
     current_user.unfollow!(@user)
-# take thish out because of ajax    flash[:error] = "You've stopped following #{@user.full_name}."
     respond_to do |format|
-      format.html {redirect_to current_user}
+      format.html {
+        flash[:error] = "You've stopped following #{@user.full_name}."
+        redirect_to current_user
+      }
       format.js
     end
   end
