@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
     #if the user is a facebook user - get a list of their friends who is on facebook and also on bitelist
     if @user.fb_id && @user.remember_token
-      fb_user = FbGraph::User.me(@user.remember_token)
+      fb_user = FbGraph::User.me(current_user.remember_token)
       #friends that are on bitelist minus the users that you follow
       fb_user_friends = fb_user.friends.map{|u| u.raw_attributes['id']} & User.all.map{|u| u.fb_id}
       fb_followed_users = @user.followed_users.map{|u| u.fb_id}.compact.to_a
