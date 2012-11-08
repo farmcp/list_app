@@ -75,8 +75,8 @@ class User < ActiveRecord::Base
   def follow!(other_user)
     relationships.create!(followed_id: other_user.id)
 
-    #send a mail to user that is followed
-    UserMailer.mail_followed_user(self, other_user).deliver
+    #send a mail to user that is followed - This might need to be placed in a job later
+    #UserMailer.mail_followed_user(self, other_user).deliver
   end
 
   #destroy the relationship
