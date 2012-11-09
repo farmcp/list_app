@@ -34,7 +34,7 @@ ListApp::Application.routes.draw do
     end
   end
   resources :list_items, :only => [:create, :destroy]
-  resources :restaurants, :only => [:new, :create, :show] do
+  resources :restaurants, :only => [:new, :create, :show, :edit] do
     member do
       post :add_to_list
       resources :comments, :only => [:create, :destroy]
@@ -43,6 +43,14 @@ ListApp::Application.routes.draw do
       get :search
     end
   end
+
+  resources :edit_requests, only: [:index, :create, :show] do
+    member do
+      post :accept
+      post :reject
+    end
+  end
+
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy', :via => :delete #this means it will be invoked using the DELETE request
 

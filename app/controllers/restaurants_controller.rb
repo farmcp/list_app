@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
   before_filter :signed_in_user, :only => [:add_to_list]
-  before_filter :require_restaurant, only: [:show, :add_to_list]
+  before_filter :require_restaurant, only: [:show, :edit, :add_to_list]
 
   #GET page for creating a new restaurant
   def new
@@ -10,7 +10,6 @@ class RestaurantsController < ApplicationController
   #need to show the restaurant details and comments
   def show
     @maps_json = @restaurant.to_gmaps4rails
-    @location_string = [@restaurant.address, @restaurant.city_state_zip].join(' ')
     #get comments for the current restaurant - only show the followers' and followed users' comments
     if current_user
       friends_ids = current_user.followers.map(&:id) | current_user.followed_users.map(&:id) | [current_user.id]
@@ -21,6 +20,10 @@ class RestaurantsController < ApplicationController
     else
       @comments = []
     end
+  end
+
+  def edit
+    @edit_request = EditRequest.new
   end
 
   #POST action for creating a new restaurant
