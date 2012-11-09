@@ -38,6 +38,13 @@
                     = link_to edit_user_path(current_user) do
                       %i.icon-cog
                       Settings
+                  %li
+                    = link_to edit_requests_path do
+                      %i.icon-pencil
+                      Edit requests
+                      %span.label.label-important
+                        = EditRequest.needs_review.count
+
                   %li.divider
                   %li
                     = link_to signout_path, method: "delete" do

@@ -22,13 +22,13 @@
           %i.icon-plus
           = link_to "Add to your list", add_to_list_restaurant_path(@restaurant), method: 'post'
         %br/
-      - else 
+      - else
         - if current_user
           %i.icon-plus
           = link_to "Create a #{@restaurant.city.name} Bitelist!", new_list_path
           %br/
         - else
-          %i.icon-plus 
+          %i.icon-plus
           = link_to "Sign in to create a Bitelist!", signin_path
           %br/
       - if @restaurant.category
@@ -45,11 +45,16 @@
     %br/
     %br/
     .pull-left
-      #{@restaurant.address}
+      = @restaurant.address
       %br/
-      #{@restaurant.city_state_zip}
+      = @restaurant.city_state_zip
       %br/
-      = link_to "(Get Directions)",'#', onclick: "get_maps('#{@location_string}');"
+      %i.icon-road
+      = link_to "Get Directions", "javascript:get_maps('#{@restaurant.gmaps4rails_address}');"
+      %br/
+      - if current_user
+        %i.icon-pencil
+        = link_to 'Edit info', edit_restaurant_path, title: 'edit restaurant info'
     %br/
     %br/
     %br/
@@ -85,28 +90,24 @@
       .well
         %h2{style:'margin-bottom: 0px;'}
           = link_to "Sign in to get exclusive content!", signin_path
-:javascript 
+:javascript
   $(document).ready(function(){
     $('.gravatar').tooltip();
   });
 
   function get_maps(location){
-    if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) { 
-      if(/OS [2-5]_\d(_\d)? like Mac OS X/i.test(navigator.userAgent)) {  
-          // iOS 2-5 go to google maps   
-          window.location = 'http://maps.google.com/maps?saddr=Current+Location&daddr=' + location;
-      } 
-      else if(/CPU like Mac OS X/i.test(navigator.userAgent)) {
-          // iOS 1 go to google maps
-          window.location = 'http://maps.google.com/maps?saddr=Current+Location&daddr=' + location;
-      } 
-      else {
-          // iOS 6 or Newer go to apple maps
-          window.location = 'http://maps.apple.com/maps?daddr=' + location;
+    if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
+      if(/OS [2-5]_\d(_\d)? like Mac OS X/i.test(navigator.userAgent)) {
+        // iOS 2-5 go to google maps
+        window.location = 'http://maps.google.com/maps?saddr=Current+Location&daddr=' + location;
+      } else if(/CPU like Mac OS X/i.test(navigator.userAgent)) {
+        // iOS 1 go to google maps
+        window.location = 'http://maps.google.com/maps?saddr=Current+Location&daddr=' + location;
+      } else {
+        // iOS 6 or Newer go to apple maps
+        window.location = 'http://maps.apple.com/maps?daddr=' + location;
       }
-    }
-
-    else {
+    } else {
       //default is to go to google maps
       window.location = 'http://maps.google.com/maps?saddr=Current+Location&daddr=' + location;
     }

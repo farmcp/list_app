@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
 
   #every user can have many lists
   has_many :lists, :dependent => :destroy
+  has_many :edit_requests
 
   #has many list_items
   has_many :list_items
@@ -142,20 +143,6 @@ class User < ActiveRecord::Base
     User.find_by_email('farm.cp@gmail.com').remember_token
   end
 
-  private
-
-  def create_remember_token
-    if self.provider != 'facebook'
-      self.remember_token = SecureRandom.urlsafe_base64
-    end
-  end
-
-  def generate_token(column)
-    begin
-      self[column] = SecureRandom.urlsafe_base64
-    end while User.exists?(column => self[column])
-  end
-
   def self.create_with_omniauth(auth)
     create! do |user|
       user.provider = auth['provider']
@@ -169,5 +156,23 @@ class User < ActiveRecord::Base
       user.password_confirmation = user.password
       UserMailer.welcome_email(user).deliver
     end
+  end
+
+  def to_s
+    email
+  end
+
+  private
+
+  def create_remember_token
+    if self.provider != 'facebook'
+      self.remember_token = SecureRandom.urlsafe_base64
+    end
+  end
+
+  def generate_token(column)
+    begin
+      self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
   end
 end

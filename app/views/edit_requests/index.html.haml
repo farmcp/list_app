@@ -1,0 +1,13 @@
+%h1 Listing edit_requests
+
+%table.table.table-striped
+  %tr
+    %th Restaurant
+    %th User
+    %th Params
+
+  - @edit_requests.each do |edit_request|
+    %tr
+      %td= link_to edit_request.restaurant, edit_request
+      %td= edit_request.user
+      %td= edit_request.params
