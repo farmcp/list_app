@@ -3,7 +3,7 @@ class EditRequestsController < ApplicationController
   before_filter :admin_only, except: [:create]
 
   def index
-    @edit_requests = EditRequest.where(rejected: false)
+    @edit_requests = EditRequest.needs_review
   end
 
   def show

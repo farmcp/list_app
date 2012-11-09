@@ -5,7 +5,7 @@ class EditRequest < ActiveRecord::Base
 
   validates_presence_of :user_id, :restaurant_id, :params
 
-  scope :needs_review, where(approved: false, rejected: false)
+  scope :needs_review, where(accepted: false, rejected: false)
 
   def parsed_params
     @parsed_params ||= JSON.load(params)
