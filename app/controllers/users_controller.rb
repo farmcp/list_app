@@ -42,10 +42,6 @@ class UsersController < ApplicationController
         fb_followed_users = @user.followed_users.map{|u| u.fb_id}.compact.to_a
         #randomly select 3 users that are your friends from facebook that you haven't followed on bitelist
         @non_followed_fb_users = (fb_user_friends - fb_followed_users).collect!{|id| User.find_by_fb_id(id)}.shuffle.first(3)
-
-        pp fb_user_friends
-        pp fb_followed_users
-        pp @non_followed_fb_users
       rescue
         # shit is breaking
       end
