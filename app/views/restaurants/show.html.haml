@@ -11,7 +11,7 @@
           = truncate(@restaurant.name, length: 20)
           - if current_user
             = link_to edit_restaurant_path do
-              %i.icon-pencil{style:'margin-left:5px; margin-top:5px;'}
+              %i.icon-pencil{style:'margin-left:5px; margin-top:5px;'}>
           %br/
         .pull-left
           = link_to_phone(@restaurant.phone_number) if @restaurant.phone_number.present?
