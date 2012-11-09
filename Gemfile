@@ -17,6 +17,7 @@ gem 'thin'
 gem 'google-analytics-rails'
 gem 'nokogiri'
 gem 'differ'
+gem 'geocoder'
 
 group :development do
   gem "rails-erd"

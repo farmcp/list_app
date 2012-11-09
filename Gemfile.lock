@@ -64,6 +64,7 @@ GEM
       httpclient (>= 2.2.0.2)
       rack-oauth2 (>= 0.14.4)
       tzinfo
+    geocoder (1.1.4)
     gmaps4rails (1.5.2)
     google-analytics-rails (0.0.3)
     haml (3.1.6)
@@ -214,6 +215,7 @@ DEPENDENCIES
   factory_girl_rails (~> 3.0)
   faker
   fb_graph
+  geocoder
   gmaps4rails
   google-analytics-rails
   haml

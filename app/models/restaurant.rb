@@ -39,6 +39,9 @@ class Restaurant < ActiveRecord::Base
   validates :name, :presence => true
   validates :phone_number, allow_blank: true, :format => {with: /\d{10}/, message: "(Only 10 digit numbers are allowed)"}, numericality: {only_integer: true}
 
+  geocoded_by :gmaps4rails_address
+  after_validation :geocode
+
   before_validation :fix_phone_number
 
   #pass in the location so that can set model lat/lng data
