@@ -53,7 +53,7 @@
       #{@restaurant.city_state_zip}
       %br/
       %i.icon-road
-      = link_to "Get Directions",'#', onclick: "get_maps('#{@location_string}');"
+      = link_to "Get Directions","javascript:get_maps('#{@restaurant.gmaps4rails_address}');"
     %br/
     %br/
     %br/
