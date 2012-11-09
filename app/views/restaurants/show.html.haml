@@ -9,9 +9,6 @@
       %div{style: 'margin-left: 7px; float: left;'}
         %h1
           = truncate(@restaurant.name, length: 20)
-          - if current_user
-            = link_to edit_restaurant_path do
-              %i.icon-pencil{style:'margin-left:5px; margin-top:5px;'}>
           %br/
         .pull-left
           = link_to_phone(@restaurant.phone_number) if @restaurant.phone_number.present?
@@ -48,12 +45,16 @@
     %br/
     %br/
     .pull-left
-      #{@restaurant.address}
+      = @restaurant.address
       %br/
-      #{@restaurant.city_state_zip}
+      = @restaurant.city_state_zip
       %br/
       %i.icon-road
-      = link_to "Get Directions","javascript:get_maps('#{@restaurant.gmaps4rails_address}');"
+      = link_to "Get Directions", "javascript:get_maps('#{@restaurant.gmaps4rails_address}');"
+      %br/
+      - if current_user
+        %i.icon-pencil
+        = link_to 'Edit info', edit_restaurant_path, title: 'edit restaurant info'
     %br/
     %br/
     %br/
