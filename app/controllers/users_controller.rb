@@ -32,14 +32,14 @@ class UsersController < ApplicationController
     @user_feed = Story.includes([:list, :list_item, :comment]).where(:user_id => @user.id).order('created_at desc').paginate(:page => params[:page])
 
     #if the user is a facebook user - get a list of their friends who is on facebook and also on bitelist
+    @non_followed_fb_users = []
     if @user.fb_id && @user.remember_token
       fb_user = FbGraph::User.me(current_user.remember_token)
       #friends that are on bitelist minus the users that you follow
       fb_user_friends = fb_user.friends.map{|u| u.raw_attributes['id']} & User.all.map{|u| u.fb_id}
       fb_followed_users = @user.followed_users.map{|u| u.fb_id}.compact.to_a
       #randomly select 3 users that are your friends from facebook that you haven't followed on bitelist
-      @non_followed_fb_users = (fb_user_friends - fb_followed_users).collect!{|id| User.find_by_fb_id(id)}.sort_by{rand}[0..2]
-
+      @non_followed_fb_users = (fb_user_friends - fb_followed_users).collect!{|id| User.find_by_fb_id(id)}.shuffle.first(3)
     end
 
     if current_user? @user

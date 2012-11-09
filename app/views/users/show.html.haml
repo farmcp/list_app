@@ -24,7 +24,7 @@
       %ol.lists
         %li
           = render "lists/list"
-    - if  current_user? @user and @non_followed_fb_users.any? 
+    - if current_user? @user && @non_followed_fb_users.any?
       %h3.big_title
         Follow other Biters
       %ol.lists
@@ -68,7 +68,7 @@
         - else
           .well
             Nothing new has happened yet :(
-:javascript 
+:javascript
   $(document).ready(function(){
     $('.gravatar').tooltip();
   });
