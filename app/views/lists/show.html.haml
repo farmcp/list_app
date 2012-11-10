@@ -7,7 +7,7 @@
 .row{style: 'text-align:center;'}
   .span6.offset3
     - # only allow to post when it's the current user's account
-    - if current_user? @list.user
+    - if current_user? @list.user or current_user.admin
       = form_for :restaurant, as: :post, :url => add_to_list_path(@list) do |f|
         = f.text_field :name, :id => 'search-restaurant'
         = f.hidden_field :list_id, value: @list.id

@@ -58,7 +58,7 @@ class ListsController < ApplicationController
 
   # handle the post from list
   def add_to
-    list = current_user.lists.find(params[:restaurant][:list_id])
+    list = List.find(params[:restaurant][:list_id])
     count = list.list_items.count
     fb_ids = params[:restaurant][:name].split(',')
 
