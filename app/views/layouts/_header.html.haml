@@ -39,11 +39,12 @@
                       %i.icon-cog
                       Settings
                   %li
-                    = link_to edit_requests_path do
-                      %i.icon-pencil
-                      Edit requests
-                      %span.label.label-important
-                        = EditRequest.needs_review.count
+                    - if current_user.admin?
+                      = link_to edit_requests_path do
+                        %i.icon-pencil
+                        Edit requests
+                        %span.label.label-important
+                          = EditRequest.needs_review.count
 
                   %li.divider
                   %li

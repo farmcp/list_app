@@ -162,6 +162,10 @@ class User < ActiveRecord::Base
     email
   end
 
+  def admin?
+    self.admin
+  end
+
   private
 
   def create_remember_token
