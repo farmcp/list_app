@@ -7,7 +7,7 @@
 .row{style: 'text-align:center;'}
   .span6.offset3
     - # only allow to post when it's the current user's account
-    - if current_user? @list.user or current_user.admin
+    - if current_user? @list.user
       = form_for :restaurant, as: :post, :url => add_to_list_path(@list) do |f|
         = f.text_field :name, :id => 'search-restaurant'
         = f.hidden_field :list_id, value: @list.id
@@ -41,7 +41,7 @@
               = link_to item.restaurant.name, item.restaurant, class: 'pull-left list-item-text'
             - else
               = link_to truncate(item.restaurant.name.to_s, length: 20), item.restaurant, class: 'pull-left list-item-text'
-            - if current_user? @list.user or current_user.admin
+            - if current_user? @list.user
               = link_to 'x', item, method: :delete, confirm: "Are you sure you want to delete this restaurant?", style: "font-size: 20px; font-style:bold; margin-top:-3px;", class: 'close'
         %br/
 
