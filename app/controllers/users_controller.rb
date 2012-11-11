@@ -1,10 +1,9 @@
 require 'will_paginate/array'
 class UsersController < ApplicationController
   #calls this before any of the other defined actions (here just :edit and :update) in this controller
-  before_filter :signed_in_user, only: [:edit, :update, :show, :index, :destroy, :syncable_users]
-
-  #make sure the correct user is signed in to edit the profile - users can see each other's pages
-  before_filter :correct_user, only:[:edit, :update]
+  before_filter :signed_in_user, except: [:new, :create]
+  before_filter :admin_only, only: [:index]
+  before_filter :correct_user, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -69,12 +68,6 @@ class UsersController < ApplicationController
 
   def index
     @users = User.search(params[:search]).paginate(:page => params[:page])
-  end
-
-  def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User has been removed."
-    redirect_to users_path
   end
 
   #return all followeds
