@@ -32,10 +32,4 @@ class EditRequestsController < ApplicationController
     @edit_request.reject!
     redirect_to edit_requests_path, notice: 'rejected!'
   end
-
-  private
-
-  def admin_only
-    redirect_to root_path unless current_user.admin?
-  end
 end
