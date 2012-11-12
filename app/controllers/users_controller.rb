@@ -2,7 +2,6 @@ require 'will_paginate/array'
 class UsersController < ApplicationController
   #calls this before any of the other defined actions (here just :edit and :update) in this controller
   before_filter :signed_in_user, except: [:new, :create]
-  before_filter :admin_only, only: [:index]
   before_filter :correct_user, only: [:edit, :update]
 
   def new
