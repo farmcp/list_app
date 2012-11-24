@@ -15,7 +15,16 @@
     %section.pad_bottom
       = render 'layouts/stats'
 
-    - # only can show when a user is logged in or has something in their lists
+    - # if the current user is the user then show the map
+    - if current_user? @user
+      - #show the map
+      %h3.big_title
+        Bites Near You
+        %ol.lists
+          %li
+          = gmaps(:map_options => {:detect_location => true, :center_on_user => true, :auto_zoom => false, :zoom => 12, :auto_adjust => true})
+      %br/
+    - # only show when a user is logged in or has something in their lists
     - if @user.lists.any?
       %h3.big_title
         - if current_user? @user
@@ -71,4 +80,8 @@
 :javascript 
   $(document).ready(function(){
     $('.gravatar').tooltip();
+    Gmaps.map.callback = function() {
+      Gmaps.map.createMarker({Lat: Gmaps.map.userLocation.lat(), Lng: Gmaps.map.userLocation.lng(), rich_marker: null})
+  }
   });
+
