@@ -23,7 +23,7 @@
           Bites Near You
           %ol.lists
             %li
-        = gmaps("map_options" => {"detect_location" => false, "center_on_user" => false, "auto_zoom" => false, "zoom" => 12, "auto_adjust" => false, "markers" => {"data" => @maps_json}})
+        = gmaps("map_options" => {"detect_location" => false, "center_on_user" => true, "auto_zoom" => false, "zoom" => 12, "auto_adjust" => false, "markers" => {"data" => @maps_json}})
         %br/
         %br/
     - # only show when a user is logged in or has something in their lists
