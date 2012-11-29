@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
     #get all restaurants around you from people you follow
     @friends = @user.followed_users
-    
+
     @maps_json = @friends.collect{|f| f.restaurants}.flatten.to_gmaps4rails
     @user_image = @user.avatar_url
     #if the user is a facebook user - get a list of their friends who is on facebook and also on bitelist
@@ -71,7 +71,13 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.search(params[:search]).paginate(:page => params[:page])
+    if params[:search]
+      users = User.search(params[:search])
+    else
+      users = User.order('first_name, last_name')
+    end
+
+    @users = users.paginate(:page => params[:page])
   end
 
   #return all followeds
