@@ -15,7 +15,18 @@
     %section.pad_bottom
       = render 'layouts/stats'
 
-    - # only can show when a user is logged in or has something in their lists
+    - # if the current user is the user then show the map
+    - if current_user? @user
+      - #show the map
+      #map-nearby
+        %h3.big_title
+          Bites Near You
+          %ol.lists
+            %li
+        = gmaps("map_options" => {"detect_location" => false, "center_on_user" => true, "auto_zoom" => false, "zoom" => 12, "auto_adjust" => false, "markers" => {"data" => @maps_json}})
+        %br/
+        %br/
+    - # only show when a user is logged in or has something in their lists
     - if @user.lists.any?
       %h3.big_title
         - if current_user? @user
@@ -71,4 +82,38 @@
 :javascript 
   $(document).ready(function(){
     $('.gravatar').tooltip();
+    if(MODETECT.device.desktop){
+      $('#map-nearby').show();
+    }
+    else{
+      $('#map-nearby').hide();
+    }
   });
+
+- content_for :scripts do
+  :javascript
+    Gmaps.map.geolocationSuccess = function(){
+      var lng = Gmaps.map.userLocation.lng();
+      var lat = Gmaps.map.userLocation.lat();
+      //load map then add the markers
+      $('.map_container').hide();
+      $('.map_container').show();
+      Gmaps.loadMaps();
+
+      //add markers from controller
+      Gmaps.map.addMarkers(#{@maps_json});
+
+      var user_image = "http://wiki.alumni.net/wiki/images/thumb/5/55/Wikimap-blue-dot.png/50px-Wikimap-blue-dot.png";
+
+      //add current location marker
+      Gmaps.map.addMarkers([{
+        "lng": lng,
+        "lat": lat,
+        "width":"40",
+        "height":"48",
+        "picture": user_image
+      }]);
+
+      //center the screen on your current location
+      Gmaps.map.serviceObject.setCenter(new google.maps.LatLng(lat, lng));
+    };

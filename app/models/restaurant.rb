@@ -51,7 +51,7 @@ class Restaurant < ActiveRecord::Base
 
   def gmaps4rails_infowindow
     "<img src=\"#{picture_url}\" width='40' height='40' style='float:left; margin-right:15px;'>
-    <b>#{name}</b>
+    <a href=\"/restaurants/#{id}\"><b>#{name}</b></a>
     <br/>
     #{address}
     <br/>
