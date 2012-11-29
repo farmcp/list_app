@@ -24,8 +24,9 @@ class @Gmaps4Rails
     @userLocation = null       #contains user's location if geolocalization was performed and successful
 
     #empty slots
+    @geolocationSuccess = -> false #triggered when geolocation succeeds. Can be customized.
     @geolocationFailure = -> false  #triggered when geolocation fails. If customized, must be like= function(navigator_handles_geolocation){} where 'navigator_handles_geolocation' is a boolean
-    @callback           = -> false  #to let user set a custom callback function
+    @callback           = -> false #to let user set a custom callback function
     @customClusterer    = -> false  #to let user set custom clusterer pictures
     @infobox            = -> false  #to let user use custom infoboxes
     @jsTemplate         = false     #to let user create infowindows client side
@@ -87,6 +88,7 @@ class @Gmaps4Rails
         #change map's center to focus on user's geoloc if asked
         if(map_object.map_options.center_on_user == true)
           map_object.centerMapOnUser()
+        map_object.geolocationSuccess()
       positionFailure = ->
         map_object.geolocationFailure(true)
 
