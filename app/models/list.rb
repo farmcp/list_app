@@ -21,7 +21,7 @@ class List < ActiveRecord::Base
   validates :user_id, :city_id, :presence => true
   validates_uniqueness_of :city_id, scope: :user_id
 
-  MAX_ITEMS_PER_LIST = 20
+  MAX_ITEMS_PER_LIST = 30
 
   def list_item_for(restaurant)
     list_items.find_or_create_by_restaurant_id(restaurant.id)
