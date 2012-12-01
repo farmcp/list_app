@@ -91,8 +91,8 @@ class @Gmaps4Rails
         map_object.geolocationSuccess()
       positionFailure = ->
         map_object.geolocationFailure(true)
-
-      navigator.geolocation.getCurrentPosition( positionSuccessful, positionFailure)
+      #//make the finding location faster - enableHighAccuracy
+      navigator.geolocation.getCurrentPosition(positionSuccessful, positionFailure, {enableHighAccuracy:false})
     else
       #failure but the navigator doesn't handle geolocation
       map_object.geolocationFailure(false)
