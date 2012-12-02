@@ -22,7 +22,7 @@ class @Gmaps4RailsGoogle extends Gmaps4Rails
         disableDoubleClickZoom: false
         type:                   "ROADMAP" # HYBRID, ROADMAP, SATELLITE, TERRAIN
         draggable:              true # don't allow to drag map
-        scrollwheel:            false #can't use the scroll whell to zoom
+        scrollwheel:            false #can't use the scrollwheel to zoom
         zoomControl:            true #widget that allows control zoom without pinch
 
     #markers + info styling
