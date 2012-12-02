@@ -52,7 +52,7 @@ class RestaurantsController < ApplicationController
       }
       results = FbGraph::Place.search(query, fb_search_options).map do |place|
         if current_city.acceptable_fb_place?(place) && place.location.street != "" && place.location.zip != "" && place.location.city != ""
-          {id: place.identifier, name: place.name, address: place.location.street, zip: place.location.zip, city: place.location.city}
+          {id: place.identifier, name: place.name, address: place.location.street, zip: place.location.zip, city: place.location.city, url: place.fetch.picture}
         end
       end.compact
     else
