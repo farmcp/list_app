@@ -51,6 +51,7 @@
     hintText: "Enter a restaurant name in #{@list.city.name}",
     theme: "facebook",
     searchingText: "Searching Bitelist...",
+    resultsFormatter: function(item){return "<li><div>" + item.name + "</div>" + "<div>" + item.address + " " + item.city + ", " + item.zip+ "</div>" + "</li>"},
   };
   $(document).ready(function () {
     $("#search-restaurant").tokenInput("/restaurants/search?city_id=#{@list.city.id}", options);
