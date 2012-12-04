@@ -82,6 +82,7 @@
 :javascript 
   $(document).ready(function(){
     $('.gravatar').tooltip();
+    Gmaps.loadMaps();
   });
 
 - content_for :scripts do
@@ -92,7 +93,6 @@
       //load map then add the markers
       $('.map_container').hide();
       $('.map_container').show();
-      Gmaps.loadMaps();
 
       //add markers from controller
       Gmaps.map.addMarkers(#{@maps_json});
