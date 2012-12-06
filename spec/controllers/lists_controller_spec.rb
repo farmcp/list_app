@@ -34,6 +34,9 @@ describe ListsController do
       end
 
       it 'fails' do
+        false_creation = stub('create', :save => false)
+        stub_lists = stub('lists', :find_by_city_id => nil, :create => false_creation)
+        @user.stub(:lists).and_return(stub_lists)
         post :create, @params
         response.should render_template(:new)
       end
