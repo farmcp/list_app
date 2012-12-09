@@ -95,6 +95,12 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActsAsStory.html">ActsAsStory</a>
+  
+    <li><a href="./ActsAsStory/ClassMethods.html">ActsAsStory::ClassMethods</a>
+  
+    <li><a href="./ActsAsStory/InstanceMethods.html">ActsAsStory::InstanceMethods</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -104,6 +110,12 @@
     <li><a href="./Comment.html">Comment</a>
   
     <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./EditRequest.html">EditRequest</a>
+  
+    <li><a href="./EditRequestsController.html">EditRequestsController</a>
+  
+    <li><a href="./EditRequestsHelper.html">EditRequestsHelper</a>
   
     <li><a href="./Enumerable.html">Enumerable</a>
   
@@ -115,7 +127,11 @@
   
     <li><a href="./ListsController.html">ListsController</a>
   
+    <li><a href="./ListsHelper.html">ListsHelper</a>
+  
     <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OneOffs.html">OneOffs</a>
   
     <li><a href="./PasswordResetsController.html">PasswordResetsController</a>
   
@@ -137,6 +153,10 @@
   
     <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
   
+    <li><a href="./Story.html">Story</a>
+  
+    <li><a href="./SubCity.html">SubCity</a>
+  
     <li><a href="./SyncController.html">SyncController</a>
   
     <li><a href="./SyncHelper.html">SyncHelper</a>
@@ -148,6 +168,8 @@
     <li><a href="./UsersController.html">UsersController</a>
   
     <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+    <li><a href="./Yelp.html">Yelp</a>
   
   </ul>
 </nav>
@@ -214,11 +236,11 @@
     <span class="ruby-identifier">restaurant_ids</span> = <span class="ruby-identifier">user_items</span>.<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:restaurant_id</span>)
 
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">restaurant_ids</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">input_restaurant</span>.<span class="ruby-identifier">id</span>
-      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;The restaurant already exists in your Bite List.&quot;</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;The restaurant already exists in your Bitelist.&quot;</span>
     <span class="ruby-keyword">else</span>
       <span class="ruby-comment">#used a hidden field to pass in the list_id that this POST request was sent from</span>
       <span class="ruby-identifier">user_items</span>.<span class="ruby-identifier">create</span>(<span class="ruby-value">:restaurant_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">input_restaurant</span>.<span class="ruby-identifier">id</span>)
-      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-node">&quot;Added #{input_restaurant.name} to your Bite List!&quot;</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-node">&quot;Added #{input_restaurant.name} to your Bitelist!&quot;</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-comment">#create a new Restaurant with the name that was entered</span>
@@ -258,7 +280,7 @@
             <pre><span class="ruby-comment"># File app/controllers/list_items_controller.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-comment">#flash the user it's been deleted</span>
-  <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-node">&quot;You've removed #{ListItem.find(params[:id]).restaurant.name} from your Bite List!&quot;</span>
+  <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-node">&quot;You've removed #{ListItem.find(params[:id]).restaurant.name} from your Bitelist!&quot;</span>
 
   <span class="ruby-comment">#delete the item that's passed in</span>
   <span class="ruby-constant">ListItem</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">destroy</span>

@@ -72,7 +72,13 @@
     
     <li><a href="#method-c-select_options">::select_options</a>
     
+    <li><a href="#method-i-acceptable_fb_place-3F">#acceptable_fb_place?</a>
+    
+    <li><a href="#method-i-fb_center">#fb_center</a>
+    
     <li><a href="#method-i-name_with_state">#name_with_state</a>
+    
+    <li><a href="#method-i-sub_cities_names">#sub_cities_names</a>
     
   </ul>
 </nav>
@@ -95,6 +101,12 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActsAsStory.html">ActsAsStory</a>
+  
+    <li><a href="./ActsAsStory/ClassMethods.html">ActsAsStory::ClassMethods</a>
+  
+    <li><a href="./ActsAsStory/InstanceMethods.html">ActsAsStory::InstanceMethods</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -104,6 +116,12 @@
     <li><a href="./Comment.html">Comment</a>
   
     <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./EditRequest.html">EditRequest</a>
+  
+    <li><a href="./EditRequestsController.html">EditRequestsController</a>
+  
+    <li><a href="./EditRequestsHelper.html">EditRequestsHelper</a>
   
     <li><a href="./Enumerable.html">Enumerable</a>
   
@@ -115,7 +133,11 @@
   
     <li><a href="./ListsController.html">ListsController</a>
   
+    <li><a href="./ListsHelper.html">ListsHelper</a>
+  
     <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OneOffs.html">OneOffs</a>
   
     <li><a href="./PasswordResetsController.html">PasswordResetsController</a>
   
@@ -137,6 +159,10 @@
   
     <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
   
+    <li><a href="./Story.html">Story</a>
+  
+    <li><a href="./SubCity.html">SubCity</a>
+  
     <li><a href="./SyncController.html">SyncController</a>
   
     <li><a href="./SyncHelper.html">SyncHelper</a>
@@ -148,6 +174,8 @@
     <li><a href="./UsersController.html">UsersController</a>
   
     <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+    <li><a href="./Yelp.html">Yelp</a>
   
   </ul>
 </nav>
@@ -170,7 +198,9 @@ abbreviation :string(16)      not null
 state        :string(4)       not null
 active       :boolean         default(FALSE), not null
 created_at   :datetime        not null
-updated_at   :datetime        not null</pre>
+updated_at   :datetime        not null
+longitude    :float
+latitude     :float</pre>
 
   </div><!-- description -->
 
@@ -208,7 +238,7 @@ updated_at   :datetime        not null</pre>
 
           
           <div class="method-source-code" id="select_options-source">
-            <pre><span class="ruby-comment"># File app/models/city.rb, line 21</span>
+            <pre><span class="ruby-comment"># File app/models/city.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_options</span>
   <span class="ruby-identifier">where</span>(<span class="ruby-value">:active</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>).<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">city</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">city</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">city</span>.<span class="ruby-identifier">id</span>]}
 <span class="ruby-keyword">end</span></pre>
@@ -228,6 +258,66 @@ updated_at   :datetime        not null</pre>
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="method-i-acceptable_fb_place-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">acceptable_fb_place?</span><span
+            class="method-args">(fb_place)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="acceptable_fb_place-3F-source">
+            <pre><span class="ruby-comment"># File app/models/city.rb, line 40</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">acceptable_fb_place?</span>(<span class="ruby-identifier">fb_place</span>)
+  <span class="ruby-identifier">sub_cities_names</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">fb_place</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">city</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:downcase</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- acceptable_fb_place-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- acceptable_fb_place-3F-method -->
+
+    
+      <div id="method-i-fb_center" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fb_center</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="fb_center-source">
+            <pre><span class="ruby-comment"># File app/models/city.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fb_center</span>
+  [<span class="ruby-identifier">latitude</span>, <span class="ruby-identifier">longitude</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">','</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- fb_center-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- fb_center-method -->
+
+    
       <div id="method-i-name_with_state" class="method-detail ">
         
         <div class="method-heading">
@@ -244,7 +334,7 @@ updated_at   :datetime        not null</pre>
 
           
           <div class="method-source-code" id="name_with_state-source">
-            <pre><span class="ruby-comment"># File app/models/city.rb, line 25</span>
+            <pre><span class="ruby-comment"># File app/models/city.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">name_with_state</span>
   <span class="ruby-identifier">state</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">?</span> <span class="ruby-node">&quot;#{name}, #{state}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">name</span>
 <span class="ruby-keyword">end</span></pre>
@@ -256,6 +346,36 @@ updated_at   :datetime        not null</pre>
 
         
       </div><!-- name_with_state-method -->
+
+    
+      <div id="method-i-sub_cities_names" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sub_cities_names</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="sub_cities_names-source">
+            <pre><span class="ruby-comment"># File app/models/city.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">sub_cities_names</span>
+  [<span class="ruby-identifier">name</span>.<span class="ruby-identifier">downcase</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">sub_cities</span>.<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:name_downcased</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- sub_cities_names-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- sub_cities_names-method -->
 
     
     </section><!-- public-instance-method-details -->

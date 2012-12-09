@@ -70,6 +70,8 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-i-invite_user">#invite_user</a>
+    
     <li><a href="#method-i-mail_followed_user">#mail_followed_user</a>
     
     <li><a href="#method-i-password_reset">#password_reset</a>
@@ -97,6 +99,12 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActsAsStory.html">ActsAsStory</a>
+  
+    <li><a href="./ActsAsStory/ClassMethods.html">ActsAsStory::ClassMethods</a>
+  
+    <li><a href="./ActsAsStory/InstanceMethods.html">ActsAsStory::InstanceMethods</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -106,6 +114,12 @@
     <li><a href="./Comment.html">Comment</a>
   
     <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./EditRequest.html">EditRequest</a>
+  
+    <li><a href="./EditRequestsController.html">EditRequestsController</a>
+  
+    <li><a href="./EditRequestsHelper.html">EditRequestsHelper</a>
   
     <li><a href="./Enumerable.html">Enumerable</a>
   
@@ -117,7 +131,11 @@
   
     <li><a href="./ListsController.html">ListsController</a>
   
+    <li><a href="./ListsHelper.html">ListsHelper</a>
+  
     <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OneOffs.html">OneOffs</a>
   
     <li><a href="./PasswordResetsController.html">PasswordResetsController</a>
   
@@ -139,6 +157,10 @@
   
     <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
   
+    <li><a href="./Story.html">Story</a>
+  
+    <li><a href="./SubCity.html">SubCity</a>
+  
     <li><a href="./SyncController.html">SyncController</a>
   
     <li><a href="./SyncHelper.html">SyncHelper</a>
@@ -150,6 +172,8 @@
     <li><a href="./UsersController.html">UsersController</a>
   
     <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+    <li><a href="./Yelp.html">Yelp</a>
   
   </ul>
 </nav>
@@ -180,6 +204,37 @@
     
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-invite_user" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">invite_user</span><span
+            class="method-args">(user, new_user_email)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="invite_user-source">
+            <pre><span class="ruby-comment"># File app/mailers/user_mailer.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">invite_user</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">new_user_email</span>)
+  <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
+  <span class="ruby-identifier">mail</span>(<span class="ruby-identifier">to</span><span class="ruby-operator">:</span> <span class="ruby-identifier">new_user_email</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">full_name</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot; invited you to Bitelist!&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- invite_user-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- invite_user-method -->
 
     
       <div id="method-i-mail_followed_user" class="method-detail ">
@@ -264,7 +319,7 @@
             <pre><span class="ruby-comment"># File app/mailers/user_mailer.rb, line 5</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">welcome_email</span>(<span class="ruby-identifier">user</span>)
   <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
-  <span class="ruby-ivar">@url</span> = <span class="ruby-string">'http://www.bitelist.com/signin'</span>
+  <span class="ruby-ivar">@url</span> = <span class="ruby-string">'http://bitelist.com/signin'</span>
 
   <span class="ruby-identifier">mail</span>(<span class="ruby-identifier">to</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Welcome to Bitelist!&quot;</span>)
 <span class="ruby-keyword">end</span></pre>

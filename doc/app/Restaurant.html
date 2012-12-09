@@ -70,15 +70,27 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-c-create_from_facebook">::create_from_facebook</a>
+    
     <li><a href="#method-c-in">::in</a>
     
     <li><a href="#method-c-search">::search</a>
+    
+    <li><a href="#method-c-search_by_prefix">::search_by_prefix</a>
+    
+    <li><a href="#method-c-search_by_yelp">::search_by_yelp</a>
+    
+    <li><a href="#method-c-search_rest">::search_rest</a>
     
     <li><a href="#method-i-city_state_zip">#city_state_zip</a>
     
     <li><a href="#method-i-fix_phone_number">#fix_phone_number</a>
     
     <li><a href="#method-i-gmaps4rails_address">#gmaps4rails_address</a>
+    
+    <li><a href="#method-i-gmaps4rails_infowindow">#gmaps4rails_infowindow</a>
+    
+    <li><a href="#method-i-to_s">#to_s</a>
     
   </ul>
 </nav>
@@ -101,6 +113,12 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActsAsStory.html">ActsAsStory</a>
+  
+    <li><a href="./ActsAsStory/ClassMethods.html">ActsAsStory::ClassMethods</a>
+  
+    <li><a href="./ActsAsStory/InstanceMethods.html">ActsAsStory::InstanceMethods</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -110,6 +128,12 @@
     <li><a href="./Comment.html">Comment</a>
   
     <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./EditRequest.html">EditRequest</a>
+  
+    <li><a href="./EditRequestsController.html">EditRequestsController</a>
+  
+    <li><a href="./EditRequestsHelper.html">EditRequestsHelper</a>
   
     <li><a href="./Enumerable.html">Enumerable</a>
   
@@ -121,7 +145,11 @@
   
     <li><a href="./ListsController.html">ListsController</a>
   
+    <li><a href="./ListsHelper.html">ListsHelper</a>
+  
     <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OneOffs.html">OneOffs</a>
   
     <li><a href="./PasswordResetsController.html">PasswordResetsController</a>
   
@@ -143,6 +171,10 @@
   
     <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
   
+    <li><a href="./Story.html">Story</a>
+  
+    <li><a href="./SubCity.html">SubCity</a>
+  
     <li><a href="./SyncController.html">SyncController</a>
   
     <li><a href="./SyncHelper.html">SyncHelper</a>
@@ -154,6 +186,8 @@
     <li><a href="./UsersController.html">UsersController</a>
   
     <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+    <li><a href="./Yelp.html">Yelp</a>
   
   </ul>
 </nav>
@@ -185,7 +219,8 @@ active       :boolean
 latitude     :float
 longitude    :float
 gmaps        :boolean
-yelp_url     :string(255)</pre>
+yelp_url     :string(255)
+fb_place_id  :string(255)</pre>
 
   </div><!-- description -->
 
@@ -207,6 +242,55 @@ yelp_url     :string(255)</pre>
       <h3 class="section-header">Public Class Methods</h3>
 
     
+      <div id="method-c-create_from_facebook" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_from_facebook</span><span
+            class="method-args">(fb_id, city_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create_from_facebook-source">
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_from_facebook</span>(<span class="ruby-identifier">fb_id</span>, <span class="ruby-identifier">city_id</span>)
+  <span class="ruby-identifier">fetched_result</span> = <span class="ruby-constant">FbGraph</span><span class="ruby-operator">::</span><span class="ruby-constant">Place</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">fb_id</span>)
+  <span class="ruby-identifier">restaurant_options</span> = {
+    <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">fetched_result</span>.<span class="ruby-identifier">name</span>,
+    <span class="ruby-value">:picture_url</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">fetched_result</span>.<span class="ruby-identifier">picture</span>,
+    <span class="ruby-value">:phone_number</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">fetched_result</span>.<span class="ruby-identifier">phone</span>,
+    <span class="ruby-value">:category</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">fetched_result</span>.<span class="ruby-identifier">category</span>,
+    <span class="ruby-value">:address</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">fetched_result</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">street</span>,
+    <span class="ruby-value">:postal_code</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">fetched_result</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">zip</span>,
+    <span class="ruby-value">:city_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">city_id</span>,
+    <span class="ruby-value">:active</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+    <span class="ruby-value">:fb_place_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">fetched_result</span>.<span class="ruby-identifier">identifier</span>.<span class="ruby-identifier">to_s</span>,
+    <span class="ruby-value">:latitude</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">fetched_result</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">latitude</span>,
+    <span class="ruby-value">:longitude</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">fetched_result</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">longitude</span>,
+  }
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">fetched_result</span>.<span class="ruby-identifier">website</span>
+    <span class="ruby-identifier">website</span> = <span class="ruby-identifier">fetched_result</span>.<span class="ruby-identifier">website</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">' '</span>)[<span class="ruby-value">0</span>]
+    <span class="ruby-identifier">website</span> = <span class="ruby-node">&quot;http://#{website}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">website</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">%r^https?:\/\//</span>)
+    <span class="ruby-identifier">restaurant_options</span>[<span class="ruby-value">:website_url</span>] = <span class="ruby-identifier">website</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">create!</span>(<span class="ruby-identifier">restaurant_options</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create_from_facebook-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create_from_facebook-method -->
+
+    
       <div id="method-c-in" class="method-detail ">
         
         <div class="method-heading">
@@ -223,7 +307,7 @@ yelp_url     :string(255)</pre>
 
           
           <div class="method-source-code" id="in-source">
-            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 59</span>
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 72</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-keyword">in</span>(<span class="ruby-identifier">city_id</span>)
   <span class="ruby-identifier">where</span>(<span class="ruby-value">:city_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">city_id</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -253,7 +337,7 @@ yelp_url     :string(255)</pre>
 
           
           <div class="method-source-code" id="search-source">
-            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 63</span>
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>)
   <span class="ruby-identifier">results</span> = [<span class="ruby-identifier">search_by_yelp</span>(<span class="ruby-identifier">query</span>)  ].<span class="ruby-identifier">flatten</span>
   <span class="ruby-identifier">results</span> = [<span class="ruby-identifier">search_by_prefix</span>(<span class="ruby-identifier">query</span>)].<span class="ruby-identifier">flatten</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">results</span>.<span class="ruby-identifier">blank?</span>
@@ -268,6 +352,96 @@ yelp_url     :string(255)</pre>
 
         
       </div><!-- search-method -->
+
+    
+      <div id="method-c-search_by_prefix" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">search_by_prefix</span><span
+            class="method-args">(query)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="search_by_prefix-source">
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 114</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search_by_prefix</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-identifier">where</span>([<span class="ruby-string">'name ilike ?'</span>, <span class="ruby-node">&quot;#{query}%&quot;</span>])
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- search_by_prefix-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- search_by_prefix-method -->
+
+    
+      <div id="method-c-search_by_yelp" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">search_by_yelp</span><span
+            class="method-args">(query)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="search_by_yelp-source">
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 110</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search_by_yelp</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-identifier">where</span>(<span class="ruby-value">:yelp_url</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">query</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- search_by_yelp-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- search_by_yelp-method -->
+
+    
+      <div id="method-c-search_rest" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">search_rest</span><span
+            class="method-args">(query)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="search_rest-source">
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 118</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search_rest</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-identifier">where</span>([<span class="ruby-string">'name ilike ?'</span>, <span class="ruby-node">&quot;%#{query}%&quot;</span>])
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- search_rest-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- search_rest-method -->
 
     
     </section><!-- public-class-method-details -->
@@ -292,7 +466,7 @@ yelp_url     :string(255)</pre>
 
           
           <div class="method-source-code" id="city_state_zip-source">
-            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 50</span>
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">city_state_zip</span>
   <span class="ruby-node">&quot;#{city.name}, #{city.state} #{postal_code}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -322,9 +496,11 @@ yelp_url     :string(255)</pre>
 
           
           <div class="method-source-code" id="fix_phone_number-source">
-            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 55</span>
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">fix_phone_number</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">phone_number</span> = <span class="ruby-identifier">phone_number</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r\D/</span>, <span class="ruby-string">''</span>)
+  <span class="ruby-identifier">number</span> = <span class="ruby-identifier">phone_number</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r\D/</span>, <span class="ruby-string">''</span>)
+  <span class="ruby-identifier">number</span> = <span class="ruby-identifier">number</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">number</span>.<span class="ruby-identifier">starts_with?</span>(<span class="ruby-string">'1'</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">phone_number</span> = <span class="ruby-identifier">number</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- fix_phone_number-source -->
           
@@ -352,7 +528,7 @@ yelp_url     :string(255)</pre>
 
           
           <div class="method-source-code" id="gmaps4rails_address-source">
-            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 46</span>
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">gmaps4rails_address</span>
   <span class="ruby-node">&quot;#{address}, #{city_state_zip}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -364,6 +540,71 @@ yelp_url     :string(255)</pre>
 
         
       </div><!-- gmaps4rails_address-method -->
+
+    
+      <div id="method-i-gmaps4rails_infowindow" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">gmaps4rails_infowindow</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="gmaps4rails_infowindow-source">
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">gmaps4rails_infowindow</span>
+  <span class="ruby-node">&quot;&lt;img src=\&quot;#{picture_url}\&quot; width='40' height='40' style='float:left; margin-right:15px;'&gt;
+  &lt;a href=\&quot;/restaurants/#{id}\&quot;&gt;&lt;b&gt;#{name}&lt;/b&gt;&lt;/a&gt;
+  &lt;br/&gt;
+  #{address}
+  &lt;br/&gt;
+  #{city_state_zip}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- gmaps4rails_infowindow-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- gmaps4rails_infowindow-method -->
+
+    
+      <div id="method-i-to_s" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_s</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="to_s-source">
+            <pre><span class="ruby-comment"># File app/models/restaurant.rb, line 106</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
+  <span class="ruby-identifier">name</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_s-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_s-method -->
 
     
     </section><!-- public-instance-method-details -->

@@ -64,7 +64,21 @@
 </nav>
 
     
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
     
+    <li><a href="#method-i-fb_share_caption">#fb_share_caption</a>
+    
+    <li><a href="#method-i-fb_share_title">#fb_share_title</a>
+    
+    <li><a href="#method-i-list_item_for">#list_item_for</a>
+    
+  </ul>
+</nav>
+
   </div>
 
   <div id="project-metadata">
@@ -83,6 +97,12 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActsAsStory.html">ActsAsStory</a>
+  
+    <li><a href="./ActsAsStory/ClassMethods.html">ActsAsStory::ClassMethods</a>
+  
+    <li><a href="./ActsAsStory/InstanceMethods.html">ActsAsStory::InstanceMethods</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -92,6 +112,12 @@
     <li><a href="./Comment.html">Comment</a>
   
     <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./EditRequest.html">EditRequest</a>
+  
+    <li><a href="./EditRequestsController.html">EditRequestsController</a>
+  
+    <li><a href="./EditRequestsHelper.html">EditRequestsHelper</a>
   
     <li><a href="./Enumerable.html">Enumerable</a>
   
@@ -103,7 +129,11 @@
   
     <li><a href="./ListsController.html">ListsController</a>
   
+    <li><a href="./ListsHelper.html">ListsHelper</a>
+  
     <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OneOffs.html">OneOffs</a>
   
     <li><a href="./PasswordResetsController.html">PasswordResetsController</a>
   
@@ -125,6 +155,10 @@
   
     <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
   
+    <li><a href="./Story.html">Story</a>
+  
+    <li><a href="./SubCity.html">SubCity</a>
+  
     <li><a href="./SyncController.html">SyncController</a>
   
     <li><a href="./SyncHelper.html">SyncHelper</a>
@@ -136,6 +170,8 @@
     <li><a href="./UsersController.html">UsersController</a>
   
     <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+    <li><a href="./Yelp.html">Yelp</a>
   
   </ul>
 </nav>
@@ -169,11 +205,120 @@ city_id    :integer</pre>
     
 
     
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="MAX_ITEMS_PER_LIST">MAX_ITEMS_PER_LIST
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
 
     
 
     <!-- Methods -->
     
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-fb_share_caption" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fb_share_caption</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="fb_share_caption-source">
+            <pre><span class="ruby-comment"># File app/models/list.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fb_share_caption</span>
+  <span class="ruby-string">&quot;Places you love to eat at.&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- fb_share_caption-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- fb_share_caption-method -->
+
+    
+      <div id="method-i-fb_share_title" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fb_share_title</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="fb_share_title-source">
+            <pre><span class="ruby-comment"># File app/models/list.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fb_share_title</span>
+  <span class="ruby-node">&quot;#{user.full_name}'s Bitelist&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- fb_share_title-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- fb_share_title-method -->
+
+    
+      <div id="method-i-list_item_for" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">list_item_for</span><span
+            class="method-args">(restaurant)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="list_item_for-source">
+            <pre><span class="ruby-comment"># File app/models/list.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">list_item_for</span>(<span class="ruby-identifier">restaurant</span>)
+  <span class="ruby-identifier">list_items</span>.<span class="ruby-identifier">find_or_create_by_restaurant_id</span>(<span class="ruby-identifier">restaurant</span>.<span class="ruby-identifier">id</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- list_item_for-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- list_item_for-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
   </section><!-- 5Buntitled-5D -->
 
 </div><!-- documentation -->
