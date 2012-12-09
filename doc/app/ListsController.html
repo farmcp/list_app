@@ -101,6 +101,12 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActsAsStory.html">ActsAsStory</a>
+  
+    <li><a href="./ActsAsStory/ClassMethods.html">ActsAsStory::ClassMethods</a>
+  
+    <li><a href="./ActsAsStory/InstanceMethods.html">ActsAsStory::InstanceMethods</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -110,6 +116,12 @@
     <li><a href="./Comment.html">Comment</a>
   
     <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./EditRequest.html">EditRequest</a>
+  
+    <li><a href="./EditRequestsController.html">EditRequestsController</a>
+  
+    <li><a href="./EditRequestsHelper.html">EditRequestsHelper</a>
   
     <li><a href="./Enumerable.html">Enumerable</a>
   
@@ -121,7 +133,11 @@
   
     <li><a href="./ListsController.html">ListsController</a>
   
+    <li><a href="./ListsHelper.html">ListsHelper</a>
+  
     <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OneOffs.html">OneOffs</a>
   
     <li><a href="./PasswordResetsController.html">PasswordResetsController</a>
   
@@ -143,6 +159,10 @@
   
     <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
   
+    <li><a href="./Story.html">Story</a>
+  
+    <li><a href="./SubCity.html">SubCity</a>
+  
     <li><a href="./SyncController.html">SyncController</a>
   
     <li><a href="./SyncHelper.html">SyncHelper</a>
@@ -154,6 +174,8 @@
     <li><a href="./UsersController.html">UsersController</a>
   
     <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+    <li><a href="./Yelp.html">Yelp</a>
   
   </ul>
 </nav>
@@ -197,21 +219,48 @@
 
         <div class="method-description">
           
-          <p>TODO: maybe this should be json?</p>
+          <p>handle the post from list</p>
           
 
           
           <div class="method-source-code" id="add_to-source">
-            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 65</span>
+            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">add_to</span>
-  <span class="ruby-identifier">list</span> = <span class="ruby-constant">List</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:restaurant</span>][<span class="ruby-value">:list_id</span>])
-  <span class="ruby-identifier">rest_ids</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:restaurant</span>][<span class="ruby-value">:name</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">','</span>)
-  <span class="ruby-identifier">restaurants</span> = <span class="ruby-constant">Restaurant</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:city_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">list</span>.<span class="ruby-identifier">city_id</span>, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">rest_ids</span>)
-  <span class="ruby-identifier">restaurants</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">restaurant</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">list</span>.<span class="ruby-identifier">list_items</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:restaurant_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">restaurant</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">present?</span>
-    <span class="ruby-identifier">item</span> = <span class="ruby-identifier">list</span>.<span class="ruby-identifier">list_items</span>.<span class="ruby-identifier">build</span>(<span class="ruby-value">:restaurant_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">restaurant</span>.<span class="ruby-identifier">id</span>)
-    <span class="ruby-identifier">item</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-identifier">list</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">lists</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:restaurant</span>][<span class="ruby-value">:list_id</span>])
+  <span class="ruby-identifier">count</span> = <span class="ruby-identifier">list</span>.<span class="ruby-identifier">list_items</span>.<span class="ruby-identifier">count</span>
+  <span class="ruby-identifier">fb_ids</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:restaurant</span>][<span class="ruby-value">:name</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">','</span>)
+
+  <span class="ruby-comment">#{[fb_id =&gt; nil], [fb_id2 =&gt; nil]}</span>
+  <span class="ruby-identifier">fb_restaurants</span> = <span class="ruby-constant">Hash</span>[<span class="ruby-identifier">fb_ids</span>.<span class="ruby-identifier">zip</span>([])]
+
+  <span class="ruby-identifier">list_restaurants</span> = {}
+
+  <span class="ruby-comment">#all the restaurants in the list's city where it currently exists in the database with a facebook id and set the restaurant as the value</span>
+  <span class="ruby-identifier">list</span>.<span class="ruby-identifier">city</span>.<span class="ruby-identifier">restaurants</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:fb_place_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">fb_ids</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">restaurant</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">fb_restaurants</span>[<span class="ruby-identifier">restaurant</span>.<span class="ruby-identifier">fb_place_id</span>] = <span class="ruby-identifier">restaurant</span>
   <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">list</span>.<span class="ruby-identifier">restaurants</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">restaurant</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">list_restaurants</span>[<span class="ruby-identifier">restaurant</span>.<span class="ruby-identifier">id</span>] = <span class="ruby-identifier">restaurant</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">fb_restaurants</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">fb_id</span>, <span class="ruby-identifier">restaurant</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment"># if the resto doesn't exist then add it to the database</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">restaurant</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">restaurant</span> = <span class="ruby-constant">Restaurant</span>.<span class="ruby-identifier">create_from_facebook</span>(<span class="ruby-identifier">fb_id</span>, <span class="ruby-identifier">list</span>.<span class="ruby-identifier">city_id</span>)
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">list_restaurants</span>[<span class="ruby-identifier">restaurant</span>.<span class="ruby-identifier">id</span>].<span class="ruby-identifier">present?</span>
+      <span class="ruby-keyword">next</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment">#if there are too many restos then don't let user add anymore</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-constant">List</span><span class="ruby-operator">::</span><span class="ruby-constant">MAX_ITEMS_PER_LIST</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-node">&quot;You can only have #{List::MAX_ITEMS_PER_LIST} restaurants per list!&quot;</span>
+      <span class="ruby-keyword">break</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">list</span>.<span class="ruby-identifier">list_items</span>.<span class="ruby-identifier">create!</span>(<span class="ruby-value">:restaurant_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">restaurant</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-identifier">count</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">end</span>
+
   <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:back</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- add_to-source -->
@@ -240,23 +289,20 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 14</span>
+            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 17</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
-  <span class="ruby-comment">#create a list for the current user if (s)he doesn't have a list already for the specific name and is signed in</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">signed_in?</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">lists</span>.<span class="ruby-identifier">exclude?</span><span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">lists</span>.<span class="ruby-identifier">find_by_city_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:list</span>][<span class="ruby-value">:city_id</span>])
-    <span class="ruby-ivar">@list</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">lists</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:list</span>])
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@list</span>.<span class="ruby-identifier">save</span>
-      <span class="ruby-comment">#if you can save the list then you say success and redirect back to the user</span>
-      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-string">&quot;Bite List created for &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">lists</span>.<span class="ruby-identifier">find_by_city_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:list</span>][<span class="ruby-value">:city_id</span>]).<span class="ruby-identifier">city</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;!&quot;</span>
-      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">current_user</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">render</span> <span class="ruby-string">'new'</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@list</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">lists</span>.<span class="ruby-identifier">find_by_city_id</span>(<span class="ruby-identifier">list_params</span>[<span class="ruby-value">:city_id</span>])
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@list</span> <span class="ruby-keyword">and</span> <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@list</span>
 
+  <span class="ruby-ivar">@list</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">lists</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">list_params</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@list</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-node">&quot;Bitelist created for #{@list.city.name}! Start adding some restaurants below :)&quot;</span>
+    <span class="ruby-comment"># on success, redirect to newly created list</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@list</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-comment">#need to get flash to show why you can't upload a new list =&gt; mainly because you already have a list with the city</span>
-    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;Can't create more than one Bite List for each city.&quot;</span>
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">current_user</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;Can't create more than one Bitelist for each city.&quot;</span>
+    <span class="ruby-comment"># on failure, likely due to having a similar list; render new again</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-string">'new'</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- create-source -->
@@ -289,7 +335,7 @@ showing a user</p>
             <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@list</span>.<span class="ruby-identifier">destroy</span>
-  <span class="ruby-identifier">redirect_back_or</span> <span class="ruby-identifier">new_session_path</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:back</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- destroy-source -->
           
@@ -317,11 +363,15 @@ showing a user</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 7</span>
+            <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 6</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@list</span> = <span class="ruby-constant">List</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@sfo</span> = <span class="ruby-constant">City</span>.<span class="ruby-identifier">find_by_name</span> <span class="ruby-string">'San Francisco'</span>
   <span class="ruby-ivar">@bos</span> = <span class="ruby-constant">City</span>.<span class="ruby-identifier">find_by_name</span> <span class="ruby-string">'Boston'</span>
+  <span class="ruby-ivar">@hon</span> = <span class="ruby-constant">City</span>.<span class="ruby-identifier">find_by_name</span> <span class="ruby-string">'Honolulu'</span>
+  <span class="ruby-ivar">@nyc</span> = <span class="ruby-constant">City</span>.<span class="ruby-identifier">find_by_name</span> <span class="ruby-string">'New York'</span>
+
+  <span class="ruby-comment">#TO DO: Need to add other cities =&gt; New York, Chicago, Hawaii, Los Angeles</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -351,24 +401,19 @@ showing a user</p>
           <div class="method-source-code" id="show-source">
             <pre><span class="ruby-comment"># File app/controllers/lists_controller.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
-  <span class="ruby-comment">#if the list exists then store a class variable for the list to catch on the view</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-constant">List</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]) <span class="ruby-keyword">and</span> <span class="ruby-identifier">current_user</span>
-    <span class="ruby-comment">#get the list from the id that's passed in</span>
-    <span class="ruby-ivar">@list</span> = <span class="ruby-constant">List</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-comment"># if the list exists then store a class variable for the list to catch on the view</span>
 
-    <span class="ruby-comment">#go through the list and create array of restaurants</span>
-    <span class="ruby-ivar">@restaurants</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
-    <span class="ruby-ivar">@list</span>.<span class="ruby-identifier">list_items</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
-      <span class="ruby-ivar">@restaurants</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">restaurant</span>
-    <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@list</span> = <span class="ruby-constant">List</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@list</span>
+    <span class="ruby-ivar">@restaurants</span> = <span class="ruby-ivar">@list</span>.<span class="ruby-identifier">restaurants</span>
 
-    <span class="ruby-comment">#get the json for the maps</span>
+    <span class="ruby-comment"># get the json for the maps</span>
     <span class="ruby-ivar">@maps_json</span> = <span class="ruby-ivar">@restaurants</span>.<span class="ruby-identifier">to_gmaps4rails</span>
 
-    <span class="ruby-comment">#pass in a variable to create a new List Item if the user enters a name into the text_field</span>
+    <span class="ruby-comment"># pass in a variable to create a new List Item if the user enters a name into the text_field</span>
     <span class="ruby-ivar">@list_item</span> = <span class="ruby-constant">ListItem</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-keyword">else</span>
-  <span class="ruby-comment">#else if there is no list, then redirect to root</span>
+    <span class="ruby-comment"># else if there is no list, then redirect to root</span>
     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;There was a problem finding your list.&quot;</span>
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_session_path</span>
   <span class="ruby-keyword">end</span>

@@ -87,6 +87,12 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActsAsStory.html">ActsAsStory</a>
+  
+    <li><a href="./ActsAsStory/ClassMethods.html">ActsAsStory::ClassMethods</a>
+  
+    <li><a href="./ActsAsStory/InstanceMethods.html">ActsAsStory::InstanceMethods</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -96,6 +102,12 @@
     <li><a href="./Comment.html">Comment</a>
   
     <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./EditRequest.html">EditRequest</a>
+  
+    <li><a href="./EditRequestsController.html">EditRequestsController</a>
+  
+    <li><a href="./EditRequestsHelper.html">EditRequestsHelper</a>
   
     <li><a href="./Enumerable.html">Enumerable</a>
   
@@ -107,7 +119,11 @@
   
     <li><a href="./ListsController.html">ListsController</a>
   
+    <li><a href="./ListsHelper.html">ListsHelper</a>
+  
     <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OneOffs.html">OneOffs</a>
   
     <li><a href="./PasswordResetsController.html">PasswordResetsController</a>
   
@@ -129,6 +145,10 @@
   
     <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
   
+    <li><a href="./Story.html">Story</a>
+  
+    <li><a href="./SubCity.html">SubCity</a>
+  
     <li><a href="./SyncController.html">SyncController</a>
   
     <li><a href="./SyncHelper.html">SyncHelper</a>
@@ -140,6 +160,8 @@
     <li><a href="./UsersController.html">UsersController</a>
   
     <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+    <li><a href="./Yelp.html">Yelp</a>
   
   </ul>
 </nav>
@@ -176,7 +198,7 @@
         
         <div class="method-heading">
           <span class="method-name">get_recommendations</span><span
-            class="method-args">(users, location=nil)</span>
+            class="method-args">(users, current_city)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
@@ -190,9 +212,9 @@ users that were inputted and their restaurants</p>
           
           <div class="method-source-code" id="get_recommendations-source">
             <pre><span class="ruby-comment"># File app/helpers/sync_helper.rb, line 3</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_recommendations</span>(<span class="ruby-identifier">users</span>, <span class="ruby-identifier">location</span>=<span class="ruby-keyword">nil</span>)
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_recommendations</span>(<span class="ruby-identifier">users</span>, <span class="ruby-identifier">current_city</span>)
   <span class="ruby-comment">#simple algorithm is to show the most popular places at the top and if there are ties then show the closest ones?</span>
-  <span class="ruby-identifier">restaurants</span> = <span class="ruby-identifier">users</span>.<span class="ruby-identifier">collect</span>(&amp;<span class="ruby-value">:list_items</span>).<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">collect</span>(&amp;<span class="ruby-value">:restaurant</span>)
+  <span class="ruby-identifier">restaurants</span> = <span class="ruby-identifier">users</span>.<span class="ruby-identifier">collect</span>(&amp;<span class="ruby-value">:list_items</span>).<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">collect</span>(&amp;<span class="ruby-value">:restaurant</span>).<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">resto</span><span class="ruby-operator">|</span> <span class="ruby-identifier">resto</span>.<span class="ruby-identifier">city_id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">current_city</span>.<span class="ruby-identifier">id</span>}
   <span class="ruby-comment"># histogram returns { restaurant =&gt; frequency }</span>
   <span class="ruby-identifier">restaurants</span>.<span class="ruby-identifier">sort_by_frequency</span>
 <span class="ruby-keyword">end</span></pre>

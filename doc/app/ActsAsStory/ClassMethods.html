@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
-<title>README_FOR_APP - Rails Application Documentation</title>
+<title>module ActsAsStory::ClassMethods - Rails Application Documentation</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -20,7 +20,7 @@
 <script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
 
 
-<body class="file">
+<body id="top" class="module">
 <nav id="metadata">
   <nav id="home-section" class="section">
   <h3 class="section-header">
@@ -42,6 +42,46 @@
   <ul id="search-results" class="initially-hidden"></ul>
 </nav>
 
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/extensions/acts_as_story.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    <!-- Included Modules -->
+<nav id="includes-section" class="section">
+  <h3 class="section-header">Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="InstanceMethods.html">ActsAsStory::InstanceMethods</a>
+  
+  
+  </ul>
+</nav>
+
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-acts_as_story">#acts_as_story</a>
+    
+  </ul>
+</nav>
+
+  </div>
 
   <div id="project-metadata">
     <nav id="fileindex-section" class="section project-section">
@@ -141,14 +181,72 @@
   </div>
 </nav>
 
-<div id="documentation" class="description">
+<div id="documentation">
+  <h1 class="module">module ActsAsStory::ClassMethods</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
   
-<p>Use this README file to introduce your application and point to useful
-places in the API for learning more. Run “rake doc:app” to generate API
-documentation for your models, controllers, helpers, and libraries.</p>
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
 
-</div>
+    
 
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-acts_as_story" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">acts_as_story</span><span
+            class="method-args">(options = {})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="acts_as_story-source">
+            <pre><span class="ruby-comment"># File lib/extensions/acts_as_story.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">acts_as_story</span>(<span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">include</span> <span class="ruby-constant">ActsAsStory</span><span class="ruby-operator">::</span><span class="ruby-constant">InstanceMethods</span>
+
+  <span class="ruby-identifier">has_one</span> <span class="ruby-value">:story</span>, <span class="ruby-value">:as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:subject</span>, <span class="ruby-value">:dependent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:destroy</span>
+  <span class="ruby-identifier">after_create</span> <span class="ruby-value">:storify!</span>
+
+  <span class="ruby-identifier">cattr_accessor</span> <span class="ruby-value">:story_fields</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">story_fields</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:story_fields</span>) { [] }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- acts_as_story-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- acts_as_story-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
 
 
 <footer id="validator-badges">
