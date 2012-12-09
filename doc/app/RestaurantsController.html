@@ -70,7 +70,11 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-i-add_to_list">#add_to_list</a>
+    
     <li><a href="#method-i-create">#create</a>
+    
+    <li><a href="#method-i-edit">#edit</a>
     
     <li><a href="#method-i-new">#new</a>
     
@@ -99,6 +103,12 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActsAsStory.html">ActsAsStory</a>
+  
+    <li><a href="./ActsAsStory/ClassMethods.html">ActsAsStory::ClassMethods</a>
+  
+    <li><a href="./ActsAsStory/InstanceMethods.html">ActsAsStory::InstanceMethods</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -108,6 +118,12 @@
     <li><a href="./Comment.html">Comment</a>
   
     <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./EditRequest.html">EditRequest</a>
+  
+    <li><a href="./EditRequestsController.html">EditRequestsController</a>
+  
+    <li><a href="./EditRequestsHelper.html">EditRequestsHelper</a>
   
     <li><a href="./Enumerable.html">Enumerable</a>
   
@@ -119,7 +135,11 @@
   
     <li><a href="./ListsController.html">ListsController</a>
   
+    <li><a href="./ListsHelper.html">ListsHelper</a>
+  
     <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OneOffs.html">OneOffs</a>
   
     <li><a href="./PasswordResetsController.html">PasswordResetsController</a>
   
@@ -141,6 +161,10 @@
   
     <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
   
+    <li><a href="./Story.html">Story</a>
+  
+    <li><a href="./SubCity.html">SubCity</a>
+  
     <li><a href="./SyncController.html">SyncController</a>
   
     <li><a href="./SyncHelper.html">SyncHelper</a>
@@ -152,6 +176,8 @@
     <li><a href="./UsersController.html">UsersController</a>
   
     <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+    <li><a href="./Yelp.html">Yelp</a>
   
   </ul>
 </nav>
@@ -184,6 +210,39 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="method-i-add_to_list" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_to_list</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>handle post directly from restaurant to add to list</p>
+          
+
+          
+          <div class="method-source-code" id="add_to_list-source">
+            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_to_list</span>
+  <span class="ruby-identifier">list</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">list_for</span>(<span class="ruby-ivar">@restaurant</span>)
+  <span class="ruby-identifier">list</span>.<span class="ruby-identifier">list_item_for</span>(<span class="ruby-ivar">@restaurant</span>)
+
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">list</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_to_list-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_to_list-method -->
+
+    
       <div id="method-i-create" class="method-detail ">
         
         <div class="method-heading">
@@ -200,19 +259,13 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 23</span>
+            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
-
-  <span class="ruby-comment">#TODO: Need to check if the Restaurant exists already.</span>
   <span class="ruby-ivar">@restaurant</span> = <span class="ruby-constant">Restaurant</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:restaurant</span>])
   <span class="ruby-identifier">city_input</span> = <span class="ruby-constant">City</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:city</span>][<span class="ruby-value">:name</span>])
-
-  <span class="ruby-comment">#save the city_id for the restaurant</span>
   <span class="ruby-ivar">@restaurant</span>.<span class="ruby-identifier">city_id</span> = <span class="ruby-identifier">city_input</span>.<span class="ruby-identifier">id</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@restaurant</span>.<span class="ruby-identifier">save</span>
-
-    <span class="ruby-comment">#saved the restaurant</span>
-    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-string">&quot;Thank you! You've successfully submitted a restaurant to Bite List!&quot;</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-string">&quot;Thank you! You've successfully submitted a restaurant to Bitelist!&quot;</span>
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_restaurant_path</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">render</span> <span class="ruby-string">'new'</span>
@@ -226,6 +279,36 @@
 
         
       </div><!-- create-method -->
+
+    
+      <div id="method-i-edit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">edit</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="edit-source">
+            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
+  <span class="ruby-ivar">@edit_request</span> = <span class="ruby-constant">EditRequest</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- edit-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- edit-method -->
 
     
       <div id="method-i-new" class="method-detail ">
@@ -244,7 +327,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 4</span>
+            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 6</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@restaurant</span> = <span class="ruby-constant">Restaurant</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
@@ -269,23 +352,33 @@
 
         <div class="method-description">
           
-          
+          <p>loopj hits this controller automatically and tacks on a param “q” TO DO:
+need to add ability to search current database from places that are added
+internally</p>
           
 
           
           <div class="method-source-code" id="search-source">
-            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 41</span>
+            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">search</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:q</span>]
-    <span class="ruby-identifier">query</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:q</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">strip</span>
-    <span class="ruby-identifier">json</span> = <span class="ruby-constant">Restaurant</span>.<span class="ruby-identifier">in</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:city_id</span>]).<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>).<span class="ruby-identifier">to_json</span>(<span class="ruby-value">:only</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">:id</span>, <span class="ruby-value">:name</span>])
+  <span class="ruby-comment"># [issue #41] replace possessive apostroph-s with just s; e.g. &quot;Bear's Ramen House&quot;</span>
+  <span class="ruby-identifier">query</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:q</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r's\b/</span>, <span class="ruby-string">&quot;s&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
+    <span class="ruby-identifier">current_city</span> = <span class="ruby-constant">City</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:sub_cities</span>).<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:city_id</span>])
+    <span class="ruby-identifier">fb_search_options</span> = {
+      <span class="ruby-identifier">center</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_city</span>.<span class="ruby-identifier">fb_center</span>,
+      <span class="ruby-identifier">access_token</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">fb_search_token</span>
+    }
+    <span class="ruby-identifier">results</span> = <span class="ruby-constant">FbGraph</span><span class="ruby-operator">::</span><span class="ruby-constant">Place</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>, <span class="ruby-identifier">fb_search_options</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">place</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_city</span>.<span class="ruby-identifier">acceptable_fb_place?</span>(<span class="ruby-identifier">place</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">place</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">street</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">place</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">zip</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">place</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">city</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span>
+        {<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">place</span>.<span class="ruby-identifier">identifier</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">place</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">address</span><span class="ruby-operator">:</span> <span class="ruby-identifier">place</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">street</span>, <span class="ruby-identifier">zip</span><span class="ruby-operator">:</span> <span class="ruby-identifier">place</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">zip</span>, <span class="ruby-identifier">city</span><span class="ruby-operator">:</span> <span class="ruby-identifier">place</span>.<span class="ruby-identifier">location</span>.<span class="ruby-identifier">city</span>, <span class="ruby-identifier">url</span><span class="ruby-operator">:</span> <span class="ruby-identifier">place</span>.<span class="ruby-identifier">fetch</span>.<span class="ruby-identifier">picture</span>}
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>.<span class="ruby-identifier">compact</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">json</span> = <span class="ruby-string">'[]'</span>
+    <span class="ruby-identifier">results</span> = []
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">json</span> }
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">results</span>.<span class="ruby-identifier">to_json</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- search-source -->
           
@@ -313,15 +406,16 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 9</span>
+            <pre><span class="ruby-comment"># File app/controllers/restaurants_controller.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
-  <span class="ruby-ivar">@restaurant</span> = <span class="ruby-constant">Restaurant</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@maps_json</span> = <span class="ruby-ivar">@restaurant</span>.<span class="ruby-identifier">to_gmaps4rails</span>
-
   <span class="ruby-comment">#get comments for the current restaurant - only show the followers' and followed users' comments</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>
     <span class="ruby-identifier">friends_ids</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">followers</span>.<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:id</span>) <span class="ruby-operator">|</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">followed_users</span>.<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:id</span>) <span class="ruby-operator">|</span> [<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>]
     <span class="ruby-ivar">@comments</span> = <span class="ruby-constant">Comment</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:restaurant_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>], <span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">friends_ids</span>.<span class="ruby-identifier">uniq</span>).<span class="ruby-identifier">flatten</span>
+
+    <span class="ruby-comment">#get followed users that have this restaurant</span>
+    <span class="ruby-ivar">@followed_users</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">followed_users</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">user</span><span class="ruby-operator">|</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">restaurants</span>.<span class="ruby-identifier">include?</span><span class="ruby-constant">Restaurant</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])}
   <span class="ruby-keyword">else</span>
     <span class="ruby-ivar">@comments</span> = []
   <span class="ruby-keyword">end</span>

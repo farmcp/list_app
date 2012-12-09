@@ -89,6 +89,12 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActsAsStory.html">ActsAsStory</a>
+  
+    <li><a href="./ActsAsStory/ClassMethods.html">ActsAsStory::ClassMethods</a>
+  
+    <li><a href="./ActsAsStory/InstanceMethods.html">ActsAsStory::InstanceMethods</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -98,6 +104,12 @@
     <li><a href="./Comment.html">Comment</a>
   
     <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./EditRequest.html">EditRequest</a>
+  
+    <li><a href="./EditRequestsController.html">EditRequestsController</a>
+  
+    <li><a href="./EditRequestsHelper.html">EditRequestsHelper</a>
   
     <li><a href="./Enumerable.html">Enumerable</a>
   
@@ -109,7 +121,11 @@
   
     <li><a href="./ListsController.html">ListsController</a>
   
+    <li><a href="./ListsHelper.html">ListsHelper</a>
+  
     <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OneOffs.html">OneOffs</a>
   
     <li><a href="./PasswordResetsController.html">PasswordResetsController</a>
   
@@ -131,6 +147,10 @@
   
     <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
   
+    <li><a href="./Story.html">Story</a>
+  
+    <li><a href="./SubCity.html">SubCity</a>
+  
     <li><a href="./SyncController.html">SyncController</a>
   
     <li><a href="./SyncHelper.html">SyncHelper</a>
@@ -142,6 +162,8 @@
     <li><a href="./UsersController.html">UsersController</a>
   
     <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+    <li><a href="./Yelp.html">Yelp</a>
   
   </ul>
 </nav>
@@ -228,7 +250,11 @@
             <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 12</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">link_to_phone</span>(<span class="ruby-identifier">number_str</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">number_str</span>
-    <span class="ruby-identifier">formatted_str</span> = <span class="ruby-identifier">number_str</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">%r(\d{3})(\d{3})(\d{4})/</span>, <span class="ruby-string">&quot;( \\1 ) \\2-\\3&quot;</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">number_str</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">10</span>
+      <span class="ruby-identifier">formatted_str</span> = <span class="ruby-identifier">number_str</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">%r(\d{3})(\d{3})(\d{4})/</span>, <span class="ruby-string">&quot;( \\1 ) \\2-\\3&quot;</span>)
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">number_str</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">11</span>
+      <span class="ruby-identifier">formatted_str</span> = <span class="ruby-identifier">number_str</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp">%r(\d{1})(\d{3})(\d{3})(\d{4})/</span>, <span class="ruby-string">&quot;\\1 ( \\2 ) \\3-\\4&quot;</span>)
+    <span class="ruby-keyword">end</span>
     <span class="ruby-identifier">link_to</span> <span class="ruby-identifier">formatted_str</span>, <span class="ruby-node">&quot;tel:#{number_str}&quot;</span>, <span class="ruby-identifier">style</span><span class="ruby-operator">:</span> <span class="ruby-string">'font-weight:normal; margin-top:3px;'</span>, <span class="ruby-keyword">class</span><span class="ruby-operator">:</span> <span class="ruby-string">'btn btn-warning pull-left'</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>

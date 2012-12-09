@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
-<title>class StaticPagesController - Rails Application Documentation</title>
+<title>class SubCity - Rails Application Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>app/controllers/static_pages_controller.rb
+    <li>app/models/sub_city.rb
   </ul>
 </nav>
 
@@ -59,7 +59,7 @@
     <nav id="parent-class-section" class="section">
   <h3 class="section-header">Parent</h3>
   
-  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  <p class="link">ActiveRecord::Base
   
 </nav>
 
@@ -70,13 +70,7 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-i-about">#about</a>
-    
-    <li><a href="#method-i-contribute">#contribute</a>
-    
-    <li><a href="#method-i-home">#home</a>
-    
-    <li><a href="#method-i-team">#team</a>
+    <li><a href="#method-i-name_downcased">#name_downcased</a>
     
   </ul>
 </nav>
@@ -182,10 +176,17 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="class">class StaticPagesController</h1>
+  <h1 class="class">class SubCity</h1>
 
   <div id="description" class="description">
     
+<h2 id="label-Schema+Information">Schema Information</h2>
+
+<p>Table name: sub_cities</p>
+
+<pre>name    :string(255)
+city_id :integer</pre>
+
   </div><!-- description -->
 
   
@@ -206,10 +207,10 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-about" class="method-detail ">
+      <div id="method-i-name_downcased" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">about</span><span
+          <span class="method-name">name_downcased</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -221,105 +222,17 @@
           
 
           
-          <div class="method-source-code" id="about-source">
-            <pre><span class="ruby-comment"># File app/controllers/static_pages_controller.rb, line 8</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">about</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- about-source -->
+          <div class="method-source-code" id="name_downcased-source">
+            <pre><span class="ruby-comment"># File app/models/sub_city.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">name_downcased</span>; <span class="ruby-identifier">name</span>.<span class="ruby-identifier">downcase</span>; <span class="ruby-keyword">end</span></pre>
+          </div><!-- name_downcased-source -->
           
         </div>
 
         
 
         
-      </div><!-- about-method -->
-
-    
-      <div id="method-i-contribute" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">contribute</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>static page for contributing</p>
-          
-
-          
-          <div class="method-source-code" id="contribute-source">
-            <pre><span class="ruby-comment"># File app/controllers/static_pages_controller.rb, line 12</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">contribute</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- contribute-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- contribute-method -->
-
-    
-      <div id="method-i-home" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">home</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="home-source">
-            <pre><span class="ruby-comment"># File app/controllers/static_pages_controller.rb, line 2</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">home</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- home-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- home-method -->
-
-    
-      <div id="method-i-team" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">team</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="team-source">
-            <pre><span class="ruby-comment"># File app/controllers/static_pages_controller.rb, line 5</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">team</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- team-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- team-method -->
+      </div><!-- name_downcased-method -->
 
     
     </section><!-- public-instance-method-details -->

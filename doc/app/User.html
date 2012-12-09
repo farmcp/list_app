@@ -70,11 +70,17 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-c-create_feed">::create_feed</a>
+    <li><a href="#method-c-create_with_omniauth">::create_with_omniauth</a>
     
     <li><a href="#method-c-search">::search</a>
     
+    <li><a href="#method-i-admin-3F">#admin?</a>
+    
     <li><a href="#method-i-avatar_url">#avatar_url</a>
+    
+    <li><a href="#method-i-fb_post">#fb_post</a>
+    
+    <li><a href="#method-i-fb_search_token">#fb_search_token</a>
     
     <li><a href="#method-i-follow-21">#follow!</a>
     
@@ -82,7 +88,13 @@
     
     <li><a href="#method-i-full_name">#full_name</a>
     
+    <li><a href="#method-i-list_for">#list_for</a>
+    
+    <li><a href="#method-i-send_invite_to_new_user">#send_invite_to_new_user</a>
+    
     <li><a href="#method-i-send_password_reset">#send_password_reset</a>
+    
+    <li><a href="#method-i-to_s">#to_s</a>
     
     <li><a href="#method-i-unfollow-21">#unfollow!</a>
     
@@ -107,6 +119,12 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActsAsStory.html">ActsAsStory</a>
+  
+    <li><a href="./ActsAsStory/ClassMethods.html">ActsAsStory::ClassMethods</a>
+  
+    <li><a href="./ActsAsStory/InstanceMethods.html">ActsAsStory::InstanceMethods</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -116,6 +134,12 @@
     <li><a href="./Comment.html">Comment</a>
   
     <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./EditRequest.html">EditRequest</a>
+  
+    <li><a href="./EditRequestsController.html">EditRequestsController</a>
+  
+    <li><a href="./EditRequestsHelper.html">EditRequestsHelper</a>
   
     <li><a href="./Enumerable.html">Enumerable</a>
   
@@ -127,7 +151,11 @@
   
     <li><a href="./ListsController.html">ListsController</a>
   
+    <li><a href="./ListsHelper.html">ListsHelper</a>
+  
     <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OneOffs.html">OneOffs</a>
   
     <li><a href="./PasswordResetsController.html">PasswordResetsController</a>
   
@@ -149,6 +177,10 @@
   
     <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
   
+    <li><a href="./Story.html">Story</a>
+  
+    <li><a href="./SubCity.html">SubCity</a>
+  
     <li><a href="./SyncController.html">SyncController</a>
   
     <li><a href="./SyncHelper.html">SyncHelper</a>
@@ -160,6 +192,8 @@
     <li><a href="./UsersController.html">UsersController</a>
   
     <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+    <li><a href="./Yelp.html">Yelp</a>
   
   </ul>
 </nav>
@@ -186,7 +220,10 @@ password_digest        :string(255)
 remember_token         :string(255)
 admin                  :boolean         default(FALSE)
 password_reset_token   :string(255)
-password_reset_sent_at :datetime</pre>
+password_reset_sent_at :datetime
+fb_id                  :string(255)
+provider               :string(255)
+image_url              :string(255)</pre>
 
   </div><!-- description -->
 
@@ -221,11 +258,11 @@ password_reset_sent_at :datetime</pre>
       <h3 class="section-header">Public Class Methods</h3>
 
     
-      <div id="method-c-create_feed" class="method-detail ">
+      <div id="method-c-create_with_omniauth" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">create_feed</span><span
-            class="method-args">(users)</span>
+          <span class="method-name">create_with_omniauth</span><span
+            class="method-args">(auth)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
@@ -236,26 +273,30 @@ password_reset_sent_at :datetime</pre>
           
 
           
-          <div class="method-source-code" id="create_feed-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 106</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_feed</span>(<span class="ruby-identifier">users</span>)
-  <span class="ruby-identifier">ids</span> = <span class="ruby-identifier">users</span>.<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:id</span>)
-  <span class="ruby-identifier">restaurants</span> = <span class="ruby-constant">ListItem</span>.<span class="ruby-identifier">includes</span>([<span class="ruby-value">:list</span>, <span class="ruby-value">:restaurant</span>, <span class="ruby-value">:user</span>]).<span class="ruby-identifier">where</span>(<span class="ruby-value">:lists</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ids</span>}).<span class="ruby-identifier">order</span>(<span class="ruby-string">'list_items.created_at'</span>)
-  <span class="ruby-identifier">comments</span> = <span class="ruby-constant">Comment</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:user</span>).<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ids</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">'created_at'</span>)
-  <span class="ruby-identifier">lists</span> = <span class="ruby-constant">List</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:user</span>).<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ids</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">'created_at'</span>)
-
-  <span class="ruby-comment"># TODO need to get a list of activity for the user feed</span>
-  <span class="ruby-comment"># will include activity on whomever they decide to follow</span>
-  (<span class="ruby-identifier">restaurants</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">comments</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">lists</span>).<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">sort_by</span>(&amp;<span class="ruby-value">:created_at</span>).<span class="ruby-identifier">reverse</span>
+          <div class="method-source-code" id="create_with_omniauth-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 146</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_with_omniauth</span>(<span class="ruby-identifier">auth</span>)
+  <span class="ruby-identifier">create!</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">user</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">provider</span> = <span class="ruby-identifier">auth</span>[<span class="ruby-string">'provider'</span>]
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">fb_id</span> = <span class="ruby-identifier">auth</span>[<span class="ruby-string">'uid'</span>]
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">remember_token</span> = <span class="ruby-identifier">auth</span>[<span class="ruby-string">'credentials'</span>][<span class="ruby-string">'token'</span>]
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">first_name</span> = <span class="ruby-identifier">auth</span>[<span class="ruby-string">'info'</span>][<span class="ruby-string">'first_name'</span>]
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">last_name</span> = <span class="ruby-identifier">auth</span>[<span class="ruby-string">'info'</span>][<span class="ruby-string">'last_name'</span>]
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span> = <span class="ruby-identifier">auth</span>[<span class="ruby-string">'info'</span>][<span class="ruby-string">'email'</span>]
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">image_url</span> = <span class="ruby-identifier">auth</span>[<span class="ruby-string">'info'</span>][<span class="ruby-string">'image'</span>]
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">password</span> = <span class="ruby-constant">SecureRandom</span>.<span class="ruby-identifier">urlsafe_base64</span>
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">password_confirmation</span> = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">password</span>
+    <span class="ruby-constant">UserMailer</span>.<span class="ruby-identifier">welcome_email</span>(<span class="ruby-identifier">user</span>).<span class="ruby-identifier">deliver</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- create_feed-source -->
+          </div><!-- create_with_omniauth-source -->
           
         </div>
 
         
 
         
-      </div><!-- create_feed-method -->
+      </div><!-- create_with_omniauth-method -->
 
     
       <div id="method-c-search" class="method-detail ">
@@ -274,7 +315,7 @@ password_reset_sent_at :datetime</pre>
 
           
           <div class="method-source-code" id="search-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 93</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 105</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
     <span class="ruby-identifier">results</span> = []
@@ -303,6 +344,36 @@ password_reset_sent_at :datetime</pre>
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="method-i-admin-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">admin?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="admin-3F-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 165</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">admin?</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">admin</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- admin-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- admin-3F-method -->
+
+    
       <div id="method-i-avatar_url" class="method-detail ">
         
         <div class="method-heading">
@@ -319,7 +390,7 @@ password_reset_sent_at :datetime</pre>
 
           
           <div class="method-source-code" id="avatar_url-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 117</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 118</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">avatar_url</span>(<span class="ruby-identifier">size</span> = <span class="ruby-value">50</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">image_url</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">image_url</span>.<span class="ruby-identifier">blank?</span>
   <span class="ruby-identifier">gravatar_id</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span><span class="ruby-operator">::</span><span class="ruby-identifier">hexdigest</span>(<span class="ruby-identifier">email</span>.<span class="ruby-identifier">downcase</span>)
@@ -333,6 +404,75 @@ password_reset_sent_at :datetime</pre>
 
         
       </div><!-- avatar_url-method -->
+
+    
+      <div id="method-i-fb_post" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fb_post</span><span
+            class="method-args">(message)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="fb_post-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 124</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fb_post</span>(<span class="ruby-identifier">message</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">provider</span> <span class="ruby-operator">==</span> <span class="ruby-string">'facebook'</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">me</span> = <span class="ruby-constant">FbGraph</span><span class="ruby-operator">::</span><span class="ruby-constant">User</span>.<span class="ruby-identifier">me</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">remember_token</span>)
+      <span class="ruby-identifier">me</span>.<span class="ruby-identifier">feed!</span>(<span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-identifier">message</span>)
+    <span class="ruby-keyword">rescue</span>
+      <span class="ruby-comment"># handle failed user post - do nothing for now</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- fb_post-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- fb_post-method -->
+
+    
+      <div id="method-i-fb_search_token" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fb_search_token</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>THIS IS A HACK RIGHT NOW - NEED TO FIX THIS LATER. CURRENTLY USING FARM’S
+ACCESS TOKEN TO GET FB STUFF</p>
+          
+
+          
+          <div class="method-source-code" id="fb_search_token-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 141</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fb_search_token</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">remember_token</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">fb_id</span>
+  <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_email</span>(<span class="ruby-string">'farm.cp@gmail.com'</span>).<span class="ruby-identifier">remember_token</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- fb_search_token-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- fb_search_token-method -->
 
     
       <div id="method-i-follow-21" class="method-detail ">
@@ -352,11 +492,11 @@ id</p>
 
           
           <div class="method-source-code" id="follow-21-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 69</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">follow!</span>(<span class="ruby-identifier">other_user</span>)
   <span class="ruby-identifier">relationships</span>.<span class="ruby-identifier">create!</span>(<span class="ruby-identifier">followed_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">other_user</span>.<span class="ruby-identifier">id</span>)
 
-  <span class="ruby-comment">#send a mail to user that is followed</span>
+  <span class="ruby-comment">#send a mail to user that is followed - This might need to be placed in a job later</span>
   <span class="ruby-constant">UserMailer</span>.<span class="ruby-identifier">mail_followed_user</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">other_user</span>).<span class="ruby-identifier">deliver</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- follow-21-source -->
@@ -385,7 +525,7 @@ id</p>
 
           
           <div class="method-source-code" id="following-3F-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 64</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 71</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">following?</span>(<span class="ruby-identifier">other_user</span>)
   <span class="ruby-identifier">relationships</span>.<span class="ruby-identifier">find_by_followed_id</span>(<span class="ruby-identifier">other_user</span>.<span class="ruby-identifier">id</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -415,7 +555,7 @@ id</p>
 
           
           <div class="method-source-code" id="full_name-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 60</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 67</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">full_name</span>
   <span class="ruby-node">&quot;#{first_name} #{last_name}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -427,6 +567,66 @@ id</p>
 
         
       </div><!-- full_name-method -->
+
+    
+      <div id="method-i-list_for" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">list_for</span><span
+            class="method-args">(restaurant)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="list_for-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">list_for</span>(<span class="ruby-identifier">restaurant</span>)
+  <span class="ruby-identifier">lists</span>.<span class="ruby-identifier">find_or_create_by_city_id</span>(<span class="ruby-identifier">restaurant</span>.<span class="ruby-identifier">city_id</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- list_for-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- list_for-method -->
+
+    
+      <div id="method-i-send_invite_to_new_user" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">send_invite_to_new_user</span><span
+            class="method-args">(new_user_email)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>send an invite to a new user email address</p>
+          
+
+          
+          <div class="method-source-code" id="send_invite_to_new_user-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 100</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">send_invite_to_new_user</span>(<span class="ruby-identifier">new_user_email</span>)
+  <span class="ruby-constant">UserMailer</span>.<span class="ruby-identifier">invite_user</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">new_user_email</span>).<span class="ruby-identifier">deliver</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- send_invite_to_new_user-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- send_invite_to_new_user-method -->
 
     
       <div id="method-i-send_password_reset" class="method-detail ">
@@ -445,7 +645,7 @@ id</p>
 
           
           <div class="method-source-code" id="send_password_reset-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 82</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 89</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">send_password_reset</span>
   <span class="ruby-comment"># generate a new token to reset password after email is asked for</span>
   <span class="ruby-identifier">generate_token</span>(<span class="ruby-value">:password_reset_token</span>)
@@ -465,6 +665,36 @@ id</p>
       </div><!-- send_password_reset-method -->
 
     
+      <div id="method-i-to_s" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_s</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="to_s-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 161</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
+  <span class="ruby-identifier">email</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_s-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_s-method -->
+
+    
       <div id="method-i-unfollow-21" class="method-detail ">
         
         <div class="method-heading">
@@ -481,7 +711,7 @@ id</p>
 
           
           <div class="method-source-code" id="unfollow-21-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 77</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 84</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">unfollow!</span>(<span class="ruby-identifier">other_user</span>)
   <span class="ruby-identifier">relationships</span>.<span class="ruby-identifier">find_by_followed_id</span>(<span class="ruby-identifier">other_user</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">destroy</span>
 <span class="ruby-keyword">end</span></pre>

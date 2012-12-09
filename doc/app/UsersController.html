@@ -72,15 +72,17 @@
     
     <li><a href="#method-i-create">#create</a>
     
-    <li><a href="#method-i-destroy">#destroy</a>
-    
     <li><a href="#method-i-edit">#edit</a>
+    
+    <li><a href="#method-i-fb_friends">#fb_friends</a>
     
     <li><a href="#method-i-followers">#followers</a>
     
     <li><a href="#method-i-following">#following</a>
     
     <li><a href="#method-i-index">#index</a>
+    
+    <li><a href="#method-i-invite_by_email">#invite_by_email</a>
     
     <li><a href="#method-i-new">#new</a>
     
@@ -111,6 +113,12 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActsAsStory.html">ActsAsStory</a>
+  
+    <li><a href="./ActsAsStory/ClassMethods.html">ActsAsStory::ClassMethods</a>
+  
+    <li><a href="./ActsAsStory/InstanceMethods.html">ActsAsStory::InstanceMethods</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -120,6 +128,12 @@
     <li><a href="./Comment.html">Comment</a>
   
     <li><a href="./CommentsController.html">CommentsController</a>
+  
+    <li><a href="./EditRequest.html">EditRequest</a>
+  
+    <li><a href="./EditRequestsController.html">EditRequestsController</a>
+  
+    <li><a href="./EditRequestsHelper.html">EditRequestsHelper</a>
   
     <li><a href="./Enumerable.html">Enumerable</a>
   
@@ -131,7 +145,11 @@
   
     <li><a href="./ListsController.html">ListsController</a>
   
+    <li><a href="./ListsHelper.html">ListsHelper</a>
+  
     <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OneOffs.html">OneOffs</a>
   
     <li><a href="./PasswordResetsController.html">PasswordResetsController</a>
   
@@ -153,6 +171,10 @@
   
     <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
   
+    <li><a href="./Story.html">Story</a>
+  
+    <li><a href="./SubCity.html">SubCity</a>
+  
     <li><a href="./SyncController.html">SyncController</a>
   
     <li><a href="./SyncHelper.html">SyncHelper</a>
@@ -164,6 +186,8 @@
     <li><a href="./UsersController.html">UsersController</a>
   
     <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+    <li><a href="./Yelp.html">Yelp</a>
   
   </ul>
 </nav>
@@ -186,6 +210,19 @@
 
     
 
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="VALID_EMAIL_REGEX">VALID_EMAIL_REGEX
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
     
 
     
@@ -212,7 +249,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 15</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>][<span class="ruby-value">:password_confirmation</span>] = <span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>][<span class="ruby-value">:password</span>]
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
@@ -238,38 +275,6 @@
       </div><!-- create-method -->
 
     
-      <div id="method-i-destroy" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">destroy</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 60</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
-  <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">destroy</span>
-  <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-string">&quot;User has been removed.&quot;</span>
-  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">users_path</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- destroy-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- destroy-method -->
-
-    
       <div id="method-i-edit" class="method-detail ">
         
         <div class="method-heading">
@@ -286,7 +291,7 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 42</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 59</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
@@ -297,6 +302,41 @@
 
         
       </div><!-- edit-method -->
+
+    
+      <div id="method-i-fb_friends" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fb_friends</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="fb_friends-source">
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 128</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fb_friends</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">provider</span> <span class="ruby-operator">==</span> <span class="ruby-string">'facebook'</span>
+    <span class="ruby-identifier">me</span> = <span class="ruby-constant">FbGraph</span><span class="ruby-operator">::</span><span class="ruby-constant">User</span>.<span class="ruby-identifier">me</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">remember_token</span>)
+    <span class="ruby-ivar">@friends</span> = <span class="ruby-identifier">me</span>.<span class="ruby-identifier">friends</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@friends</span> = []
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- fb_friends-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- fb_friends-method -->
 
     
       <div id="method-i-followers" class="method-detail ">
@@ -315,7 +355,7 @@
 
           
           <div class="method-source-code" id="followers-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 83</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 100</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">followers</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Followers&quot;</span>
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
@@ -355,7 +395,7 @@
 
           
           <div class="method-source-code" id="following-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 67</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 84</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">following</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Following&quot;</span>
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
@@ -396,9 +436,15 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 56</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 73</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-ivar">@users</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>]).<span class="ruby-identifier">paginate</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>]
+    <span class="ruby-identifier">users</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>])
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">users</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">'first_name, last_name'</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@users</span> = <span class="ruby-identifier">users</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -408,6 +454,44 @@
 
         
       </div><!-- index-method -->
+
+    
+      <div id="method-i-invite_by_email" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">invite_by_email</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>POST method to invite by email</p>
+          
+
+          
+          <div class="method-source-code" id="invite_by_email-source">
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 139</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">invite_by_email</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:email</span>] <span class="ruby-operator">=~</span> <span class="ruby-constant">VALID_EMAIL_REGEX</span>
+    <span class="ruby-identifier">new_user_email</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:email</span>]
+    <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">send_invite_to_new_user</span>(<span class="ruby-identifier">new_user_email</span>)
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-string">'You have invited your friend!'</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">'You have entered an invalid email address'</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">fb_friends_user_path</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- invite_by_email-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- invite_by_email-method -->
 
     
       <div id="method-i-new" class="method-detail ">
@@ -426,7 +510,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 11</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 7</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
@@ -456,15 +540,36 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 31</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@lists</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">lists</span>
-  <span class="ruby-ivar">@user_feed</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">create_feed</span>([<span class="ruby-ivar">@user</span>])
+  <span class="ruby-ivar">@user_feed</span> = <span class="ruby-constant">Story</span>.<span class="ruby-identifier">includes</span>([<span class="ruby-value">:list</span>, <span class="ruby-value">:list_item</span>, <span class="ruby-value">:comment</span>]).<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">'created_at desc'</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
+
+  <span class="ruby-comment">#get all restaurants around you from people you follow</span>
+  <span class="ruby-ivar">@friends</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">followed_users</span>
+
+  <span class="ruby-ivar">@maps_json</span> = <span class="ruby-ivar">@friends</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">restaurants</span>}.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">to_gmaps4rails</span>
+  <span class="ruby-ivar">@user_image</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">avatar_url</span>
+  <span class="ruby-comment">#if the user is a facebook user - get a list of their friends who is on facebook and also on bitelist</span>
+  <span class="ruby-ivar">@non_followed_fb_users</span> = []
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">fb_id</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">remember_token</span>
+    <span class="ruby-comment"># TODO: fix this</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">fb_user</span> = <span class="ruby-constant">FbGraph</span><span class="ruby-operator">::</span><span class="ruby-constant">User</span>.<span class="ruby-identifier">me</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">remember_token</span>)
+      <span class="ruby-comment">#friends that are on bitelist minus the users that you follow</span>
+      <span class="ruby-identifier">fb_user_friends</span> = <span class="ruby-identifier">fb_user</span>.<span class="ruby-identifier">friends</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">u</span><span class="ruby-operator">|</span> <span class="ruby-identifier">u</span>.<span class="ruby-identifier">raw_attributes</span>[<span class="ruby-string">'id'</span>]} &amp; <span class="ruby-constant">User</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">u</span><span class="ruby-operator">|</span> <span class="ruby-identifier">u</span>.<span class="ruby-identifier">fb_id</span>}
+      <span class="ruby-identifier">fb_followed_users</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">followed_users</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">u</span><span class="ruby-operator">|</span> <span class="ruby-identifier">u</span>.<span class="ruby-identifier">fb_id</span>}.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">to_a</span>
+      <span class="ruby-comment">#randomly select 3 users that are your friends from facebook that you haven't followed on bitelist</span>
+      <span class="ruby-ivar">@non_followed_fb_users</span> = (<span class="ruby-identifier">fb_user_friends</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">fb_followed_users</span>).<span class="ruby-identifier">collect!</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">id</span><span class="ruby-operator">|</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_fb_id</span>(<span class="ruby-identifier">id</span>)}.<span class="ruby-identifier">shuffle</span>.<span class="ruby-identifier">first</span>(<span class="ruby-value">3</span>)
+    <span class="ruby-keyword">rescue</span>
+      <span class="ruby-comment"># shit is breaking</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user?</span> <span class="ruby-ivar">@user</span>
     <span class="ruby-identifier">feed_users</span> = [<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">followed_users</span>, <span class="ruby-identifier">current_user</span>].<span class="ruby-identifier">flatten</span>
-    <span class="ruby-ivar">@my_feed</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">create_feed</span>(<span class="ruby-identifier">feed_users</span>)
+    <span class="ruby-ivar">@my_feed</span> = <span class="ruby-constant">Story</span>.<span class="ruby-identifier">includes_all</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">feed_users</span>.<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:id</span>)).<span class="ruby-identifier">order</span>(<span class="ruby-string">'created_at desc'</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
@@ -493,7 +598,7 @@
 
           
           <div class="method-source-code" id="syncable_users-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 97</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 114</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">syncable_users</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:q</span>]
     <span class="ruby-comment"># TODO can do this in a single query with arel magic</span>
@@ -533,9 +638,9 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 45</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 62</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">user_params</span>)
     <span class="ruby-comment">#if you can update a user then handle the update for the user</span>
     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-string">&quot;Profile updated&quot;</span>
     <span class="ruby-identifier">sign_in</span> <span class="ruby-ivar">@user</span>
