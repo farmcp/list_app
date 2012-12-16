@@ -79,6 +79,9 @@ class UsersController < ApplicationController
     end
 
     @results = results
+    @results_user_count = @results.select{|item| item.is_a?User}.count
+    @results_restaurant_count = @results.select{|item| item.is_a?Restaurant}.count
+
   end
 
   #return all followeds

@@ -12,13 +12,20 @@
 
 .tabbable
   %ul.nav.nav-tabs
-    %li.active
-      %a{"data-toggle" => "tab", :href => "#tab1", style: 'font-weight:bold;'} User Search
-    %li
-      %a{"data-toggle" => "tab", :href => "#tab2", style: 'font-weight:bold;'} Restaurant Search
+    - if @results_user_count >= @results_restaurant_count 
+      %li.active
+        %a{"data-toggle" => "tab", :href => "#tab1", style: 'font-weight:bold;'} User Search
+      %li
+        %a{"data-toggle" => "tab", :href => "#tab2", style: 'font-weight:bold;'} Restaurant Search
+    - else
+      %li
+        %a{"data-toggle" => "tab", :href => "#tab1", style: 'font-weight:bold;'} User Search
+      %li.active
+        %a{"data-toggle" => "tab", :href => "#tab2", style: 'font-weight:bold;'} Restaurant Search
+
 
   .tab-content
-    #tab1.tab-pane.active
+    #tab1.tab-pane{ :class => @results_user_count >= @results_restaurant_count ? 'active' : ''}
       - @results.each do |result|
         -if result.instance_of?User
           %ul.users
@@ -28,7 +35,7 @@
               - if current_user.admin? && !current_user?(result)
                 = link_to "Remove", result, method: :delete, confirm: "Are you sure you want to delete #{result.full_name}?", style: 'float: right;'
 
-    #tab2.tab-pane
+    #tab2.tab-pane{ :class => @results_user_count < @results_restaurant_count ? 'active' : ''}
       - @results.each do |result|
         - if result.instance_of?Restaurant
           - if result.fb_place_id
