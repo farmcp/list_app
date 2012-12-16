@@ -72,12 +72,13 @@ class UsersController < ApplicationController
 
   def index
     if params[:search]
-      users = User.search(params[:search])
+      #the search is located in the User model for now - need to change location later?
+      results = User.search(params[:search])
     else
-      users = User.order('first_name, last_name')
+      results = User.order('first_name, last_name')
     end
 
-    @users = users.paginate(:page => params[:page])
+    @results = results
   end
 
   #return all followeds

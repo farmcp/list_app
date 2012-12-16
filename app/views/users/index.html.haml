@@ -10,12 +10,31 @@
 %br/
 %br/
 
-%ul.users
-  - @users.each do |user|
+.tabbable
+  %ul.nav.nav-tabs
+    %li.active
+      %a{"data-toggle" => "tab", :href => "#tab1", style: 'font-weight:bold;'} User Search
     %li
-      = avatar_tag user, link: true
-      = link_to user.full_name, user
+      %a{"data-toggle" => "tab", :href => "#tab2", style: 'font-weight:bold;'} Restaurant Search
 
-      - if current_user.admin? && !current_user?(user)
-        = link_to "Remove", user, method: :delete, confirm: "Are you sure you want to delete #{user.full_name}?", style: 'float:right;'
-  = will_paginate(@users, :page_links => false)
+  .tab-content
+    #tab1.tab-pane.active
+      - @results.each do |result|
+        -if result.instance_of?User
+          %ul.users
+            %li
+              = avatar_tag result, link: true
+              = link_to result.full_name, result
+              - if current_user.admin? && !current_user?(result)
+                = link_to "Remove", result, method: :delete, confirm: "Are you sure you want to delete #{result.full_name}?", style: 'float: right;'
+
+    #tab2.tab-pane
+      - @results.each do |result|
+        - if result.instance_of?Restaurant
+          - if result.fb_place_id
+            %ul.users
+              %li
+                = image_tag result.picture_url, class: "gravatar"
+                = link_to result.name, result
+                %br/
+                = result.gmaps4rails_address
