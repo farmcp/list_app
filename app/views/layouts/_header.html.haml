@@ -12,7 +12,7 @@
           - if signed_in?
             .navbar-search.pull-left
               = form_tag search_path, method:'get' do
-                = text_field_tag :search, params[:search], class: 'search-query', placeholder: 'Search for people and places.', style: 'background-color:white; margin: 3px 0px -5px 0px; border-style:none; width: 250px;'
+                = text_field_tag :search, '', class: 'search-query', placeholder: 'Search for people and places.', style: 'background-color:white; margin: 3px 0px -5px 0px; border-style:none; width: 250px;'
           %ul.nav.pull-right
             - if signed_in?
               %li
