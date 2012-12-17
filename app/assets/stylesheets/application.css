@@ -37,3 +37,10 @@
   background-color: #E7E7EF;
   margin-bottom:0px;
 }
+.navbar-search input.search-query {
+  background-color: white;
+  margin: 3px 0px -5px 0px;
+  border-style: none;
+  width: 250px;
+  height: 25px;
+}

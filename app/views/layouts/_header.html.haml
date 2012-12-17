@@ -12,16 +12,16 @@
           - if signed_in?
             .navbar-search.pull-left
               = form_tag users_path, method:'get' do
-                = text_field_tag :search, params[:search], class: 'search-query', placeholder:'Search for users & restaurants...', style: 'background-color:white; margin: 3px 0px -5px 0px; border-style:none; width: 250px;'
+                = text_field_tag :search, params[:search], class: 'search-query', placeholder: 'Search for people and places.', style: 'background-color:white; margin: 3px 0px -5px 0px; border-style:none; width: 250px;'
           %ul.nav.pull-right
             - if signed_in?
               %li
-                = link_to current_user do 
+                = link_to current_user do
                   %i.icon-user.icon-white
                   Profile
 
               %li
-                = link_to sync_path do 
+                = link_to sync_path do
                   %i.icon-refresh.icon-white
                   Sync
               %li#fat-menu.dropdown
