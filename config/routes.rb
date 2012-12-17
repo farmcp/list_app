@@ -50,9 +50,10 @@ ListApp::Application.routes.draw do
       post :reject
     end
   end
-
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy', :via => :delete #this means it will be invoked using the DELETE request
+
+  match '/search', to: 'search#search'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

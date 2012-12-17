@@ -73,6 +73,15 @@ class Restaurant < ActiveRecord::Base
     where(:city_id => city_id)
   end
 
+  # TODO: this is going to be slow, probably want to use a text search
+  def self.text_search(query)
+    if query.present?
+      query.split(' ').map do |q|
+        find(:all, conditions: ['fb_place_id IS NOT NULL AND lower(name) LIKE ?', "%#{q.downcase}%"])
+      end.flatten.compact.uniq
+    end
+  end
+
   def self.search(query)
     results = [search_by_yelp(query)  ].flatten
     results = [search_by_prefix(query)].flatten if results.blank?

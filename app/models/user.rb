@@ -115,6 +115,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  # TODO: this is going to be slow, probably want to use a text search
+  def self.text_search(query)
+    if query.present?
+      queries = query.split(' ').map(&:strip).select(&:present?)
+      queries.map do |q|
+        find(:all, conditions: ['lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{q.downcase}%", "%#{q.downcase}%" ])
+      end.flatten.compact.uniq
+    end
+  end
+
   def avatar_url(size = 50)
     return image_url unless image_url.blank?
     gravatar_id = Digest::MD5::hexdigest(email.downcase)

@@ -71,13 +71,9 @@ class UsersController < ApplicationController
   end
 
   def index
-    if params[:search]
-      users = User.search(params[:search])
-    else
-      users = User.order('first_name, last_name')
-    end
-
-    @users = users.paginate(:page => params[:page])
+    @results = User.order('first_name, last_name')
+    @results_user_count = @results.count
+    @results_restaurant_count = 0
   end
 
   #return all followeds
