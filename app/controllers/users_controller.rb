@@ -71,17 +71,9 @@ class UsersController < ApplicationController
   end
 
   def index
-    if params[:search]
-      #the search is located in the User model for now - need to change location later?
-      results = User.search(params[:search])
-    else
-      results = User.order('first_name, last_name')
-    end
-
-    @results = results
-    @results_user_count = @results.select{|item| item.is_a?User}.count
-    @results_restaurant_count = @results.select{|item| item.is_a?Restaurant}.count
-
+    @results = User.order('first_name, last_name')
+    @results_user_count = @results.count
+    @results_restaurant_count = 0
   end
 
   #return all followeds

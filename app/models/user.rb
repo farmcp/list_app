@@ -101,19 +101,27 @@ class User < ActiveRecord::Base
     UserMailer.invite_user(self, new_user_email).deliver
   end
 
-  #create a static method search on a query - Currently looking at both restaurants and User lists. A little unconventional, might need to change this later
+  #create a static method search on a query
   def self.search(query)
     if query.present?
       results = []
-
       queries = query.split(' ')
       queries.each do |q|
-        results << User.find(:all, conditions: ['lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{q.downcase}%","%#{q.downcase}%" ])
-        results << Restaurant.find(:all, conditions: ['fb_place_id IS NOT NULL AND lower(name) LIKE ?', "%#{q.downcase}%"])
+        results << find(:all, conditions: ['lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{q.downcase}%","%#{q.downcase}%" ])
       end
       return results.uniq.flatten
     else
       find(:all)
+    end
+  end
+
+  # TODO: this is going to be slow, probably want to use a text search
+  def self.text_search(query)
+    if query.present?
+      queries = query.split(' ').map(&:strip).select(&:present?)
+      queries.map do |q|
+        find(:all, conditions: ['lower(first_name) LIKE ? OR lower(last_name) LIKE ?', "%#{q.downcase}%", "%#{q.downcase}%" ])
+      end.flatten.compact.uniq
     end
   end
 
