@@ -34,7 +34,7 @@
           - if result.fb_place_id
             %ul.users
               %li
-                = image_tag result.picture_url, class: "gravatar"
+                = image_tag result.picture_url, class: "gravatar", size: "50x50"
                 = link_to result.name, result
                 %br/
                 = result.gmaps4rails_address
