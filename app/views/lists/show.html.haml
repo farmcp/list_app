@@ -51,7 +51,7 @@
     hintText: "Enter a restaurant name in #{@list.city.name}",
     theme: "facebook",
     searchingText: "Searching Bitelist...",
-    resultsFormatter: function(item){return "<li><img style='float:left; height:25px; width:25px; padding-right:10px;' src=" + item.url + "></img><div><b>" + item.name + "</b></div><div>" + item.address + " " + item.city + ", " + item.zip + "</div></li>"},
+    resultsFormatter: function(item){return "<li><img style='float:left; height:25px; width:25px; padding-right:10px;' src=" + item.url + "></img><div><b>" + item.name + "</b></div><div>" + item.address + " " + item.city + "</div></li>"},
   };
   $(document).ready(function () {
     $("#search-restaurant").tokenInput("/restaurants/search?city_id=#{@list.city.id}", options);
