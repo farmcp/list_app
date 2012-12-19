@@ -55,11 +55,15 @@ class Restaurant < ActiveRecord::Base
     <br/>
     #{address}
     <br/>
-    #{city_state_zip}"
+    #{city_state}"
   end
 
   def city_state_zip
     "#{city.name}, #{city.state} #{postal_code}"
+  end
+
+  def city_state
+    "#{city.name}, #{city.state}"
   end
 
   #get rid of all non digits then validate
