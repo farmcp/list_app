@@ -29,10 +29,11 @@ class UsersController < ApplicationController
     @lists = @user.lists
     @user_feed = Story.includes([:list, :list_item, :comment]).where(:user_id => @user.id).order('created_at desc').paginate(:page => params[:page])
 
-    #get all restaurants around you from people you follow
+    #get all restaurants around you from people you follow and your own restaurants
     @friends = @user.followed_users
+    current_user_restos = current_user.restaurants
 
-    @maps_json = @friends.collect{|f| f.restaurants}.flatten.to_gmaps4rails
+    @maps_json = (@friends.collect{|f| f.restaurants} + current_user_restos).flatten.to_gmaps4rails
     @user_image = @user.avatar_url
     #if the user is a facebook user - get a list of their friends who is on facebook and also on bitelist
     @non_followed_fb_users = []
