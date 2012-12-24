@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   #calls this before any of the other defined actions (here just :edit and :update) in this controller
   before_filter :signed_in_user, except: [:new, :create]
   before_filter :correct_user, only: [:edit, :update]
+  before_filter :admin_user, only: [:destroy]
 
   def new
     @user = User.new
@@ -75,6 +76,16 @@ class UsersController < ApplicationController
     @results = User.order('first_name, last_name')
     @results_user_count = @results.count
     @results_restaurant_count = 0
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User has been removed."
+    redirect_to users_path
+  end
+
+  def admin_user
+    redirect_to(root_path) unless current_user.admin?
   end
 
   #return all followeds
