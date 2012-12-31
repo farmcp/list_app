@@ -76,6 +76,9 @@ class UsersController < ApplicationController
     @results = User.order('first_name, last_name')
     @results_user_count = @results.count
     @results_restaurant_count = 0
+    respond_to do |format|
+      format.html
+    end
   end
 
   def destroy

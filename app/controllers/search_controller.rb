@@ -9,9 +9,15 @@ class SearchController < ApplicationController
       @results_user_count = users.count
       @results_restaurant_count = restaurants.count
       @results = users + restaurants
-      render 'users/index'
-    elsif params[:search] = ''
-      redirect_to users_path
+    end
+
+    respond_to do |format|
+      format.html { params[:search] != '' ? render('users/index') : redirect_to(users_path) }
+      format.json { render :json => {
+        :users => users.to_json(:only => [:id, :first_name, :last_name, :email]), 
+        :restaurants => restaurants.to_json(:only => [:id, :name, :latitude, :longitude])
+        } if users or restaurants
+      }
     end
   end
 end
