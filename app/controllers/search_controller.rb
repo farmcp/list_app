@@ -15,7 +15,7 @@ class SearchController < ApplicationController
       format.html { params[:search] != '' ? render('users/index') : redirect_to(users_path) }
       format.json { render :json => {
         :users => users.to_json(:only => [:id, :first_name, :last_name, :email]), 
-        :restaurants => restaurants.to_json(:except => :fb_place_id)
+        :restaurants => restaurants.to_json(:except => [:fb_place_id, :picture_url])
         } if users or restaurants
       }
     end
