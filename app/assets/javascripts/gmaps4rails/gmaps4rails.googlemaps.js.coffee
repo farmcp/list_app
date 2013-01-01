@@ -12,7 +12,7 @@ class @Gmaps4RailsGoogle extends Gmaps4Rails
         disableDefaultUI:       true #false has the street view capability
         disableDoubleClickZoom: false
         type:                   "ROADMAP" # HYBRID, ROADMAP, SATELLITE, TERRAIN
-        draggable:              false # don't allow to drag map
+        draggable:              true # don't allow to drag map
         scrollwheel:            true
         zoomControl:            true
 
