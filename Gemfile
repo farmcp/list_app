@@ -18,6 +18,7 @@ gem 'google-analytics-rails'
 gem 'nokogiri'
 gem 'differ'
 gem 'geocoder'
+gem 'newrelic_rpm'
 
 group :development do
   gem "rails-erd"
