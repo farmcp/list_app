@@ -13,9 +13,15 @@
 .tabbable
   %ul.nav.nav-tabs
     %li{:class => @results_user_count >= @results_restaurant_count ? 'active' : ''}
-      %a{"data-toggle" => "tab", :href => "#tab1", style: 'font-weight:bold;'} User Search
+      %a{"data-toggle" => "tab", :href => "#tab1", style: 'font-weight:bold;'} 
+        User Search (
+        =@results_user_count
+        )
     %li{:class => @results_user_count < @results_restaurant_count ? 'active' : ''}
-      %a{"data-toggle" => "tab", :href => "#tab2", style: 'font-weight:bold;'} Restaurant Search
+      %a{"data-toggle" => "tab", :href => "#tab2", style: 'font-weight:bold;'} 
+        Restaurant Search (
+        = @results_restaurant_count
+        )
 
   .tab-content
     #tab1.tab-pane{ :class => @results_user_count >= @results_restaurant_count ? 'active' : ''}
