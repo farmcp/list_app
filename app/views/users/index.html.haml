@@ -14,12 +14,12 @@
   %ul.nav.nav-tabs
     %li{:class => @results_user_count >= @results_restaurant_count ? 'active' : ''}
       %a{"data-toggle" => "tab", :href => "#tab1", style: 'font-weight:bold;'} 
-        User Search (
+        Users (
         =@results_user_count
         )
     %li{:class => @results_user_count < @results_restaurant_count ? 'active' : ''}
       %a{"data-toggle" => "tab", :href => "#tab2", style: 'font-weight:bold;'} 
-        Restaurant Search (
+        Restaurants (
         = @results_restaurant_count
         )
 
