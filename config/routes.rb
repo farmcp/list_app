@@ -13,6 +13,7 @@ ListApp::Application.routes.draw do
 
   #facebook callback
   match '/auth/facebook/callback', to: 'sessions#facebook'
+  match '/auth/failure', to: redirect('/')
   root :to => 'static_pages#home'
 
   resources :users do
