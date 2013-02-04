@@ -37,7 +37,6 @@ class SessionsController < ApplicationController
       flash.now[:error] = "Something went wrong with the authentication."
       render 'new'
     end
-      
   end
 
 end
