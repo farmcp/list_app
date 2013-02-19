@@ -17,6 +17,10 @@ class RestaurantsController < ApplicationController
 
       #get followed users that have this restaurant
       @followed_users = current_user.followed_users.select{|user| user.restaurants.include?Restaurant.find(params[:id])}
+
+      if FbGraph::User.me(current_user.remember_token).permissions.include?(:publish_checkins)
+        @fb_checkin = true
+      end
     else
       @comments = []
     end
@@ -68,6 +72,18 @@ class RestaurantsController < ApplicationController
     list.list_item_for(@restaurant)
 
     redirect_to list
+  end
+
+  #POST checkin to facebook
+  def post_to_facebook
+    restaurant = Restaurant.find(params[:id])
+
+    place = FbGraph::Place.fetch(restaurant.fb_place_id)
+    FbGraph::User.me(current_user.remember_token).checkin!(:coordinates => place.location, :place => place)
+
+    flash[:info] = "You have checked in on Facebook!"
+
+    redirect_to restaurant
   end
 
   private

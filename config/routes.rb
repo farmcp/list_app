@@ -38,6 +38,7 @@ ListApp::Application.routes.draw do
   resources :restaurants, :only => [:new, :create, :show, :edit] do
     member do
       post :add_to_list
+      post :post_to_facebook
       resources :comments, :only => [:create, :destroy]
     end
     collection do
