@@ -50,6 +50,9 @@ class User < ActiveRecord::Base
   #a user has many comments
   has_many :comments, :dependent => :destroy
 
+  #a user has many checkins
+  has_many :checkins, :dependent => :destroy
+
   #before you save the user to the database - downcase the email
   before_save { |user| user.email = email.downcase }
   #before the save create the remember_token for the specific user automatically

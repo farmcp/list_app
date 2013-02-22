@@ -20,6 +20,12 @@ class RestaurantsController < ApplicationController
 
       if FbGraph::User.me(current_user.remember_token).permissions.include?(:publish_checkins)
         @fb_checkin = true
+        #if the current user checked in within 10 min, don't allow them to check in
+        if Time.now - current_user.checkins.order("created_at").last.created_at > 600
+          @allow_checkin = true
+        else
+          @allow_checkin = false
+        end
       end
     else
       @comments = []
