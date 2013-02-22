@@ -22,6 +22,7 @@ class Story < ActiveRecord::Base
   belongs_to :comment, :foreign_key => "subject_id"
   belongs_to :relationship, :foreign_key => "subject_id"
   belongs_to :restaurant
+  belongs_to :checkin, :foreign_key => "subject_id"
 
   self.per_page = 40
 
@@ -32,6 +33,7 @@ class Story < ActiveRecord::Base
     :list => [:user, :city],
     :relationship => [:follower, :followed],
     :comment => [],
+    :checkin => [:restaurant]
   }
 
 
@@ -45,6 +47,8 @@ class Story < ActiveRecord::Base
       subject = list
     when 'Relationship'
       subject = relationship
+    when 'Checkin'
+      subject = checkin
     end
   end
 end

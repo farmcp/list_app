@@ -26,6 +26,9 @@
         started following
         = succeed '.' do
           = link_to followed.full_name, followed
+      - when 'Checkin'
+        checked into 
+        = link_to restaurant.name + ".", restaurant
 
     %span.timestamp
       Posted

@@ -81,6 +81,9 @@ class RestaurantsController < ApplicationController
     place = FbGraph::Place.fetch(restaurant.fb_place_id)
     FbGraph::User.me(current_user.remember_token).checkin!(:coordinates => place.location, :place => place)
 
+    #no body for now
+    Checkin.create(:restaurant_id => restaurant.id, :user_id => current_user.id)
+
     flash[:info] = "You have checked in on Facebook!"
 
     redirect_to restaurant
