@@ -34,6 +34,12 @@
       - if @restaurant.category
         %b Category:
         = truncate(@restaurant.category, length: 30)
+        %br/
+
+      - # if the current user has checkin privilages allow them to checkin
+      - if @fb_checkin and current_user.provider == "facebook" and @restaurant.fb_place_id and @allow_checkin
+        %i.icon-flag
+        = link_to "Checkin with Facebook!", post_to_facebook_restaurant_path, method: "post"
       - if @restaurant.website_url
         %br/
         %b Website:
@@ -41,6 +47,7 @@
     - if @restaurant.website_url
       %br/
 
+    %br/
     %br/
     %br/
     %br/
