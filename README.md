@@ -30,25 +30,6 @@ Setup for local
 
 To Dos:
 --------
-
-1. ~~Add models for lists (done), list_items (done), restaurants (done)~~
-2. ~~Create a Friends tab (done)~~
-2. ~~Allow users to create and delete list_items~~
-2. ~~Add :active field to Restaurants - not accessible through users and forms. Change :postal_code to :string~~
-2. ~~Allow users to follow each other~~
-2. ~~Bug: users that follow can't see each other's lists~~
-3. ~~Able to search users on app through Friends tab - add Search button to friends tab (working on this)~~
-4. ~~Integrate google maps for each of the lists in each city~~
-5. ~~BUG: maps not fully accurate with geocoding~~
-2. ~~Allow users to click through list_items to view details on restaurants~~
-6. ~~Add images to cities~~
-4. ~~Add facebook connect~~ 
-3. ~~Allow users to sync with selected people they follow~~
-4. ~~Add a Friends tab and allows you to view all your followers and people you follow - this will replace current `users_path`~~
-4. ~~Adding user's comments to each list item~~
-3. Facebook friends import and invite
-3. ~~Activity feed~~
-2. ~~Validation for places to eat - know when someone enters a valid restaurant and populating the database. Finish autocomplete for adding restaurants to your bitelist~~
 2. Need to sesarch internal list and not just facebook (since we allow users to upload to our db)
 2. Need to make sure we update our database when facebook is updated
 2. Phone numbers don't support 1 in front of digits
